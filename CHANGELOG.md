@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Start dev watch after initialization
 - Changed .db location
+- Improved prisma action
 
 ## 0.1.5 - 2022-11-29
 

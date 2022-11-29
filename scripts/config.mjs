@@ -22,7 +22,10 @@ const Config = () => {
 	if (_cfg.AutoLogin && (!_cfg.AutoLogin.Name || !_cfg.AutoLogin.Password))
 		throw 'Incorrect config key "AutoLogin" - both "Name" and "Password" are required.';
 
-	if (_cfg.AutoLogin && Number.isNaN(Number(_cfg.AutoLogin.Char)))
+	if (
+		_cfg.AutoLogin &&
+		(!_cfg.AutoLogin.Char || Number.isNaN(Number(_cfg.AutoLogin.Char)))
+	)
 		throw 'Incorrect config key "AutoLogin" - "Char" must be a valid number.';
 
 	return _cfg;

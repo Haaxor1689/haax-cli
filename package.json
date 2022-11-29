@@ -1,0 +1,49 @@
+{
+	"name": "haax",
+	"version": "0.1.0",
+	"description": "This package contains collection of tools that help make developing custom content for Vanilla WoW easier.",
+	"bin": "index.mjs",
+	"scripts": {
+		"cli": "node index.mjs",
+		"prisma:update": "prisma db push --schema=template.prisma && prisma generate --schema=template.prisma"
+	},
+	"author": "Haaxor1689",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Haaxor1689/haax.git"
+	},
+	"dependencies": {
+		"@prisma/client": "^4.6.1",
+		"@types/fs-extra": "^9.0.13",
+		"@types/node": "^18.11.9",
+		"color": "^4.2.3",
+		"fs-extra": "^10.1.0",
+		"lodash-es": "^4.17.21",
+		"node-watch": "^0.7.3",
+		"prisma": "^4.6.1",
+		"restructure": "^3.0.0",
+		"sharp": "^0.31.2",
+		"ts-node": "^10.9.1",
+		"@haaxor1689/eslint-config": "^2.0.2",
+		"@haaxor1689/prettier-config": "^2.0.1",
+		"@typescript-eslint/eslint-plugin": "^5.38.1",
+		"@typescript-eslint/parser": "^5.38.1",
+		"eslint": "^8.24.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-jsx-a11y": "^6.6.1",
+		"eslint-plugin-prefer-arrow": "^1.2.3",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-react": "^7.31.11",
+		"prettier": "^2.7.1",
+		"typescript": "^4.9.3"
+	},
+	"eslintConfig": {
+		"env": {
+			"node": true
+		},
+		"extends": "@haaxor1689/eslint-config"
+	},
+	"prettier": "@haaxor1689/prettier-config"
+}

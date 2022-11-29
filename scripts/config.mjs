@@ -19,7 +19,7 @@ const Config = () => {
 
 	if (!_cfg.PatchPath) _cfg.PatchPath = process.cwd();
 
-	if (_cfg.AutoLogin && (!_cfg.AutoLogin.Name || _cfg.AutoLogin.Password))
+	if (_cfg.AutoLogin && (!_cfg.AutoLogin.Name || !_cfg.AutoLogin.Password))
 		throw 'Incorrect config key "AutoLogin" - both "Name" and "Password" are required.';
 
 	if (_cfg.AutoLogin && Number.isNaN(Number(_cfg.AutoLogin.Char)))

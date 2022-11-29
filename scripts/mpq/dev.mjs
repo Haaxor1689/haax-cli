@@ -100,6 +100,14 @@ const cleanup = () => {
 
 const devMpq = async () => {
 	try {
+		await autoLoginPatch();
+
+		if (fs.existsSync(`${Config().PatchPath}/DBFilesClient`)) {
+			await initDb();
+		}
+
+		await saveMpq();
+
 		watch(Config().PatchPath, { recursive: true }, async (event, filename) => {
 			if (!fs.existsSync(filename)) return;
 			if (filename.includes(TmpFileExt)) return;
@@ -126,13 +134,6 @@ const devMpq = async () => {
 			}
 		});
 
-		await autoLoginPatch();
-
-		if (fs.existsSync(`${Config().PatchPath}/DBFilesClient`)) {
-			await initDb();
-		}
-
-		await saveMpq();
 		startWoW();
 
 		process.stdin.once('data', () => {

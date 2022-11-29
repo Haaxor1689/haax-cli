@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-- Fixed config AutoLogin loading
+### Fixed
+
+- Incorrect AutoLogin config parse
 
 ## 0.1.1 - 2022-11-29
 
-- Added initial version
+### Added
+
+- Initial version

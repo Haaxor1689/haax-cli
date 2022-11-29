@@ -77,14 +77,4 @@ if (!action) {
 	process.exit(0);
 }
 
-try {
-	await action.exec(...process.argv.slice(3));
-} catch (e) {
-	console.error(e);
-
-	console.log(
-		`Incorrect use of "${process.argv[2]}" action.${
-			action.help ? `\n\t Usage: ${process.argv[2]} ${action.help}` : ''
-		}`
-	);
-}
+await action.exec(...process.argv.slice(3));

@@ -76,7 +76,7 @@ const autoLoginPatch = async () => {
 		`${TmpAutologin}/Interface/GlueXML/CharacterSelect.lua`,
 		charSelect.replace(
 			'"$$AutoLoginCharacter$$"',
-			Config().AutoLogin.Char.toString()
+			Config().AutoLogin.Char?.toString() ?? '1'
 		)
 	);
 

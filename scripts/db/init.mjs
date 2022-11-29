@@ -13,11 +13,11 @@ const initDb = async () => {
 		})
 		.replace(
 			/(url\s+= "file:)[^"]*"/,
-			`$1${Config().PatchPath}/DBFilesClient.db"`.split('\\').join('/')
+			`$1${Config().PatchPath}/DBFilesClient/dev.db"`.split('\\').join('/')
 		);
 	fs.writeFileSync(`${ScriptDirname}/schema.prisma`, newSchema);
 
-	if (!fs.existsSync(`${Config().PatchPath}/DBFilesClient.db`)) {
+	if (!fs.existsSync(`${Config().PatchPath}/DBFilesClient/dev.db`)) {
 		console.log('Importing database from dbc...');
 		await exec(`npx prisma db push --schema=${ScriptDirname}/schema.prisma`);
 		await importDb();

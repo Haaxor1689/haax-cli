@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Start dev watch after initialization
+- Changed .db location
 
 ## 0.1.5 - 2022-11-29
 

@@ -12,7 +12,7 @@ Most convenient way of using this package is inside folder with unpacked MPQ pat
 npx haax mpq-extract path/to/patch.mpq path/to/working/directory
 ```
 
-Then add a `haax-config.json` file inside the working directory. Here you
+Then add a `haax-config.json` file inside the working directory.
 
 ```jsonc
 {

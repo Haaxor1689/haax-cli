@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:DATASOURCE_URL_TEMPLATE"
+  url      = "file:..."
 }
 
 model Continent {

@@ -104,6 +104,7 @@ const devMpq = async () => {
 			if (!fs.existsSync(filename)) return;
 			if (filename.includes(TmpFileExt)) return;
 			if (filename.includes('.git')) return;
+			if (filename.endsWith('.db-journal')) return;
 			if (fs.lstatSync(filename).isDirectory()) return;
 
 			console.log(`Detected file change: ${filename} ${event}`);

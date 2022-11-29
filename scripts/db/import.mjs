@@ -3,11 +3,12 @@ import { PrismaClient } from '@prisma/client';
 import fs from 'fs-extra';
 import { sortBy } from 'lodash-es';
 
+import Config from '../config.mjs';
 import Entities from '../dbc/types.mjs';
 import { dbcRecordsFromFile } from '../utils.mjs';
 
-/** @type {(dbcPath: string) => Promise<void>} */
-const importDb = async dbcPath => {
+/** @type {(dbcPath?: string) => Promise<void>} */
+const importDb = async (dbcPath = `${Config().PatchPath}/DBFilesClient`) => {
 	const prisma = new PrismaClient();
 	try {
 		for (const row of [

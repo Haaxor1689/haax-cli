@@ -2,11 +2,12 @@
 import { PrismaClient } from '@prisma/client';
 import { sortBy } from 'lodash-es';
 
+import Config from '../config.mjs';
 import Entities from '../dbc/types.mjs';
 import { dbcRecordsToFile } from '../utils.mjs';
 
-/** @type {(dbcPath: string) => Promise<void>} */
-const exportDb = async dbcPath => {
+/** @type {(dbcPath?: string) => Promise<void>} */
+const exportDb = async (dbcPath = `${Config().PatchPath}/DBFilesClient`) => {
 	const prisma = new PrismaClient();
 	try {
 		dbcRecordsToFile(

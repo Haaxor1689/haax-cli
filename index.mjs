@@ -38,11 +38,11 @@ const Actions = {
 	},
 	'db-import': {
 		exec: importDb,
-		help: '<dbcPath>\n\t\tImports all data from available dbc files from DBFilesClient folder under dbcPath argument into SQLite DBFilesClient.db.'
+		help: '<dbcPath>\n\t\tImports all data from available dbc files from DBFilesClient folder under dbcPath argument into SQLite DBFilesClient.db.\n\t\tIf dbcPath is not provided, DBFilesClient folder under Config.PatchPath will be used.'
 	},
 	'db-export': {
 		exec: exportDb,
-		help: '<dbcPath>\n\t\tExports all data from SQLite DBFilesClient.db to dbc files inside DBFilesClient folder under dbcPath argument.'
+		help: '<dbcPath>\n\t\tExports all data from SQLite DBFilesClient.db to dbc files inside DBFilesClient folder under dbcPath argument.\n\t\tIf dbcPath is not provided, DBFilesClient folder under Config.PatchPath will be used.'
 	},
 	'dbc-decode': {
 		exec: decodeDbc,

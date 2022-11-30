@@ -6,7 +6,7 @@ let _cfg;
 
 /** @type {<T extends 'ClientPath'|'PatchName'|'PatchPath'|'AutoLogin'>(key:T) => T extends 'AutoLogin' ? Record<'Name'|'Password'|'Char', string>:string } */
 const Config = key => {
-	if (_cfg[key] !== undefined) return _cfg[key];
+	if (_cfg?.[key] !== undefined) return _cfg[key];
 
 	if (!_cfg) {
 		const configPath = `${process.cwd()}/haax-config.json`;

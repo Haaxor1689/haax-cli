@@ -32,7 +32,7 @@ const mergeBlp = async (filePath, colCount) => {
 		console.log(`Converting ${baseName}...`);
 		await exec(
 			`${ScriptDirname}/scripts/BLPConverter.exe /M ${indexes
-				.map(i => `${baseName}${i + 1}${TmpFileExt}.blp`)
+				.map(i => `"${baseName}${i + 1}${TmpFileExt}.blp"`)
 				.join(' ')}`,
 			{ cwd }
 		);

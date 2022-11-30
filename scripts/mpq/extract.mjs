@@ -12,10 +12,10 @@ const extractMpq = async (filePath, outputDir) => {
 
 	console.log(`Extracting ${filePath}`);
 	const { stderr } = await exec(
-		`mpqtool.exe extract ${filePath} --output ${path.join(
+		`mpqtool.exe extract "${filePath}" --output "${path.join(
 			outputDir,
 			file.slice(0, -4)
-		)}`,
+		)}"`,
 		{ cwd: `${ScriptDirname}/scripts` }
 	);
 

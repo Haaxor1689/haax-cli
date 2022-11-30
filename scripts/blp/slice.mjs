@@ -59,7 +59,7 @@ const sliceBlp = async filePath => {
 
 		await exec(
 			`${ScriptDirname}/scripts/BLPConverter.exe /M ${keys
-				.map(i => `${baseName}${i + 1}${TmpFileExt}.png`)
+				.map(i => `"${baseName}${i + 1}${TmpFileExt}.png"`)
 				.join(' ')}`,
 			{ cwd }
 		);

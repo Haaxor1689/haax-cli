@@ -35,10 +35,10 @@ const buildMpq = async (
 	if (!outputPath?.endsWith('.mpq'))
 		throw 'Please provide a valid destination.';
 
-	fs.copySync(sourceDir, `../patch${TmpFileExt}`);
+	fs.copySync(sourceDir, `${Config().PatchPath}/../patch${TmpFileExt}`);
 
 	try {
-		loopFilesRecursive(`../patch${TmpFileExt}`, f => {
+		loopFilesRecursive(`${Config().PatchPath}/../patch${TmpFileExt}`, f => {
 			if (ignoreEndings.some(e => f.endsWith(e))) {
 				fs.removeSync(f);
 				return true;
@@ -46,7 +46,10 @@ const buildMpq = async (
 		});
 
 		await exec(
-			`${ScriptDirname}/scripts/mpqtool.exe new ../patch${TmpFileExt} ${outputPath}`
+			`mpqtool.exe new "${
+				Config().PatchPath
+			}/../patch${TmpFileExt}" "${outputPath}"`,
+			{ cwd: `${ScriptDirname}/scripts` }
 		);
 	} finally {
 		fs.removeSync(`../patch${TmpFileExt}`);

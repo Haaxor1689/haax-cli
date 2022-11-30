@@ -154,3 +154,7 @@ export const getMapCoords = ([x, y], [x2, y2], [w, h], [w2, h2]) => {
 	const s2 = Math.abs(y - y2) / Math.abs(w - w2);
 	return [y + w * s2, y - (1002 - w) * s2, x + h * s1, x - (668 - h) * s1];
 };
+
+/** @type {(filePath: string) => string} */
+export const fixRelativePath = filePath =>
+	path.isAbsolute(filePath) ? filePath : path.join(process.cwd(), filePath);

@@ -3,7 +3,7 @@ import path from 'path';
 
 import fs from 'fs-extra';
 
-import { exec, ScriptDirname, TmpFileExt } from '../utils.mjs';
+import { exec, fixRelativePath, ScriptDirname, TmpFileExt } from '../utils.mjs';
 import Config from '../config.mjs';
 
 const ignoreEndings = [
@@ -53,9 +53,12 @@ const buildMpq = async (
 			}
 		});
 
-		await exec(`mpqtool.exe new "${TmpPatchPath}" "${outputPath}"`, {
-			cwd: `${ScriptDirname}/scripts`
-		});
+		await exec(
+			`mpqtool.exe new "${fixRelativePath(TmpPatchPath)}" "${fixRelativePath(
+				outputPath
+			)}"`,
+			{ cwd: `${ScriptDirname}/scripts` }
+		);
 		console.log(`Created mpq archive at ${outputPath}`);
 	} finally {
 		fs.removeSync(`../patch${TmpFileExt}`);

@@ -1,7 +1,7 @@
 // @ts-check
 import path from 'path';
 
-import { exec, ScriptDirname } from '../utils.mjs';
+import { exec, fixRelativePath, ScriptDirname } from '../utils.mjs';
 
 /** @type {(filePath: string, outputDir: string) => Promise<void>} */
 const extractMpq = async (filePath, outputDir) => {
@@ -12,10 +12,9 @@ const extractMpq = async (filePath, outputDir) => {
 
 	console.log(`Extracting ${filePath}`);
 	const { stderr } = await exec(
-		`mpqtool.exe extract "${filePath}" --output "${path.join(
-			outputDir,
-			file.slice(0, -4)
-		)}"`,
+		`mpqtool.exe extract "${fixRelativePath(
+			filePath
+		)}" --output "${fixRelativePath(`${outputDir}/${file.slice(0, -4)}`)}"`,
 		{ cwd: `${ScriptDirname}/scripts` }
 	);
 

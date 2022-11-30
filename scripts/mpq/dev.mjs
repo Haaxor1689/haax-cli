@@ -20,7 +20,7 @@ let RebuildingAssets = false;
 
 const startWoW = () => {
 	console.log('Starting WoW client...');
-	WoW = spawn(`${Config().ClientPath}/WoW.exe`);
+	WoW = spawn(`${Config('ClientPath')}/WoW.exe`);
 	WoW.on('exit', async () => {
 		if (ExitPending) return;
 		console.log('WoW client shuting down...');
@@ -42,14 +42,14 @@ const saveMpq = async () => {
 	await buildMpq();
 
 	console.log(
-		`Changes saved to: ${Config().ClientPath}/Data/${Config().PatchName}`
+		`Changes saved to: ${Config('ClientPath')}/Data/${Config('PatchName')}`
 	);
 
 	SavePending = false;
 };
 
 const autoLoginPatch = async () => {
-	if (!Config().AutoLogin) return;
+	if (!Config('AutoLogin')) return;
 
 	const TmpAutologin = `autologin${TmpFileExt}`;
 	fs.copySync(`${ScriptDirname}/templates/autologin`, TmpAutologin);
@@ -61,8 +61,8 @@ const autoLoginPatch = async () => {
 	fs.writeFileSync(
 		`${TmpAutologin}/Interface/GlueXML/AccountLogin.lua`,
 		accLogin
-			.replace('$$AutoLoginName$$', Config().AutoLogin.Name)
-			.replace('$$AutoLoginPassword$$', Config().AutoLogin.Password)
+			.replace('$$AutoLoginName$$', Config('AutoLogin').Name)
+			.replace('$$AutoLoginPassword$$', Config('AutoLogin').Password)
 	);
 
 	const charSelect = fs.readFileSync(
@@ -73,13 +73,13 @@ const autoLoginPatch = async () => {
 		`${TmpAutologin}/Interface/GlueXML/CharacterSelect.lua`,
 		charSelect.replace(
 			'"$$AutoLoginCharacter$$"',
-			Config().AutoLogin.Char?.toString() ?? '1'
+			Config('AutoLogin').Char?.toString() ?? '1'
 		)
 	);
 
 	await buildMpq(
 		`${process.cwd()}/${TmpAutologin}`,
-		`${Config().ClientPath}/Data/Patch-9.mpq`
+		`${Config('ClientPath')}/Data/Patch-9.mpq`
 	);
 
 	fs.rmSync(TmpAutologin, { recursive: true });
@@ -88,8 +88,8 @@ const autoLoginPatch = async () => {
 
 const cleanup = () => {
 	console.log('Cleaning up...');
-	if (Config().AutoLogin) {
-		deleteFile(`${Config().ClientPath}/Data/Patch-9.mpq`);
+	if (Config('AutoLogin')) {
+		deleteFile(`${Config('ClientPath')}/Data/Patch-9.mpq`);
 		console.log('Autologin patch removed...');
 	}
 	process.exit(0);
@@ -99,13 +99,13 @@ const devMpq = async () => {
 	try {
 		await autoLoginPatch();
 
-		if (fs.existsSync(`${Config().PatchPath}/DBFilesClient`)) {
+		if (fs.existsSync(`${Config('PatchPath')}/DBFilesClient`)) {
 			await initDb();
 		}
 
 		await saveMpq();
 
-		watch(Config().PatchPath, { recursive: true }, async (event, filename) => {
+		watch(Config('PatchPath'), { recursive: true }, async (event, filename) => {
 			if (!fs.existsSync(filename)) return;
 			if (filename.includes(TmpFileExt)) return;
 			if (filename.includes('.git')) return;

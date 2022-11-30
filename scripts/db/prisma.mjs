@@ -9,7 +9,7 @@ import { ScriptDirname } from '../utils.mjs';
 import initDb, { DatabasePath } from './init.mjs';
 
 const prismaClient = async () => {
-	if (!fs.existsSync(`${Config().PatchPath}/DBFilesClient`))
+	if (!fs.existsSync(`${Config('PatchPath')}/DBFilesClient`))
 		throw 'No DBFilesClient folder...';
 
 	await initDb();

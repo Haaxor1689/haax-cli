@@ -10,7 +10,7 @@ import { dbcRecordsFromFile } from '../utils.mjs';
 import { DatabasePath } from './init.mjs';
 
 /** @type {(dbcPath?: string) => Promise<void>} */
-const importDb = async (dbcPath = `${Config().PatchPath}/DBFilesClient`) => {
+const importDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {
 	if (!fs.existsSync(DatabasePath()))
 		throw 'Database has not been initialized.';
 

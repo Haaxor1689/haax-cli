@@ -9,7 +9,7 @@ import { exec, ScriptDirname } from '../utils.mjs';
 import importDb from './import.mjs';
 
 export const DatabasePath = () =>
-	path.join(Config().PatchPath, 'DBFilesClient/dev.db');
+	path.join(Config('PatchPath'), 'DBFilesClient/dev.db');
 
 const initDb = async () => {
 	if (fs.existsSync(DatabasePath())) return;

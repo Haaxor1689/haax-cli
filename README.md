@@ -16,18 +16,18 @@ Then add a `haax-config.json` file inside the working directory.
 
 ```jsonc
 {
-  "ClientPath": "C:/path/to/wow/client", // Path to WoW client directory
-  "PatchName": "Patch-4.mpq", // Name of the patch that the dev action should create
+	"ClientPath": "C:/path/to/wow/client", // Path to WoW client directory
+	"PatchName": "Patch-4.mpq", // Name of the patch that the dev action should create
 
-  // (Optional) If extracted patch is not in current folder
-  "PatchPath": "C:/path/to/patch/directory",
+	// (Optional) If extracted patch is not in current folder
+	"PatchPath": "C:/path/to/patch/directory",
 
-  // (Optional) AutoLogin feature
-  "AutoLogin": {
-    "Name": "name",
-    "Password": "password",
-    "Char": 1 // Default: 1
-  }
+	// (Optional) AutoLogin feature
+	"AutoLogin": {
+		"Name": "name",
+		"Password": "password",
+		"Char": 1 // Default: 1
+	}
 }
 ```
 
@@ -52,6 +52,7 @@ You can find list of all supported actions below.
 ```
 dev
 	Starts a dev environment that watches for file changes, rebuilds assets from source (f.e. png to blp) and starts a WoW instance.
+	Automatically runs "db-import" if no db is found.
 
 build <sourceDir> <outputPath>
 	Builds provided directory sourceDir into an MPQ archive at outputPath.
@@ -69,16 +70,23 @@ blp-slice <filePath>
 	Slices a png image into correct number of blp textures.
 	If filePath is a directory, all png images inside will be sliced instead.
 
+db-init
+	Correctly initializes the qslite database. This step is required before you are able to import and export data from the db.
+
 db-import <dbcPath>
 	Imports all data from available dbc files from DBFilesClient folder under dbcPath argument into SQLite DBFilesClient.db.
+	If dbcPath is not provided, DBFilesClient folder under Config.PatchPath will be used.
 
 db-export <dbcPath>
 	Exports all data from SQLite DBFilesClient.db to dbc files inside DBFilesClient folder under dbcPath argument.
+	If dbcPath is not provided, DBFilesClient folder under Config.PatchPath will be used.
 
 dbc-decode <filePath>
+	Decodes a dbc file into csv file. filePath should point to a specific .dbc file.
 	If filePath is a directory, all dbc files inside will be decoded instead.
 
 dbc-encode <filePath>
+	Encodes a csv file into dbc file. filePath should point to a specific .csv file.
 	If filePath is a directory, all csv files inside will be encoded instead.
 
 mpq-extract <filePath> <outputDir>

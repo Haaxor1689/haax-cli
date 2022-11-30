@@ -39,10 +39,7 @@ const saveMpq = async () => {
 	}
 
 	console.log('Building new MPQ...');
-	await buildMpq(
-		Config().PatchPath,
-		`${Config().ClientPath}/Data/${Config().PatchName}`
-	);
+	await buildMpq();
 
 	console.log(
 		`Changes saved to: ${Config().ClientPath}/Data/${Config().PatchName}`
@@ -82,7 +79,7 @@ const autoLoginPatch = async () => {
 
 	await buildMpq(
 		`${process.cwd()}/${TmpAutologin}`,
-		`${Config().ClientPath}/Data/Patch-Q.mpq`
+		`${Config().ClientPath}/Data/Patch-9.mpq`
 	);
 
 	fs.rmSync(TmpAutologin, { recursive: true });
@@ -92,7 +89,7 @@ const autoLoginPatch = async () => {
 const cleanup = () => {
 	console.log('Cleaning up...');
 	if (Config().AutoLogin) {
-		deleteFile(`${Config().ClientPath}/Data/Patch-Q.mpq`);
+		deleteFile(`${Config().ClientPath}/Data/Patch-9.mpq`);
 		console.log('Autologin patch removed...');
 	}
 	process.exit(0);

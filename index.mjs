@@ -6,6 +6,7 @@ import buildMpq from './scripts/mpq/build.mjs';
 import prismaClient from './scripts/db/prisma.mjs';
 import mergeBlp from './scripts/blp/merge.mjs';
 import sliceBlp from './scripts/blp/slice.mjs';
+import initDb from './scripts/db/init.mjs';
 import importDb from './scripts/db/import.mjs';
 import exportDb from './scripts/db/export.mjs';
 import encodeDbc from './scripts/dbc/encode.mjs';
@@ -35,6 +36,10 @@ const Actions = {
 	'blp-slice': {
 		exec: sliceBlp,
 		help: '<filePath>\n\t\tSlices a png image into correct number of blp textures.\n\t\tIf filePath is a directory, all png images inside will be sliced instead.'
+	},
+	'db-init': {
+		exec: initDb,
+		help: '\n\t\tCorrectly initializes the qslite database. This step is required before you are able to import and export data from the db.'
 	},
 	'db-import': {
 		exec: importDb,

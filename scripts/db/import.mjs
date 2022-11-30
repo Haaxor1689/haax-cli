@@ -7,8 +7,14 @@ import Config from '../config.mjs';
 import Entities from '../dbc/types.mjs';
 import { dbcRecordsFromFile } from '../utils.mjs';
 
+import { DatabasePath } from './init.mjs';
+
 /** @type {(dbcPath?: string) => Promise<void>} */
 const importDb = async (dbcPath = `${Config().PatchPath}/DBFilesClient`) => {
+	if (!fs.existsSync(DatabasePath()))
+		throw 'Database has not been initialized.';
+
+	process.env.DATABASE_URL = `file:${DatabasePath()}`;
 	const prisma = new PrismaClient();
 	try {
 		for (const row of [

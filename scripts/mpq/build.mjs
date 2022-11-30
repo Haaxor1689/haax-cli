@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 
 import { exec, ScriptDirname, TmpFileExt } from '../utils.mjs';
+import Config from '../config.mjs';
 
 const ignoreEndings = [
 	'.exe',
@@ -26,23 +27,29 @@ const loopFilesRecursive = (dirName, callback) => {
 	});
 };
 
-/** @type {(source: string, destination: string) => Promise<void>} */
-const buildMpq = async (source, destination) => {
-	fs.copySync(source, `${ScriptDirname}/patch${TmpFileExt}`);
+/** @type {(sourceDir?: string, destination?: string) => Promise<void>} */
+const buildMpq = async (
+	sourceDir = Config().PatchPath,
+	outputPath = `${Config().ClientPath}/Data/${Config().PatchName}`
+) => {
+	if (!outputPath?.endsWith('.mpq'))
+		throw 'Please provide a valid destination.';
+
+	fs.copySync(sourceDir, `../patch${TmpFileExt}`);
 
 	try {
-		loopFilesRecursive(`${ScriptDirname}/patch${TmpFileExt}`, f => {
+		loopFilesRecursive(`../patch${TmpFileExt}`, f => {
 			if (ignoreEndings.some(e => f.endsWith(e))) {
 				fs.removeSync(f);
 				return true;
 			}
 		});
 
-		await exec(`mpqtool.exe new ../patch${TmpFileExt} ${destination}`, {
-			cwd: `${ScriptDirname}/scripts`
-		});
+		await exec(
+			`${ScriptDirname}/scripts/mpqtool.exe new ../patch${TmpFileExt} ${outputPath}`
+		);
 	} finally {
-		fs.removeSync(`${ScriptDirname}/patch${TmpFileExt}`);
+		fs.removeSync(`../patch${TmpFileExt}`);
 	}
 };
 

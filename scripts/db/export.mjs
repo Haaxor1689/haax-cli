@@ -1,4 +1,5 @@
 // @ts-check
+import fs from 'fs-extra';
 import { PrismaClient } from '@prisma/client';
 import { sortBy } from 'lodash-es';
 
@@ -6,8 +7,14 @@ import Config from '../config.mjs';
 import Entities from '../dbc/types.mjs';
 import { dbcRecordsToFile } from '../utils.mjs';
 
+import { DatabasePath } from './init.mjs';
+
 /** @type {(dbcPath?: string) => Promise<void>} */
 const exportDb = async (dbcPath = `${Config().PatchPath}/DBFilesClient`) => {
+	if (!fs.existsSync(DatabasePath()))
+		throw 'Database has not been initialized.';
+
+	process.env.DATABASE_URL = `file:${DatabasePath()}`;
 	const prisma = new PrismaClient();
 	try {
 		dbcRecordsToFile(

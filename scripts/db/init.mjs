@@ -18,6 +18,9 @@ const initDb = async () => {
 	await exec(`npx prisma db push --schema="${ScriptDirname}/schema.prisma"`, {
 		env: { DATABASE_URL: `file:${DatabasePath()}` }
 	});
+	await exec(`npx prisma generate --schema="${ScriptDirname}/schema.prisma"`, {
+		env: { DATABASE_URL: `file:${DatabasePath()}` }
+	});
 
 	await importDb();
 };

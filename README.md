@@ -54,9 +54,10 @@ dev
 	Starts a dev environment that watches for file changes, rebuilds assets from source (f.e. png to blp) and starts a WoW instance.
 	Automatically runs "db-import" if no db is found.
 
-build <sourceDir> <outputPath>
+build <sourceDir> <outputPath> <inPlace?>
 	Builds provided directory sourceDir into an MPQ archive at outputPath.
 	Ignores development assets like psd/png/csv files.
+	If third argument is provided, patch will be constructed in place instead, which is faster but also deletes the otherwise ignored files from sourceDir.
 
 prisma
 	Starts Prisma Studio where you can browse and edit contents of dbc files.

@@ -23,7 +23,7 @@ const Actions = {
 	},
 	'build': {
 		exec: buildMpq,
-		help: '<sourceDir> <outputPath>\n\t\tBuilds provided directory sourceDir into an MPQ archive at outputPath.\n\t\tIgnores development assets like psd/png/csv files.'
+		help: '<sourceDir> <outputPath> <inPlace?>\n\t\tBuilds provided directory sourceDir into an MPQ archive at outputPath.\n\t\tIgnores development assets like psd/png/csv files.\n\t\tIf third argument is provided, patch will be constructed in place instead, which is faster but also deletes the otherwise ignored files from sourceDir.'
 	},
 	'prisma': {
 		exec: prismaClient,

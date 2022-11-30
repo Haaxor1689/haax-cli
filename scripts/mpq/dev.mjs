@@ -33,18 +33,8 @@ const startWoW = () => {
 };
 
 const saveMpq = async () => {
-	while (RebuildingAssets) {
-		// Wait
-		await new Promise(r => setTimeout(r, 1000));
-	}
-
-	console.log('Building new MPQ...');
+	while (RebuildingAssets) await new Promise(r => setTimeout(r, 1000));
 	await buildMpq();
-
-	console.log(
-		`Changes saved to: ${Config('ClientPath')}/Data/${Config('PatchName')}`
-	);
-
 	SavePending = false;
 };
 

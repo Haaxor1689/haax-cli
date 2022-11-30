@@ -28,30 +28,35 @@ const loopFilesRecursive = (dirName, callback) => {
 	});
 };
 
-/** @type {(sourceDir?: string, destination?: string) => Promise<void>} */
+/** @type {(sourceDir?: string, destination?: string, inPlace?: unknown) => Promise<void>} */
 const buildMpq = async (
 	sourceDir = Config('PatchPath'),
-	outputPath = `${Config('ClientPath')}/Data/${Config('PatchName')}`
+	outputPath = `${Config('ClientPath')}/Data/${Config('PatchName')}`,
+	inPlace
 ) => {
 	if (!outputPath?.endsWith('.mpq'))
 		throw 'Please provide a valid destination.';
 
-	fs.copySync(sourceDir, `${Config('PatchPath')}/../patch${TmpFileExt}`);
+	console.log(`Building mpq from directory ${sourceDir}...`);
+	const TmpPatchPath = inPlace
+		? sourceDir
+		: `${Config('PatchPath')}/../patch${TmpFileExt}`;
+
+	!inPlace &&
+		fs.copySync(sourceDir, `${Config('PatchPath')}/../patch${TmpFileExt}`);
 
 	try {
-		loopFilesRecursive(`${Config('PatchPath')}/../patch${TmpFileExt}`, f => {
+		loopFilesRecursive(TmpPatchPath, f => {
 			if (ignoreEndings.some(e => f.endsWith(e))) {
 				fs.removeSync(f);
 				return true;
 			}
 		});
 
-		await exec(
-			`mpqtool.exe new "${Config(
-				'PatchPath'
-			)}/../patch${TmpFileExt}" "${outputPath}"`,
-			{ cwd: `${ScriptDirname}/scripts` }
-		);
+		await exec(`mpqtool.exe new "${TmpPatchPath}" "${outputPath}"`, {
+			cwd: `${ScriptDirname}/scripts`
+		});
+		console.log(`Created mpq archive at ${outputPath}`);
 	} finally {
 		fs.removeSync(`../patch${TmpFileExt}`);
 	}

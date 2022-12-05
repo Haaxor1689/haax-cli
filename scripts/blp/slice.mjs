@@ -57,8 +57,14 @@ const sliceBlp = async filePath => {
 				.toFile(`${cwd}/${baseName}${i + 1}${TmpFileExt}.png`);
 		}
 
+		const enclosingFolder = cwd
+			.split('/')
+			.flatMap(p => p.split('\\'))
+			.at(-1);
+		const format = baseName === enclosingFolder ? 'BLP_DXT1_A1' : 'BLP_DXT5';
+
 		await exec(
-			`${ScriptDirname}/scripts/BLPConverter.exe /M ${keys
+			`${ScriptDirname}/scripts/BLPConverter.exe /N /UPNG_RGBA=${format} /M ${keys
 				.map(i => `"${baseName}${i + 1}${TmpFileExt}.png"`)
 				.join(' ')}`,
 			{ cwd }

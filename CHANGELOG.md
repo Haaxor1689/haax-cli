@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Empty strings in DBCs now point to 0 instead of creating new pointer
 - Also remove `.db` files from mpq builds
 - Correctly clean up tmp files after mpq build
+- Build auto-login patch in place since it's a copy anyway
 
 ## 0.1.13 - 2022-11-30
 

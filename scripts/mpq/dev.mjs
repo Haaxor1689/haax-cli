@@ -69,7 +69,8 @@ const autoLoginPatch = async () => {
 
 	await buildMpq(
 		`${process.cwd()}/${TmpAutologin}`,
-		`${Config('ClientPath')}/Data/Patch-9.mpq`
+		`${Config('ClientPath')}/Data/Patch-9.mpq`,
+		'inPlace'
 	);
 
 	fs.rmSync(TmpAutologin, { recursive: true });

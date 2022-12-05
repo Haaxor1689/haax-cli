@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Also remove `.db` files from mpq builds
 - Correctly clean up tmp files after mpq build
 - Build auto-login patch in place since it's a copy anyway
+- Sorting of AreaPOI.dbc on db export
 
 ## 0.1.13 - 2022-11-30
 

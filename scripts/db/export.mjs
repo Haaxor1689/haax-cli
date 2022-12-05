@@ -19,7 +19,9 @@ const exportDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {
 	try {
 		dbcRecordsToFile(
 			Entities.AreaPOI,
-			(await prisma.areaPOI.findMany()).map(Object.values),
+			sortBy(await prisma.areaPOI.findMany(), ['continentId', 'name_enUS']).map(
+				Object.values
+			),
 			`${dbcPath}/AreaPOI.dbc`
 		);
 		dbcRecordsToFile(

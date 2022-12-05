@@ -9,6 +9,7 @@ import Config from '../config.mjs';
 const ignoreEndings = [
 	'.exe',
 	'.dll',
+	'.db',
 	'.csv',
 	'.png',
 	'.psd',
@@ -61,7 +62,7 @@ const buildMpq = async (
 		);
 		console.log(`Created mpq archive at ${outputPath}`);
 	} finally {
-		fs.removeSync(`../patch${TmpFileExt}`);
+		fs.removeSync(`${Config('PatchPath')}/../patch${TmpFileExt}`);
 	}
 };
 

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- Support for converting singular blp file into png
+
 ### Fixed
 
 - Empty strings in DBCs now point to 0 instead of creating new pointer

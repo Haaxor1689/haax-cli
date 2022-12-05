@@ -14,10 +14,20 @@ const mergeBlp = async (filePath, colCount) => {
 		return;
 	}
 
-	if (!filePath.endsWith('1.blp'))
+	if (!filePath.endsWith('1.blp') && !filePath.match(/\D+\.blp/))
 		throw 'Please provide valid path to first blp of a set to merge.';
 
 	const cwd = path.dirname(filePath);
+
+	console.log(`Converting ${path.basename(filePath)}...`);
+	if (!filePath.endsWith('1.blp')) {
+		await exec(
+			`${ScriptDirname}/scripts/BLPConverter.exe "${path.basename(filePath)}"`,
+			{ cwd }
+		);
+		return;
+	}
+
 	const baseName = path.basename(filePath).slice(0, -5);
 	const files = fs
 		.readdirSync(cwd)
@@ -29,7 +39,6 @@ const mergeBlp = async (filePath, colCount) => {
 
 	const indexes = [...Array(files.length).keys()];
 	try {
-		console.log(`Converting ${baseName}...`);
 		await exec(
 			`${ScriptDirname}/scripts/BLPConverter.exe /M ${indexes
 				.map(i => `"${baseName}${i + 1}${TmpFileExt}.blp"`)

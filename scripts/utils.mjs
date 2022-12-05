@@ -52,6 +52,8 @@ export const dbcRecordsToFile = (Entity, entries, filePath) => {
 			}
 			const [key, field] = fields[i];
 			if (field.isStringRef) {
+				if (!v) return { ...obj, [key]: 0 };
+
 				const idx = stringBlock.indexOf(`\0${v}\0`);
 				if (idx !== -1) return { ...obj, [key]: idx + 1 };
 

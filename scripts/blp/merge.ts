@@ -1,13 +1,11 @@
-// @ts-check
 import fs from 'fs';
 import path from 'path';
 
 import sharp from 'sharp';
 
-import { deleteFile, exec, ScriptDirname, TmpFileExt } from '../utils.mjs';
+import { deleteFile, exec, ScriptDirname, TmpFileExt } from '../utils.js';
 
-/** @type {(filePath: string, colCount?: string | number) => Promise<void>} */
-const mergeBlp = async (filePath, colCount) => {
+const mergeBlp = async (filePath: string, colCount?: string | number) => {
 	if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
 		const files = fs.readdirSync(filePath).filter(v => v.match(/\D+1\.blp/));
 		for (const f of files) await mergeBlp(`${filePath}/${f}`);
@@ -54,10 +52,10 @@ const mergeBlp = async (filePath, colCount) => {
 		const images = [];
 		for (const i of indexes) {
 			const img = await sharp(`${cwd}/${baseName}${i + 1}${TmpFileExt}.png`);
-			const { width, height } = await img.metadata();
+			const { width = 0, height = 0 } = await img.metadata();
 
 			const input = await img.ensureAlpha().raw().toBuffer();
-			images.push({ input, raw: { width, height, channels: 4 } });
+			images.push({ input, raw: { width, height, channels: 4 as const } });
 
 			lastWidth = width;
 			lastHeight = height;

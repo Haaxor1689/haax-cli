@@ -1,10 +1,8 @@
-// @ts-check
 import path from 'path';
 
-import { exec, fixRelativePath, ScriptDirname } from '../utils.mjs';
+import { exec, fixRelativePath, ScriptDirname } from '../utils.js';
 
-/** @type {(filePath: string, outputDir: string) => Promise<void>} */
-const extractMpq = async (filePath, outputDir) => {
+const extractMpq = async (filePath: string, outputDir: string) => {
 	const file = path.basename(filePath);
 
 	if (!file.match(/\.[mM][pP][qQ]$/))

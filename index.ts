@@ -1,22 +1,25 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
-// @ts-check
-import devMpq from './scripts/mpq/dev.mjs';
-import buildMpq from './scripts/mpq/build.mjs';
-import prismaClient from './scripts/db/prisma.mjs';
-import mergeBlp from './scripts/blp/merge.mjs';
-import sliceBlp from './scripts/blp/slice.mjs';
-import initDb from './scripts/db/init.mjs';
-import importDb from './scripts/db/import.mjs';
-import exportDb from './scripts/db/export.mjs';
-import encodeDbc from './scripts/dbc/encode.mjs';
-import decodeDbc from './scripts/dbc/decode.mjs';
-import extractMpq from './scripts/mpq/extract.mjs';
-import decodeZmp from './scripts/zmp/decode.mjs';
-import encodeZmp from './scripts/zmp/encode.mjs';
+import devMpq from './scripts/mpq/dev.js';
+import buildMpq from './scripts/mpq/build.js';
+import prismaClient from './scripts/db/prisma.js';
+import mergeBlp from './scripts/blp/merge.js';
+import sliceBlp from './scripts/blp/slice.js';
+import initDb from './scripts/db/init.js';
+import importDb from './scripts/db/import.js';
+import exportDb from './scripts/db/export.js';
+import encodeDbc from './scripts/dbc/encode.js';
+import decodeDbc from './scripts/dbc/decode.js';
+import extractMpq from './scripts/mpq/extract.js';
+import decodeZmp from './scripts/zmp/decode.js';
+import encodeZmp from './scripts/zmp/encode.js';
+import unhashMinimap from './scripts/minimap/unhash.js';
+import cleanUnusedMinimap from './scripts/minimap/unused.js';
 
-/** @type {Record<string, { help?: string; exec:(...args: string[]) => Promise<void>}>} */
-const Actions = {
+const Actions: Record<
+	string,
+	{ help?: string; exec: (...args: string[]) => Promise<void> }
+> = {
 	'dev': {
 		exec: devMpq,
 		help: '\n\t\tStarts a dev environment that watches for file changes, rebuilds assets from source (f.e. png to blp) and starts a WoW instance.\n\t\tAutomatically runs "db-import" if no db is found.'
@@ -57,6 +60,14 @@ const Actions = {
 		exec: encodeDbc,
 		help: '<filePath>\n\t\tEncodes a csv file into dbc file. filePath should point to a specific .csv file.\n\t\tIf filePath is a directory, all csv files inside will be encoded instead.'
 	},
+	'minimap-unhash': {
+		exec: unhashMinimap,
+		help: 'TODO'
+	},
+	'minimap-clean-unused': {
+		exec: cleanUnusedMinimap,
+		help: 'TODO'
+	},
 	'mpq-extract': {
 		exec: extractMpq,
 		help: '<filePath> <outputDir>\n\t\tExtracts provided mpq archive filePath into a directory with the same name inside outputDir directory.'
@@ -71,7 +82,7 @@ const Actions = {
 	}
 };
 
-const action = Actions[process.argv[2]];
+const action = Actions[process.argv[2] ?? ''];
 if (!action) {
 	process.argv[2] && console.log(`Unknown action "${process.argv[2]}".`);
 	console.log(

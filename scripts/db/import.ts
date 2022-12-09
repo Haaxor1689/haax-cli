@@ -1,15 +1,13 @@
-// @ts-check
-import { PrismaClient } from '@prisma/client';
 import fs from 'fs-extra';
+import { PrismaClient } from '@prisma/client';
 import { sortBy } from 'lodash-es';
 
-import Config from '../config.mjs';
-import Entities from '../dbc/types.mjs';
-import { dbcRecordsFromFile } from '../utils.mjs';
+import Config from '../config.js';
+import Entities from '../dbc/types.js';
+import { dbcRecordsFromFile, uncapitalize } from '../utils.js';
 
-import { DatabasePath } from './init.mjs';
+import { DatabasePath } from './init.js';
 
-/** @type {(dbcPath?: string) => Promise<void>} */
 const importDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {
 	if (!fs.existsSync(DatabasePath()))
 		throw 'Database has not been initialized.';
@@ -128,9 +126,9 @@ const importDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {
 		]) {
 			await prisma.areaTable
 				.upsert({
-					create: row,
+					create: row as any,
 					update: row,
-					where: { id: row.id }
+					where: { id: row.id as number }
 				})
 				.catch(e => {
 					console.log(row);
@@ -140,10 +138,11 @@ const importDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {
 
 		for (const entity of [
 			'AreaPOI',
+			'CreatureDisplayInfoExtra',
 			'WMOAreaTable',
 			'WorldMapArea',
 			'WorldMapContinent'
-		]) {
+		] as const) {
 			console.log(`Importing ${entity}...`);
 			if (!fs.existsSync(`${dbcPath}/${entity}.dbc`)) continue;
 			const data = dbcRecordsFromFile(
@@ -151,13 +150,14 @@ const importDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {
 				`${dbcPath}/${entity}.dbc`
 			);
 			for (const row of data) {
-				await prisma[entity[0]?.toUpperCase() + entity.slice(1)]
+				// FIXME: Fix types
+				await (prisma as any)[uncapitalize(entity)]
 					.upsert({
 						create: row,
 						update: row,
 						where: { id: row.id }
 					})
-					.catch(e => {
+					.catch((e: unknown) => {
 						console.log(row);
 						console.log(e);
 					});

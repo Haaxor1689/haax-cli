@@ -1,13 +1,11 @@
-// @ts-check
 import path from 'path';
 
 import fs from 'fs-extra';
 import sharp from 'sharp';
 
-import { deleteFile, exec, ScriptDirname, TmpFileExt } from '../utils.mjs';
+import { deleteFile, exec, ScriptDirname, TmpFileExt } from '../utils.js';
 
-/** @type {(filePath: string) => Promise<void>} */
-const sliceBlp = async filePath => {
+const sliceBlp = async (filePath: string) => {
 	if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
 		const files = fs.readdirSync(filePath).filter(v => v.endsWith('.png'));
 		for (const f of files) await sliceBlp(`${filePath}/${f}`);
@@ -19,14 +17,13 @@ const sliceBlp = async filePath => {
 	const baseName = path.basename(filePath).slice(0, -4);
 	const cwd = path.dirname(filePath);
 
-	/** @type {number[]} */
-	let keys = [];
+	let keys: number[] = [];
 	console.log(`Slicing ${filePath}...`);
 	try {
 		fs.copyFileSync(filePath, `${cwd}/${baseName}0${TmpFileExt}.png`);
 
 		const image = await sharp(`${cwd}/${baseName}0${TmpFileExt}.png`);
-		const { width, height } = await image.metadata();
+		const { width = 0, height = 0 } = await image.metadata();
 
 		let columns = Math.floor(width / 256);
 		let rows = Math.floor(height / 256);

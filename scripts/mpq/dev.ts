@@ -1,19 +1,17 @@
-//@ts-check
-import { spawn } from 'child_process';
+import { ChildProcess, spawn } from 'child_process';
 
 import fs from 'fs-extra';
-import watch from 'node-watch';
+import { watch } from 'chokidar';
 
-import Config from '../config.mjs';
-import { deleteFile, ScriptDirname, TmpFileExt } from '../utils.mjs';
-import sliceBlp from '../blp/slice.mjs';
-import encodeDbc from '../dbc/encode.mjs';
-import initDb from '../db/init.mjs';
+import Config from '../config.js';
+import { deleteFile, ScriptDirname, TmpFileExt } from '../utils.js';
+import sliceBlp from '../blp/slice.js';
+import encodeDbc from '../dbc/encode.js';
+import initDb from '../db/init.js';
 
-import buildMpq from './build.mjs';
+import buildMpq from './build.js';
 
-/** @type {import('node:child_process').ChildProcessWithoutNullStreams | null} */
-let WoW = null;
+let WoW: ChildProcess | null = null;
 let SavePending = false;
 let ExitPending = false;
 let RebuildingAssets = false;
@@ -86,6 +84,27 @@ const cleanup = () => {
 	process.exit(0);
 };
 
+const watchCallback = (event: string) => async (filename: string) => {
+	if (!fs.existsSync(filename)) return;
+
+	console.log(`Detected file change: ${filename} ${event}`);
+	SavePending = true;
+
+	try {
+		RebuildingAssets = true;
+		if (
+			filename.match(/Interface\\WorldMap\\.+\\/) &&
+			filename.endsWith('.png')
+		)
+			await sliceBlp(filename);
+
+		if (filename.includes('DBFilesClient\\') && filename.endsWith('.csv'))
+			await encodeDbc(filename);
+	} finally {
+		RebuildingAssets = false;
+	}
+};
+
 const devMpq = async () => {
 	try {
 		await autoLoginPatch();
@@ -96,31 +115,13 @@ const devMpq = async () => {
 
 		await saveMpq();
 
-		watch(Config('PatchPath'), { recursive: true }, async (event, filename) => {
-			if (!fs.existsSync(filename)) return;
-			if (filename.includes(TmpFileExt)) return;
-			if (filename.includes('.git')) return;
-			if (filename.endsWith('.db-journal')) return;
-			if (fs.lstatSync(filename).isDirectory()) return;
-
-			console.log(`Detected file change: ${filename} ${event}`);
-			SavePending = true;
-			if (event === 'remove') return;
-
-			try {
-				RebuildingAssets = true;
-				if (
-					filename.match(/Interface\\WorldMap\\.+\\/) &&
-					filename.endsWith('.png')
-				)
-					await sliceBlp(filename);
-
-				if (filename.includes('DBFilesClient\\') && filename.endsWith('.csv'))
-					await encodeDbc(filename);
-			} finally {
-				RebuildingAssets = false;
-			}
-		});
+		watch(Config('PatchPath'), {
+			depth: 99,
+			ignored: [`/**/*${TmpFileExt}*`, '/.git/**/*', '/**/*.db-journal'],
+			ignoreInitial: true
+		})
+			.on('add', watchCallback('add'))
+			.on('change', watchCallback('change'));
 
 		startWoW();
 

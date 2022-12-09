@@ -1,14 +1,12 @@
-// @ts-check
 import path from 'path';
 
 import fs from 'fs-extra';
 
-import { dbcRecordsToFile, parseCsv } from '../utils.mjs';
+import { dbcRecordsToFile, parseCsv } from '../utils.js';
 
-import Entities from './types.mjs';
+import Entities from './types.js';
 
-/** @type {(filePath: string) => Promise<void>} */
-const encodeDbc = async filePath => {
+const encodeDbc = async (filePath: string) => {
 	// Directory mode
 	if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
 		for (const e of Object.keys(Entities)) {

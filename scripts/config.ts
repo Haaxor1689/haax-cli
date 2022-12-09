@@ -1,12 +1,19 @@
 // @ts-check
 import fs from 'fs-extra';
 
-/** @type {Record<'ClientPath'|'PatchName'|'PatchPath', string> & { AutoLogin: Record<'Name'|'Password'|'Char', string> }} */
-let _cfg;
+let _cfg: Record<'ClientPath' | 'PatchName' | 'PatchPath', string> & {
+	AutoLogin: Record<'Name' | 'Password' | 'Char', string>;
+};
 
-/** @type {<T extends 'ClientPath'|'PatchName'|'PatchPath'|'AutoLogin'>(key:T) => T extends 'AutoLogin' ? Record<'Name'|'Password'|'Char', string>:string } */
-const Config = key => {
-	if (_cfg?.[key] !== undefined) return _cfg[key];
+const Config = <
+	T extends 'ClientPath' | 'PatchName' | 'PatchPath' | 'AutoLogin'
+>(
+	key: T
+): T extends 'AutoLogin'
+	? Record<'Name' | 'Password' | 'Char', string>
+	: string => {
+	// FIXME: Types
+	if (_cfg?.[key] !== undefined) return _cfg[key] as any;
 
 	if (!_cfg) {
 		const configPath = `${process.cwd()}/haax-config.json`;
@@ -32,7 +39,8 @@ const Config = key => {
 				throw 'Incorrect config key "AutoLogin" - "Char" must be a valid number.';
 	}
 
-	return _cfg[key];
+	// FIXME: Types
+	return _cfg[key] as any;
 };
 
 export default Config;

@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
-		"module": "esnext",
-		"moduleResolution": "node",
+		"module": "ESNext",
+		"moduleResolution": "NodeNext",
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
@@ -14,6 +14,8 @@
 		"incremental": true,
 		"noUncheckedIndexedAccess": true
 	},
-	"include": ["**/*.cjs", "**/*.mjs"],
-	"exclude": ["node_modules"]
+	"files": ["./restructure.d.ts"],
+	"include": ["**/*.ts"],
+	"exclude": ["node_modules"],
+	"ts-node": { "esm": true }
 }

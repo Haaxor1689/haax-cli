@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import fs from 'fs-extra';
 import { sortBy, groupBy } from 'lodash-es';
 
-import { DatabasePath } from '../db/init.mjs';
+import { DatabasePath } from '../db/init.js';
 
 process.env.DATABASE_URL = `file:${DatabasePath()}`;
 const prisma = new PrismaClient();
@@ -14,7 +14,7 @@ try {
 		where: { id: { lt: 0 } }
 	});
 
-	let highestAreaBit = sortBy(areaTable, 'areaBit').at(-1).areaBit;
+	let highestAreaBit = sortBy(areaTable, 'areaBit').at(-1)?.areaBit;
 
 	const duplicates = Object.entries(
 		groupBy(

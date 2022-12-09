@@ -1,13 +1,12 @@
-// @ts-check
 import fs from 'fs-extra';
 import { PrismaClient } from '@prisma/client';
 import { sortBy } from 'lodash-es';
 
-import Config from '../config.mjs';
-import Entities from '../dbc/types.mjs';
-import { dbcRecordsToFile } from '../utils.mjs';
+import Config from '../config.js';
+import Entities from '../dbc/types.js';
+import { dbcRecordsToFile } from '../utils.js';
 
-import { DatabasePath } from './init.mjs';
+import { DatabasePath } from './init.js';
 
 /** @type {(dbcPath?: string) => Promise<void>} */
 const exportDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {

@@ -2,10 +2,9 @@ import path from 'path';
 
 import fs from 'fs-extra';
 
-import { exec, ScriptDirname } from '../utils.mjs';
+import { exec, ScriptDirname } from '../utils.js';
 
-const fixWorldMapCompression = async directoryPath => {
-	console.log(directoryPath);
+const fixWorldMapCompression = async (directoryPath: string) => {
 	const images = fs
 		.readdirSync(directoryPath)
 		.filter(f => fs.lstatSync(path.join(directoryPath, f)).isDirectory())
@@ -17,7 +16,7 @@ const fixWorldMapCompression = async directoryPath => {
 
 	for (const img of images) {
 		const split = img.split('/').flatMap(i => i.split('\\'));
-		const isMap = split.at(-1).match(`${split.at(-2)}\\d+`);
+		const isMap = split.at(-1)?.match(`${split.at(-2)}\\d+`);
 		console.log(img, !!isMap);
 
 		await exec(`${ScriptDirname}/../BLPConverter.exe ${img}.blp`);
@@ -31,4 +30,4 @@ const fixWorldMapCompression = async directoryPath => {
 };
 121;
 
-fixWorldMapCompression(process.argv[2]);
+fixWorldMapCompression(process.argv[2] ?? '');

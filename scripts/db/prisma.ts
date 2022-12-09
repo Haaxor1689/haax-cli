@@ -1,12 +1,11 @@
-// @ts-check
 import { exec } from 'child_process';
 
 import fs from 'fs-extra';
 
-import Config from '../config.mjs';
-import { ScriptDirname } from '../utils.mjs';
+import Config from '../config.js';
+import { ScriptDirname } from '../utils.js';
 
-import initDb, { DatabasePath } from './init.mjs';
+import initDb, { DatabasePath } from './init.js';
 
 const prismaClient = async () => {
 	if (!fs.existsSync(`${Config('PatchPath')}/DBFilesClient`))

@@ -1,7 +1,6 @@
-// @ts-check
 import * as r from 'restructure';
 
-const Dbc = fields =>
+const Dbc = (fields: Record<string, unknown>) =>
 	new r.Struct({
 		signature: new r.String(4),
 
@@ -25,6 +24,8 @@ const Position = {
 };
 
 class StringRef extends r.Number {
+	isStringRef: boolean;
+
 	constructor() {
 		super('UInt32', 'LE');
 		this.isStringRef = true;
@@ -32,18 +33,21 @@ class StringRef extends r.Number {
 }
 
 class Enum extends r.Number {
-	constructor(options) {
+	isEnum: boolean;
+	options: string[];
+
+	constructor(options: string[]) {
 		super('UInt32', 'LE');
 		this.isEnum = true;
 		this.options = options;
 	}
-	decode(...args) {
-		const d = super.decode(...args);
+	decode(stream: any) {
+		const d = super.decode(stream);
 		return this.options[d] ?? d;
 	}
 }
 
-export const LocalizedStringRef = key => ({
+export const LocalizedStringRef = (key: string) => ({
 	...['enUS', 'enGB', 'koKR', 'frFR', 'deDE', 'enCN', 'zhCN', 'enTW'].reduce(
 		(obj, lng) => ({ ...obj, [`${key}_${lng}`]: new StringRef() }),
 		{}
@@ -51,13 +55,13 @@ export const LocalizedStringRef = key => ({
 	[`${key}Mask`]: r.int32le
 });
 
-export const ArrayField = (key, type, count) =>
+export const ArrayField = (key: string, type: unknown, count: number) =>
 	[...Array(count).keys()].reduce(
 		(obj, i) => ({ ...obj, [`${key}_${i + 1}`]: type }),
 		{}
 	);
 
-const Entities = {
+const Entities: Record<string, any> = {
 	AnimationData: Dbc({
 		id: r.int32le,
 		name: new StringRef(),
@@ -269,8 +273,7 @@ const Entities = {
 		hairStyleId: r.int32le,
 		hairColorId: r.int32le,
 		facialHairId: r.int32le,
-		...ArrayField('itemDisplayId', r.int32le, 9),
-		flags: r.int32le,
+		...ArrayField('itemDisplayId', r.int32le, 10),
 		bakeName: new StringRef()
 	}),
 	CreatureFamily: Dbc({

@@ -1,12 +1,20 @@
-//@ts-check
+import path from 'path';
+
 import fs from 'fs-extra';
 import sharp from 'sharp';
 
-import { exec } from '../../utils.mjs';
+import { exec } from '../utils.js';
 
-const cwd = 'C:/Projects/_WoW/_Tools/_Patches/MINIMAP';
+const paths = [
+	'C:/Projects/_WoW/_Patches/turtlewow-client/Textures/Minimap',
+	'C:/Projects/_WoW/_Patches/Patch/textures/Minimap',
+	'C:/Projects/_WoW/_Patches/Textures/textures/Minimap'
+];
+const out = 'C:/Projects/_WoW/ps-templates/stitches';
 
-const data = fs.readFileSync(`${cwd}/md5translate.trs`, { encoding: 'utf-8' });
+const data = fs.readFileSync(`${paths[0]}/md5translate.trs`, {
+	encoding: 'utf-8'
+});
 const maps = data.split('dir: ');
 
 for (const map of maps) {
@@ -22,9 +30,19 @@ for (const map of maps) {
 		.map(v => {
 			const s = v.trim().split('\t');
 			const [_, x, y] = [...(s[0]?.match(/map(\d+)_(\d+)/) ?? [])];
-			return { hash: s[1]?.slice(0, -4) ?? '', x: Number(x), y: Number(y) };
+			const hash = s[1]?.slice(0, -4) ?? '';
+			return {
+				hash,
+				x: Number(x),
+				y: Number(y),
+				cwd: paths.find(
+					cwd =>
+						fs.existsSync(`${cwd}/${hash}.blp`) &&
+						fs.statSync(`${cwd}/${hash}.blp`).size > 0
+				)
+			};
 		})
-		.filter(v => fs.existsSync(`${cwd}/${v.hash}.blp`));
+		.filter(v => v.cwd);
 
 	if (entries.length <= 0) {
 		continue;
@@ -54,7 +72,7 @@ for (const map of maps) {
 	const width = 256 * (xMax - xMin + 1);
 	const height = 256 * (yMax - yMin + 1);
 
-	for (const { hash } of entries) {
+	for (const { hash, cwd } of entries) {
 		const { stderr } = await exec(
 			`${process.cwd()}/scripts/BLPConverter.exe ${hash}.blp`,
 			{ cwd }
@@ -74,12 +92,18 @@ for (const map of maps) {
 	})
 		.composite(
 			entries
-				.filter(i => fs.existsSync(`${cwd}/${i.hash}.png`))
+				.filter(i => fs.existsSync(`${i.cwd}/${i.hash}.png`))
 				.map(i => ({
-					input: `${cwd}/${i.hash}.png`,
+					input: `${i.cwd}/${i.hash}.png`,
 					top: 256 * (i.y - yMin),
 					left: 256 * (i.x - xMin)
 				}))
 		)
-		.toFile(`stitches/${name}.png`);
+		.toFile(`${out}/${name}.png`);
 }
+
+paths.forEach(p => {
+	fs.readdirSync(p)
+		.filter(v => v.endsWith('.png'))
+		.forEach(f => fs.unlinkSync(path.join(p, f)));
+});

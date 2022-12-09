@@ -1,10 +1,9 @@
-// @ts-check
 import path from 'path';
 
 import fs from 'fs-extra';
 
-import { exec, fixRelativePath, ScriptDirname, TmpFileExt } from '../utils.mjs';
-import Config from '../config.mjs';
+import { exec, fixRelativePath, ScriptDirname, TmpFileExt } from '../utils.js';
+import Config from '../config.js';
 
 const ignoreEndings = [
 	'.exe',
@@ -19,8 +18,10 @@ const ignoreEndings = [
 	'.gitignore'
 ];
 
-/** @type {(dirName: string, callback: (pathName: string) => boolean) => void} */
-const loopFilesRecursive = (dirName, callback) => {
+const loopFilesRecursive = (
+	dirName: string,
+	callback: (pathName: string) => boolean
+) => {
 	fs.readdirSync(dirName).forEach(f => {
 		const fullPath = path.join(dirName, f);
 		if (callback(fullPath)) return;
@@ -29,11 +30,10 @@ const loopFilesRecursive = (dirName, callback) => {
 	});
 };
 
-/** @type {(sourceDir?: string, destination?: string, inPlace?: unknown) => Promise<void>} */
 const buildMpq = async (
 	sourceDir = Config('PatchPath'),
 	outputPath = `${Config('ClientPath')}/Data/${Config('PatchName')}`,
-	inPlace
+	inPlace?: unknown
 ) => {
 	if (!outputPath?.endsWith('.mpq'))
 		throw 'Please provide a valid destination.';
@@ -52,6 +52,7 @@ const buildMpq = async (
 				fs.removeSync(f);
 				return true;
 			}
+			return false;
 		});
 
 		await exec(

@@ -1,3 +1,5 @@
 node_modules
+lib
 .__tmp__
+tsconfig.tsbuildinfo
 haax-config.json

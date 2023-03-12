@@ -12,10 +12,12 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"incremental": true,
-		"noUncheckedIndexedAccess": true
+		"noUncheckedIndexedAccess": true,
+		"rootDir": "src",
+		"outDir": "lib"
 	},
-	"files": ["./restructure.d.ts"],
-	"include": ["**/*.ts"],
+	"files": ["./src/typings/dxt-js.d.ts", "./src/typings/restructure.d.ts"],
+	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"],
 	"ts-node": { "esm": true }
 }

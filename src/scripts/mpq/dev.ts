@@ -35,11 +35,11 @@ const startWoW = () => {
 const saveMpq = async () => {
 	if (DbExportPending) {
 		console.log('Applying db changes...');
-		await exportDb();
+		await exportDb({});
 		DbExportPending = false;
 	}
 	while (RebuildingAssets) await new Promise(r => setTimeout(r, 1000));
-	await buildMpq();
+	await buildMpq({});
 	SavePending = false;
 };
 
@@ -64,10 +64,10 @@ const watchCallback = (event: string) => async (filename: string) => {
 			filename.match(/Interface\\WorldMap\\.+\\/) &&
 			filename.endsWith('.png')
 		)
-			await sliceBlp(filename);
+			await sliceBlp({ filePath: filename });
 
 		if (filename.includes('DBFilesClient\\') && filename.endsWith('.csv'))
-			await encodeDbc(filename);
+			await encodeDbc({ filePath: filename });
 
 		if (filename.endsWith('.db')) {
 			console.log('Queued db export...');

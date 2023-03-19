@@ -6,12 +6,12 @@ import { dbcRecordsFromFile } from '../utils.js';
 
 import Entities from './types.js';
 
-const decodeDbc = async (filePath: string) => {
+const decodeDbc = async ({ filePath }: { filePath: string }) => {
 	// Directory mode
 	if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
 		for (const e of Object.keys(Entities)) {
 			const p = path.join(filePath, `${e}.dbc`);
-			fs.existsSync(p) && (await decodeDbc(p));
+			fs.existsSync(p) && (await decodeDbc({ filePath: p }));
 		}
 		return;
 	}

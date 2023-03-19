@@ -5,10 +5,16 @@ import sharp from 'sharp';
 
 import { blpFromFile, blpToPngFile, blpToSharp } from './utils.js';
 
-const mergeBlp = async (filePath: string, colCount?: string | number) => {
+const mergeBlp = async ({
+	filePath,
+	colCount
+}: {
+	filePath: string;
+	colCount?: string | number;
+}) => {
 	if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
 		const files = fs.readdirSync(filePath).filter(v => v.match(/\D+1\.blp/));
-		for (const f of files) await mergeBlp(`${filePath}/${f}`);
+		for (const f of files) await mergeBlp({ filePath: `${filePath}/${f}` });
 		return;
 	}
 

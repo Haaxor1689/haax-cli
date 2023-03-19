@@ -3,12 +3,18 @@ import { pick } from 'lodash-es';
 
 import { Blp } from './types.js';
 
-const metaBlp = async (filePath: string, full?: unknown) => {
+const metaBlp = async ({
+	filePath,
+	verbose
+}: {
+	filePath: string;
+	verbose?: boolean;
+}) => {
 	console.log(`Loading BLP ${filePath}...`);
 
 	const blp = Blp.fromBuffer(fs.readFileSync(filePath));
 	console.log(
-		full
+		verbose
 			? blp
 			: {
 					...pick(blp, [

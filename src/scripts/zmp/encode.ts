@@ -23,7 +23,6 @@ const encodeZmp = async (filePath: string, dbcPath: string) => {
 
 	console.log('Loading AreaTable.dbc...');
 	const dbc = Entities.AreaTable.fromBuffer(fs.readFileSync(dbcPath));
-	const stringBlock = dbc.stringBlock.toString();
 
 	console.log('Parsing colors file...');
 	const colors = parseCsv<[string, string]>(
@@ -33,8 +32,9 @@ const encodeZmp = async (filePath: string, dbcPath: string) => {
 		.map(
 			([k, v]) =>
 				[
-					dbc.records.find(r => readDbcString(r.name_enUS, stringBlock) === k)
-						?.id ?? 0,
+					dbc.records.find(
+						r => readDbcString(r.name_enUS, dbc.stringBlock) === k
+					)?.id ?? 0,
 					v
 				] as const
 		);

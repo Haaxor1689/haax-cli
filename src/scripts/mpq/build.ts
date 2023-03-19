@@ -26,11 +26,15 @@ const ignoreEndings = [
 	'.gitignore'
 ];
 
-const buildMpq = async (
+const buildMpq = async ({
 	sourceDir = Config('PatchPath'),
 	outputPath = `${Config('ClientPath')}/Data/${Config('PatchName')}`,
-	inPlace?: unknown
-) => {
+	inPlace
+}: {
+	sourceDir?: string;
+	outputPath?: string;
+	inPlace?: boolean;
+}) => {
 	if (!outputPath?.endsWith('.mpq'))
 		throw 'Please provide a valid destination.';
 

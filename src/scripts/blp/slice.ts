@@ -5,10 +5,10 @@ import sharp from 'sharp';
 
 import { blpFromSharp, blpToFile } from './utils.js';
 
-const sliceBlp = async (filePath: string) => {
+const sliceBlp = async ({ filePath }: { filePath: string }) => {
 	if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
 		const files = fs.readdirSync(filePath).filter(v => v.endsWith('.png'));
-		for (const f of files) await sliceBlp(`${filePath}/${f}`);
+		for (const f of files) await sliceBlp({ filePath: `${filePath}/${f}` });
 		return;
 	}
 

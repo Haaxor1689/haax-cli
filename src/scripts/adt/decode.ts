@@ -3,30 +3,45 @@ import path from 'path';
 import * as r from 'restructure';
 import fs from 'fs-extra';
 import sharp from 'sharp';
-import { uniq, uniqBy } from 'lodash-es';
+import { uniq } from 'lodash-es';
 import Color from 'color';
 
-import { readDbcString } from '../utils.js';
+import {
+	getFileFromPatch,
+	getSortedPatches,
+	isNotUndefined,
+	readDbcString
+} from '../utils.js';
 import Entities from '../dbc/types.js';
+import Config from '../config.js';
 
 import { Adt } from './types.js';
 
 const BlockWidth = 16;
 const TotalWidth = BlockWidth * 64;
 
-const decodeAdt = async (dirPath: string, ...otherPaths: string[]) => {
-	const paths = uniqBy(
-		[dirPath, ...otherPaths].flatMap(p => {
-			if (!fs.lstatSync(p).isDirectory()) {
-				throw 'Please provide path to a directory containing .adt chunks';
-			}
-			return fs
-				.readdirSync(p)
-				.filter(v => v.match(/\d+_\d+\.adt/))
-				.map(c => [p, c]);
-		}),
-		v => v[1]?.toLocaleUpperCase()
-	).map(v => path.join(...v));
+const decodeAdt = async ({
+	dirPath,
+	patchesDir = path.join(Config('PatchPath'), '..'),
+	areaTablePath = `${Config('PatchPath')}/DBFilesClient/AreaTable.dbc`
+}: {
+	dirPath: string;
+	patchesDir?: string;
+	areaTablePath?: string;
+}) => {
+	const patches = getSortedPatches(patchesDir);
+	const basename = path.basename(dirPath);
+
+	const paths = [...Array(64).keys()]
+		.flatMap(x =>
+			[...Array(64).keys()].map(y =>
+				getFileFromPatch(
+					patches,
+					path.join(dirPath, `${basename}_${x}_${y}.adt`)
+				)
+			)
+		)
+		.filter(isNotUndefined);
 
 	let areaIds = new Array<number>(TotalWidth * TotalWidth).fill(0);
 	for (const block of paths) {
@@ -59,11 +74,7 @@ const decodeAdt = async (dirPath: string, ...otherPaths: string[]) => {
 		});
 	}
 
-	const dbc = Entities.AreaTable.fromBuffer(
-		fs.readFileSync(
-			'C:/Projects/_WoW/_Patches/turtlewow-client-patch-3/DBFilesClient/AreaTable.dbc'
-		)
-	);
+	const dbc = Entities.AreaTable.fromBuffer(fs.readFileSync(areaTablePath));
 
 	areaIds = areaIds.map(a => {
 		let area = dbc.records.find(r => r.id === a);
@@ -87,16 +98,15 @@ const decodeAdt = async (dirPath: string, ...otherPaths: string[]) => {
 				).hex()
 			] as const
 	);
-	const stringBlock = dbc.stringBlock.toString();
 	fs.writeFileSync(
-		path.join(dirPath, `${path.basename(dirPath)}.colors.csv`),
+		path.join(Config('PatchPath'), dirPath, `${basename}.colors.csv`),
 		`ZoneName,ColorHue\n${colors
 			.map(
 				v =>
 					`${
 						readDbcString(
 							dbc.records.find(r => r.id === v[0])?.name_enUS ?? 0,
-							stringBlock
+							dbc.stringBlock
 						) || 'None'
 					},${v[1]}`
 			)
@@ -114,7 +124,7 @@ const decodeAdt = async (dirPath: string, ...otherPaths: string[]) => {
 			})
 		),
 		{ raw: { width: TotalWidth, height: TotalWidth, channels: 4 } }
-	).toFile(path.join(dirPath, `${path.basename(dirPath)}.png`));
+	).toFile(path.join(Config('PatchPath'), dirPath, `${basename}.png`));
 };
 
 export default decodeAdt;

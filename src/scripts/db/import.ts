@@ -9,7 +9,11 @@ import { dbcRecordsFromFile, uncapitalize } from '../utils.js';
 import continents from './continents.js';
 import { DatabasePath } from './init.js';
 
-const importDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {
+const importDb = async ({
+	dbcPath = `${Config('PatchPath')}/DBFilesClient`
+}: {
+	dbcPath?: string;
+}) => {
 	if (!fs.existsSync(DatabasePath()))
 		throw 'Database has not been initialized.';
 

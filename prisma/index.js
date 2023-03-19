@@ -80,8 +80,8 @@ const regularDirname = hasDirname && fs.existsSync(path.join(__dirname, 'schema.
 
 // if the client has been bundled, we need to look for the folders
 const foundDirname = !regularDirname && findSync(process.cwd(), [
-    "..\\prisma",
     "prisma",
+    
 ], ['d'], ['d'], 1)[0]
 
 const dirname = regularDirname || foundDirname || __dirname
@@ -300,7 +300,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\betko\\AppData\\Roaming\\npm\\node_modules\\haax\\prisma",
+      "value": "C:\\Projects\\_WoW\\haax\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -340,6 +340,6 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "..\\prisma\\query_engine-windows.dll.node")
+path.join(process.cwd(), "prisma\\query_engine-windows.dll.node")
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "..\\prisma\\schema.prisma")
+path.join(process.cwd(), "prisma\\schema.prisma")

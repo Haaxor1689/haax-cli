@@ -23,7 +23,6 @@ const decodeZmp = async (filePath: string, dbcPath: string) => {
 
 	console.log('Loading AreaTable.dbc...');
 	const dbc = Entities.AreaTable.fromBuffer(fs.readFileSync(dbcPath));
-	const stringBlock = dbc.stringBlock.toString();
 
 	let colors: [number, string][] = [];
 	if (fs.existsSync(colorsPath)) {
@@ -31,7 +30,7 @@ const decodeZmp = async (filePath: string, dbcPath: string) => {
 		colors = parseCsv(fs.readFileSync(colorsPath, { encoding: 'utf8' }))
 			.slice(1)
 			.map(([k, v]) => [
-				dbc.records.find(r => readDbcString(r.name_enUS, stringBlock) === k)
+				dbc.records.find(r => readDbcString(r.name_enUS, dbc.stringBlock) === k)
 					?.id ?? 0,
 				v
 			]) as never;
@@ -53,7 +52,7 @@ const decodeZmp = async (filePath: string, dbcPath: string) => {
 						`${
 							readDbcString(
 								dbc.records.find(r => r.id === v[0])?.name_enUS ?? 0,
-								stringBlock
+								dbc.stringBlock
 							) || 'None'
 						},${v[1]}`
 				)

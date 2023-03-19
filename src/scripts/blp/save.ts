@@ -4,10 +4,16 @@ import fs from 'fs-extra';
 
 import { blpToFile, pngToBlp } from './utils.js';
 
-const saveBlp = async (filePath: string, outputPath = filePath) => {
+const saveBlp = async ({
+	filePath,
+	outputPath = filePath
+}: {
+	filePath: string;
+	outputPath?: string;
+}) => {
 	if (fs.lstatSync(filePath).isDirectory()) {
 		for (const m of fs.readdirSync(filePath).filter(v => v.endsWith('.png'))) {
-			await saveBlp(path.join(filePath, m));
+			await saveBlp({ filePath: path.join(filePath, m) });
 		}
 		return;
 	}

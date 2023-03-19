@@ -6,12 +6,12 @@ import { dbcRecordsToFile, parseCsv } from '../utils.js';
 
 import Entities from './types.js';
 
-const encodeDbc = async (filePath: string) => {
+const encodeDbc = async ({ filePath }: { filePath: string }) => {
 	// Directory mode
 	if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
 		for (const e of Object.keys(Entities)) {
 			const p = path.join(filePath, `${e}.csv`);
-			fs.existsSync(p) && (await encodeDbc(p));
+			fs.existsSync(p) && (await encodeDbc({ filePath: p }));
 		}
 		return;
 	}

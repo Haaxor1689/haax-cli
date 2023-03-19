@@ -8,8 +8,11 @@ import { dbcRecordsToFile } from '../utils.js';
 
 import { DatabasePath } from './init.js';
 
-/** @type {(dbcPath?: string) => Promise<void>} */
-const exportDb = async (dbcPath = `${Config('PatchPath')}/DBFilesClient`) => {
+const exportDb = async ({
+	dbcPath = `${Config('PatchPath')}/DBFilesClient`
+}: {
+	dbcPath?: string;
+}) => {
 	if (!fs.existsSync(DatabasePath()))
 		throw 'Database has not been initialized.';
 

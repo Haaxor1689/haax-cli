@@ -4,14 +4,18 @@ import fs from 'fs-extra';
 
 import { blpFromFile, blpToPngFile } from './utils.js';
 
-const loadBlp = async (
-	filePath: string,
+const loadBlp = async ({
+	filePath,
 	outputPath = filePath,
-	withMips?: boolean
-) => {
+	withMips
+}: {
+	filePath: string;
+	outputPath?: string;
+	withMips?: boolean;
+}) => {
 	if (fs.lstatSync(filePath).isDirectory()) {
 		for (const m of fs.readdirSync(filePath).filter(v => v.endsWith('.blp'))) {
-			await loadBlp(path.join(filePath, m));
+			await loadBlp({ filePath: path.join(filePath, m), withMips });
 		}
 		return;
 	}

@@ -1,6 +1,4 @@
 .github
 .vscode
-src
 .gitignore
 haax-config.json
-tsconfig.*

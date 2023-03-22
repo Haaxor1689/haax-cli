@@ -18,21 +18,34 @@
 		"url": "https://github.com/Haaxor1689/haax.git"
 	},
 	"dependencies": {
+		"@prisma/client": "^4.6.1",
+		"chokidar": "^3.5.3",
+		"color": "^4.2.3",
+		"dxt-js": "0.0.3",
+		"fs-extra": "^10.1.0",
+		"glob": "^8.0.3",
+		"image-q": "^4.0.0",
+		"lodash-es": "^4.17.21",
+		"node-watch": "^0.7.3",
+		"prisma": "^4.6.1",
+		"restructure": "https://github.com/Haaxor1689/restructure.git",
+		"sharp": "^0.31.2",
+		"uuid": "^9.0.0",
+		"yargs": "^17.7.1"
+	},
+	"devDependencies": {
 		"@haaxor1689/eslint-config": "^2.0.4",
 		"@haaxor1689/prettier-config": "^2.0.2",
-		"@prisma/client": "^4.6.1",
-		"@types/color": "^3.0.3",
 		"@types/fs-extra": "^9.0.13",
 		"@types/glob": "^8.0.0",
 		"@types/lodash-es": "^4.17.6",
 		"@types/node": "^18.11.9",
 		"@types/sharp": "^0.31.0",
+		"@types/uuid": "^9.0.1",
 		"@types/yargs": "^17.0.22",
+		"@types/color": "^3.0.3",
 		"@typescript-eslint/eslint-plugin": "^5.52.0",
 		"@typescript-eslint/parser": "^5.52.0",
-		"chokidar": "^3.5.3",
-		"color": "^4.2.3",
-		"dxt-js": "0.0.3",
 		"eslint": "^8.34.0",
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-import-resolver-typescript": "^3.5.3",
@@ -41,19 +54,9 @@
 		"eslint-plugin-prefer-arrow": "^1.2.3",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react": "^7.32.2",
-		"fs-extra": "^10.1.0",
-		"glob": "^8.0.3",
-		"image-q": "^4.0.0",
-		"lodash-es": "^4.17.21",
-		"node-watch": "^0.7.3",
 		"prettier": "^2.8.4",
-		"prisma": "^4.6.1",
-		"restructure": "https://github.com/Haaxor1689/restructure.git",
-		"sharp": "^0.31.2",
 		"ts-node": "^10.9.1",
-		"typescript": "^4.9.5",
-		"uuid": "^9.0.0",
-		"yargs": "^17.7.1"
+		"typescript": "^4.9.5"
 	},
 	"eslintConfig": {
 		"env": {
@@ -61,8 +64,5 @@
 		},
 		"extends": "@haaxor1689/eslint-config"
 	},
-	"prettier": "@haaxor1689/prettier-config",
-	"devDependencies": {
-		"@types/uuid": "^9.0.1"
-	}
+	"prettier": "@haaxor1689/prettier-config"
 }

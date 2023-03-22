@@ -20,14 +20,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
           node-version: '16'
 
-      # Install dependencies (required by Run tests step)
-      - name: Install dependencies
-        run: npm install
-
-      # Tests
-      - name: Build
-        run: npm run build
-
       # Configure Git
       - name: Git configuration
         run: |

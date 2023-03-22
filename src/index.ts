@@ -298,6 +298,9 @@ const Actions: Record<
 	},
 	'fix-blp-compression': {
 		exec: './scripts/automation/blpCompression.ts'
+	},
+	'talents-export': {
+		exec: './scripts/talents/export.ts'
 	}
 };
 

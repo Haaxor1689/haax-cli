@@ -51,6 +51,7 @@
 		"sharp": "^0.31.2",
 		"ts-node": "^10.9.1",
 		"typescript": "^4.9.5",
+		"uuid": "^9.0.0",
 		"yargs": "^17.7.1"
 	},
 	"eslintConfig": {
@@ -59,5 +60,8 @@
 		},
 		"extends": "@haaxor1689/eslint-config"
 	},
-	"prettier": "@haaxor1689/prettier-config"
+	"prettier": "@haaxor1689/prettier-config",
+	"devDependencies": {
+		"@types/uuid": "^9.0.1"
+	}
 }

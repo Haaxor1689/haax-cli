@@ -13,6 +13,7 @@ import Config from '../config.js';
 
 const ignoreEndings = [
 	'.json',
+	'.yaml',
 	'.exe',
 	'.dll',
 	'.db',

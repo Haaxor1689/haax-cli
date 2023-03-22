@@ -1,6 +1,6 @@
 {
 	"name": "haax",
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"description": "This package contains collection of tools that help make developing custom content for Vanilla WoW easier.",
 	"type": "module",
 	"main": "./lib/index.js",

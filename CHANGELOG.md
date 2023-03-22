@@ -14,14 +14,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automation scripts
 - Typescript migration
 - CreatureDisplayInfoExtra db support
+- `talents-export` script for https://talent-builder.haaxor1689.dev/
 
 ### Fixed
 
 - Empty strings in DBCs now point to 0 instead of creating new pointer
-- Also remove `.db` files from mpq builds
+- Also remove `.db` and `.yaml` files from mpq builds
 - Correctly clean up tmp files after mpq build
 - Build auto-login patch in place since it's a copy anyway
 - Sorting of AreaPOI.dbc on db export
+
+### Changed
+
+- Documentation and CLI help for commands
 
 ## 0.1.13 - 2022-11-30
 

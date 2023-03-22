@@ -3,13 +3,12 @@
 	"version": "0.3.4",
 	"description": "This package contains collection of tools that help make developing custom content for Vanilla WoW easier.",
 	"type": "module",
-	"main": "./lib/index.js",
+	"main": "./src/index.ts",
 	"bin": {
-		"haax": "./lib/index.js"
+		"haax": "./src/index.ts"
 	},
 	"scripts": {
-		"start": "ts-node ./src/index.ts",
-		"build": "tsc -p . --noEmit false"
+		"start": "ts-node ./src/index.ts"
 	},
 	"author": "Haaxor1689",
 	"license": "MIT",

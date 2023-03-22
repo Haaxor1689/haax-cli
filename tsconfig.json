@@ -13,8 +13,7 @@
 		"isolatedModules": true,
 		"incremental": true,
 		"noUncheckedIndexedAccess": true,
-		"rootDir": "src",
-		"outDir": "lib"
+		"rootDir": "src"
 	},
 	"files": ["./src/typings/dxt-js.d.ts", "./src/typings/restructure.d.ts"],
 	"include": ["src/**/*.ts"],

@@ -7,6 +7,9 @@ const VectorF = new r.Struct({ x: r.floatle, y: r.floatle, z: r.floatle });
 const BoundingBox = new r.Struct({ min: VectorF, max: VectorF });
 
 const ChunkTypes = {
+	MVER: new r.Struct({
+		version: r.uint32le
+	}),
 	MOHD: new r.Struct({
 		nTextures: r.uint32le,
 		nGroups: r.uint32le,
@@ -18,6 +21,12 @@ const ChunkTypes = {
 		ambColor: r.uint32le,
 		wmoId: r.uint32le,
 		boundingBox: BoundingBox
+	}),
+	MOTX: new r.Struct({
+		textures: new r.Array(new r.String())
+	}),
+	MOSB: new r.Struct({
+		skyboxModel: new r.String()
 	})
 } as const;
 

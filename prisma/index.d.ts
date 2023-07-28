@@ -131,6 +131,50 @@ export type CreatureDisplayInfoExtra = {
 }
 
 /**
+ * Model Light
+ * 
+ */
+export type Light = {
+  id: number
+  continentId: number
+  x: number
+  y: number
+  z: number
+  falloffStart: number
+  falloffEnd: number
+  paramStandardId: number
+  paramUnderwaterId: number
+  paramSunsetId: number
+  paramOtherId: number
+  paramDeathId: number
+}
+
+/**
+ * Model LightParams
+ * 
+ */
+export type LightParams = {
+  id: number
+  highlightSky: number
+  lightSkyboxId: number
+  glow: number
+  waterShallowAlpha: number
+  waterDeepAlpha: number
+  oceanShallowAlpha: number
+  oceanDeepAlpha: number
+  flags: number
+}
+
+/**
+ * Model LightSkybox
+ * 
+ */
+export type LightSkybox = {
+  id: number
+  name: string
+}
+
+/**
  * Model WMOAreaTable
  * 
  */
@@ -383,6 +427,36 @@ export class PrismaClient<
     * ```
     */
   get creatureDisplayInfoExtra(): Prisma.CreatureDisplayInfoExtraDelegate<GlobalReject>;
+
+  /**
+   * `prisma.light`: Exposes CRUD operations for the **Light** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Lights
+    * const lights = await prisma.light.findMany()
+    * ```
+    */
+  get light(): Prisma.LightDelegate<GlobalReject>;
+
+  /**
+   * `prisma.lightParams`: Exposes CRUD operations for the **LightParams** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LightParams
+    * const lightParams = await prisma.lightParams.findMany()
+    * ```
+    */
+  get lightParams(): Prisma.LightParamsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.lightSkybox`: Exposes CRUD operations for the **LightSkybox** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LightSkyboxes
+    * const lightSkyboxes = await prisma.lightSkybox.findMany()
+    * ```
+    */
+  get lightSkybox(): Prisma.LightSkyboxDelegate<GlobalReject>;
 
   /**
    * `prisma.wMOAreaTable`: Exposes CRUD operations for the **WMOAreaTable** model.
@@ -897,6 +971,9 @@ export namespace Prisma {
     AreaTable: 'AreaTable',
     AreaTrigger: 'AreaTrigger',
     CreatureDisplayInfoExtra: 'CreatureDisplayInfoExtra',
+    Light: 'Light',
+    LightParams: 'LightParams',
+    LightSkybox: 'LightSkybox',
     WMOAreaTable: 'WMOAreaTable',
     WorldMapArea: 'WorldMapArea',
     WorldMapContinent: 'WorldMapContinent',
@@ -1072,6 +1149,7 @@ export namespace Prisma {
     WorldMapArea: number
     WorldMapContinent: number
     AreaTrigger: number
+    Light: number
   }
 
   export type ContinentCountOutputTypeSelect = {
@@ -1080,6 +1158,7 @@ export namespace Prisma {
     WorldMapArea?: boolean
     WorldMapContinent?: boolean
     AreaTrigger?: boolean
+    Light?: boolean
   }
 
   export type ContinentCountOutputTypeGetPayload<S extends boolean | null | undefined | ContinentCountOutputTypeArgs> =
@@ -1165,6 +1244,143 @@ export namespace Prisma {
      * Select specific fields to fetch from the AreaTableCountOutputType
      */
     select?: AreaTableCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type LightCountOutputType
+   */
+
+
+  export type LightCountOutputType = {
+    AreaTable: number
+  }
+
+  export type LightCountOutputTypeSelect = {
+    AreaTable?: boolean
+  }
+
+  export type LightCountOutputTypeGetPayload<S extends boolean | null | undefined | LightCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? LightCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (LightCountOutputTypeArgs)
+    ? LightCountOutputType 
+    : S extends { select: any } & (LightCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof LightCountOutputType ? LightCountOutputType[P] : never
+  } 
+      : LightCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * LightCountOutputType without action
+   */
+  export type LightCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the LightCountOutputType
+     */
+    select?: LightCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type LightParamsCountOutputType
+   */
+
+
+  export type LightParamsCountOutputType = {
+    standatrdLight: number
+    underwaterLight: number
+    sunsetLight: number
+    otherLight: number
+    deathLight: number
+  }
+
+  export type LightParamsCountOutputTypeSelect = {
+    standatrdLight?: boolean
+    underwaterLight?: boolean
+    sunsetLight?: boolean
+    otherLight?: boolean
+    deathLight?: boolean
+  }
+
+  export type LightParamsCountOutputTypeGetPayload<S extends boolean | null | undefined | LightParamsCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? LightParamsCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (LightParamsCountOutputTypeArgs)
+    ? LightParamsCountOutputType 
+    : S extends { select: any } & (LightParamsCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof LightParamsCountOutputType ? LightParamsCountOutputType[P] : never
+  } 
+      : LightParamsCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * LightParamsCountOutputType without action
+   */
+  export type LightParamsCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the LightParamsCountOutputType
+     */
+    select?: LightParamsCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type LightSkyboxCountOutputType
+   */
+
+
+  export type LightSkyboxCountOutputType = {
+    LightParams: number
+  }
+
+  export type LightSkyboxCountOutputTypeSelect = {
+    LightParams?: boolean
+  }
+
+  export type LightSkyboxCountOutputTypeGetPayload<S extends boolean | null | undefined | LightSkyboxCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? LightSkyboxCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (LightSkyboxCountOutputTypeArgs)
+    ? LightSkyboxCountOutputType 
+    : S extends { select: any } & (LightSkyboxCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof LightSkyboxCountOutputType ? LightSkyboxCountOutputType[P] : never
+  } 
+      : LightSkyboxCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * LightSkyboxCountOutputType without action
+   */
+  export type LightSkyboxCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkyboxCountOutputType
+     */
+    select?: LightSkyboxCountOutputTypeSelect | null
   }
 
 
@@ -1397,6 +1613,7 @@ export namespace Prisma {
     WorldMapArea?: boolean | Continent$WorldMapAreaArgs
     WorldMapContinent?: boolean | Continent$WorldMapContinentArgs
     AreaTrigger?: boolean | Continent$AreaTriggerArgs
+    Light?: boolean | Continent$LightArgs
     _count?: boolean | ContinentCountOutputTypeArgs
   }
 
@@ -1407,6 +1624,7 @@ export namespace Prisma {
     WorldMapArea?: boolean | Continent$WorldMapAreaArgs
     WorldMapContinent?: boolean | Continent$WorldMapContinentArgs
     AreaTrigger?: boolean | Continent$AreaTriggerArgs
+    Light?: boolean | Continent$LightArgs
     _count?: boolean | ContinentCountOutputTypeArgs
   }
 
@@ -1422,6 +1640,7 @@ export namespace Prisma {
         P extends 'WorldMapArea' ? Array < WorldMapAreaGetPayload<S['include'][P]>>  :
         P extends 'WorldMapContinent' ? Array < WorldMapContinentGetPayload<S['include'][P]>>  :
         P extends 'AreaTrigger' ? Array < AreaTriggerGetPayload<S['include'][P]>>  :
+        P extends 'Light' ? Array < LightGetPayload<S['include'][P]>>  :
         P extends '_count' ? ContinentCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (ContinentArgs | ContinentFindManyArgs)
@@ -1432,6 +1651,7 @@ export namespace Prisma {
         P extends 'WorldMapArea' ? Array < WorldMapAreaGetPayload<S['select'][P]>>  :
         P extends 'WorldMapContinent' ? Array < WorldMapContinentGetPayload<S['select'][P]>>  :
         P extends 'AreaTrigger' ? Array < AreaTriggerGetPayload<S['select'][P]>>  :
+        P extends 'Light' ? Array < LightGetPayload<S['select'][P]>>  :
         P extends '_count' ? ContinentCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Continent ? Continent[P] : never
   } 
       : Continent
@@ -1797,6 +2017,8 @@ export namespace Prisma {
     WorldMapContinent<T extends Continent$WorldMapContinentArgs= {}>(args?: Subset<T, Continent$WorldMapContinentArgs>): Prisma.PrismaPromise<Array<WorldMapContinentGetPayload<T>>| Null>;
 
     AreaTrigger<T extends Continent$AreaTriggerArgs= {}>(args?: Subset<T, Continent$AreaTriggerArgs>): Prisma.PrismaPromise<Array<AreaTriggerGetPayload<T>>| Null>;
+
+    Light<T extends Continent$LightArgs= {}>(args?: Subset<T, Continent$LightArgs>): Prisma.PrismaPromise<Array<LightGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -2243,6 +2465,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<AreaTriggerScalarFieldEnum>
+  }
+
+
+  /**
+   * Continent.Light
+   */
+  export type Continent$LightArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    where?: LightWhereInput
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    cursor?: LightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<LightScalarFieldEnum>
   }
 
 
@@ -3871,6 +4114,7 @@ export namespace Prisma {
     minElevation?: boolean
     ambientMultiplier?: boolean
     lightId?: boolean
+    light?: boolean | LightArgs
     ChildAreas?: boolean | AreaTable$ChildAreasArgs
     AreaPOI?: boolean | AreaTable$AreaPOIArgs
     WMOAreaTable?: boolean | AreaTable$WMOAreaTableArgs
@@ -3886,6 +4130,7 @@ export namespace Prisma {
   export type AreaTableInclude = {
     continent?: boolean | ContinentArgs
     parentArea?: boolean | AreaTableArgs
+    light?: boolean | LightArgs
     ChildAreas?: boolean | AreaTable$ChildAreasArgs
     AreaPOI?: boolean | AreaTable$AreaPOIArgs
     WMOAreaTable?: boolean | AreaTable$WMOAreaTableArgs
@@ -3906,6 +4151,7 @@ export namespace Prisma {
     [P in TruthyKeys<S['include']>]:
         P extends 'continent' ? ContinentGetPayload<S['include'][P]> :
         P extends 'parentArea' ? AreaTableGetPayload<S['include'][P]> :
+        P extends 'light' ? LightGetPayload<S['include'][P]> :
         P extends 'ChildAreas' ? Array < AreaTableGetPayload<S['include'][P]>>  :
         P extends 'AreaPOI' ? Array < AreaPOIGetPayload<S['include'][P]>>  :
         P extends 'WMOAreaTable' ? Array < WMOAreaTableGetPayload<S['include'][P]>>  :
@@ -3921,6 +4167,7 @@ export namespace Prisma {
     [P in TruthyKeys<S['select']>]:
         P extends 'continent' ? ContinentGetPayload<S['select'][P]> :
         P extends 'parentArea' ? AreaTableGetPayload<S['select'][P]> :
+        P extends 'light' ? LightGetPayload<S['select'][P]> :
         P extends 'ChildAreas' ? Array < AreaTableGetPayload<S['select'][P]>>  :
         P extends 'AreaPOI' ? Array < AreaPOIGetPayload<S['select'][P]>>  :
         P extends 'WMOAreaTable' ? Array < WMOAreaTableGetPayload<S['select'][P]>>  :
@@ -4288,6 +4535,8 @@ export namespace Prisma {
     continent<T extends ContinentArgs= {}>(args?: Subset<T, ContinentArgs>): Prisma__ContinentClient<ContinentGetPayload<T> | Null>;
 
     parentArea<T extends AreaTableArgs= {}>(args?: Subset<T, AreaTableArgs>): Prisma__AreaTableClient<AreaTableGetPayload<T> | Null>;
+
+    light<T extends LightArgs= {}>(args?: Subset<T, LightArgs>): Prisma__LightClient<LightGetPayload<T> | Null>;
 
     ChildAreas<T extends AreaTable$ChildAreasArgs= {}>(args?: Subset<T, AreaTable$ChildAreasArgs>): Prisma.PrismaPromise<Array<AreaTableGetPayload<T>>| Null>;
 
@@ -6909,6 +7158,3182 @@ export namespace Prisma {
      * Select specific fields to fetch from the CreatureDisplayInfoExtra
      */
     select?: CreatureDisplayInfoExtraSelect | null
+  }
+
+
+
+  /**
+   * Model Light
+   */
+
+
+  export type AggregateLight = {
+    _count: LightCountAggregateOutputType | null
+    _avg: LightAvgAggregateOutputType | null
+    _sum: LightSumAggregateOutputType | null
+    _min: LightMinAggregateOutputType | null
+    _max: LightMaxAggregateOutputType | null
+  }
+
+  export type LightAvgAggregateOutputType = {
+    id: number | null
+    continentId: number | null
+    x: number | null
+    y: number | null
+    z: number | null
+    falloffStart: number | null
+    falloffEnd: number | null
+    paramStandardId: number | null
+    paramUnderwaterId: number | null
+    paramSunsetId: number | null
+    paramOtherId: number | null
+    paramDeathId: number | null
+  }
+
+  export type LightSumAggregateOutputType = {
+    id: number | null
+    continentId: number | null
+    x: number | null
+    y: number | null
+    z: number | null
+    falloffStart: number | null
+    falloffEnd: number | null
+    paramStandardId: number | null
+    paramUnderwaterId: number | null
+    paramSunsetId: number | null
+    paramOtherId: number | null
+    paramDeathId: number | null
+  }
+
+  export type LightMinAggregateOutputType = {
+    id: number | null
+    continentId: number | null
+    x: number | null
+    y: number | null
+    z: number | null
+    falloffStart: number | null
+    falloffEnd: number | null
+    paramStandardId: number | null
+    paramUnderwaterId: number | null
+    paramSunsetId: number | null
+    paramOtherId: number | null
+    paramDeathId: number | null
+  }
+
+  export type LightMaxAggregateOutputType = {
+    id: number | null
+    continentId: number | null
+    x: number | null
+    y: number | null
+    z: number | null
+    falloffStart: number | null
+    falloffEnd: number | null
+    paramStandardId: number | null
+    paramUnderwaterId: number | null
+    paramSunsetId: number | null
+    paramOtherId: number | null
+    paramDeathId: number | null
+  }
+
+  export type LightCountAggregateOutputType = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramUnderwaterId: number
+    paramSunsetId: number
+    paramOtherId: number
+    paramDeathId: number
+    _all: number
+  }
+
+
+  export type LightAvgAggregateInputType = {
+    id?: true
+    continentId?: true
+    x?: true
+    y?: true
+    z?: true
+    falloffStart?: true
+    falloffEnd?: true
+    paramStandardId?: true
+    paramUnderwaterId?: true
+    paramSunsetId?: true
+    paramOtherId?: true
+    paramDeathId?: true
+  }
+
+  export type LightSumAggregateInputType = {
+    id?: true
+    continentId?: true
+    x?: true
+    y?: true
+    z?: true
+    falloffStart?: true
+    falloffEnd?: true
+    paramStandardId?: true
+    paramUnderwaterId?: true
+    paramSunsetId?: true
+    paramOtherId?: true
+    paramDeathId?: true
+  }
+
+  export type LightMinAggregateInputType = {
+    id?: true
+    continentId?: true
+    x?: true
+    y?: true
+    z?: true
+    falloffStart?: true
+    falloffEnd?: true
+    paramStandardId?: true
+    paramUnderwaterId?: true
+    paramSunsetId?: true
+    paramOtherId?: true
+    paramDeathId?: true
+  }
+
+  export type LightMaxAggregateInputType = {
+    id?: true
+    continentId?: true
+    x?: true
+    y?: true
+    z?: true
+    falloffStart?: true
+    falloffEnd?: true
+    paramStandardId?: true
+    paramUnderwaterId?: true
+    paramSunsetId?: true
+    paramOtherId?: true
+    paramDeathId?: true
+  }
+
+  export type LightCountAggregateInputType = {
+    id?: true
+    continentId?: true
+    x?: true
+    y?: true
+    z?: true
+    falloffStart?: true
+    falloffEnd?: true
+    paramStandardId?: true
+    paramUnderwaterId?: true
+    paramSunsetId?: true
+    paramOtherId?: true
+    paramDeathId?: true
+    _all?: true
+  }
+
+  export type LightAggregateArgs = {
+    /**
+     * Filter which Light to aggregate.
+     */
+    where?: LightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lights to fetch.
+     */
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Lights
+    **/
+    _count?: true | LightCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LightAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LightSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LightMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LightMaxAggregateInputType
+  }
+
+  export type GetLightAggregateType<T extends LightAggregateArgs> = {
+        [P in keyof T & keyof AggregateLight]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLight[P]>
+      : GetScalarType<T[P], AggregateLight[P]>
+  }
+
+
+
+
+  export type LightGroupByArgs = {
+    where?: LightWhereInput
+    orderBy?: Enumerable<LightOrderByWithAggregationInput>
+    by: LightScalarFieldEnum[]
+    having?: LightScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LightCountAggregateInputType | true
+    _avg?: LightAvgAggregateInputType
+    _sum?: LightSumAggregateInputType
+    _min?: LightMinAggregateInputType
+    _max?: LightMaxAggregateInputType
+  }
+
+
+  export type LightGroupByOutputType = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramUnderwaterId: number
+    paramSunsetId: number
+    paramOtherId: number
+    paramDeathId: number
+    _count: LightCountAggregateOutputType | null
+    _avg: LightAvgAggregateOutputType | null
+    _sum: LightSumAggregateOutputType | null
+    _min: LightMinAggregateOutputType | null
+    _max: LightMaxAggregateOutputType | null
+  }
+
+  type GetLightGroupByPayload<T extends LightGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<LightGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LightGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LightGroupByOutputType[P]>
+            : GetScalarType<T[P], LightGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LightSelect = {
+    id?: boolean
+    continentId?: boolean
+    continent?: boolean | ContinentArgs
+    x?: boolean
+    y?: boolean
+    z?: boolean
+    falloffStart?: boolean
+    falloffEnd?: boolean
+    paramStandardId?: boolean
+    paramStandard?: boolean | LightParamsArgs
+    paramUnderwaterId?: boolean
+    paramUnderwater?: boolean | LightParamsArgs
+    paramSunsetId?: boolean
+    paramSunset?: boolean | LightParamsArgs
+    paramOtherId?: boolean
+    paramOther?: boolean | LightParamsArgs
+    paramDeathId?: boolean
+    paramDeath?: boolean | LightParamsArgs
+    AreaTable?: boolean | Light$AreaTableArgs
+    _count?: boolean | LightCountOutputTypeArgs
+  }
+
+
+  export type LightInclude = {
+    continent?: boolean | ContinentArgs
+    paramStandard?: boolean | LightParamsArgs
+    paramUnderwater?: boolean | LightParamsArgs
+    paramSunset?: boolean | LightParamsArgs
+    paramOther?: boolean | LightParamsArgs
+    paramDeath?: boolean | LightParamsArgs
+    AreaTable?: boolean | Light$AreaTableArgs
+    _count?: boolean | LightCountOutputTypeArgs
+  }
+
+  export type LightGetPayload<S extends boolean | null | undefined | LightArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Light :
+    S extends undefined ? never :
+    S extends { include: any } & (LightArgs | LightFindManyArgs)
+    ? Light  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'continent' ? ContinentGetPayload<S['include'][P]> :
+        P extends 'paramStandard' ? LightParamsGetPayload<S['include'][P]> :
+        P extends 'paramUnderwater' ? LightParamsGetPayload<S['include'][P]> :
+        P extends 'paramSunset' ? LightParamsGetPayload<S['include'][P]> :
+        P extends 'paramOther' ? LightParamsGetPayload<S['include'][P]> :
+        P extends 'paramDeath' ? LightParamsGetPayload<S['include'][P]> :
+        P extends 'AreaTable' ? Array < AreaTableGetPayload<S['include'][P]>>  :
+        P extends '_count' ? LightCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (LightArgs | LightFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'continent' ? ContinentGetPayload<S['select'][P]> :
+        P extends 'paramStandard' ? LightParamsGetPayload<S['select'][P]> :
+        P extends 'paramUnderwater' ? LightParamsGetPayload<S['select'][P]> :
+        P extends 'paramSunset' ? LightParamsGetPayload<S['select'][P]> :
+        P extends 'paramOther' ? LightParamsGetPayload<S['select'][P]> :
+        P extends 'paramDeath' ? LightParamsGetPayload<S['select'][P]> :
+        P extends 'AreaTable' ? Array < AreaTableGetPayload<S['select'][P]>>  :
+        P extends '_count' ? LightCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Light ? Light[P] : never
+  } 
+      : Light
+
+
+  type LightCountArgs = 
+    Omit<LightFindManyArgs, 'select' | 'include'> & {
+      select?: LightCountAggregateInputType | true
+    }
+
+  export interface LightDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Light that matches the filter.
+     * @param {LightFindUniqueArgs} args - Arguments to find a Light
+     * @example
+     * // Get one Light
+     * const light = await prisma.light.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends LightFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, LightFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Light'> extends True ? Prisma__LightClient<LightGetPayload<T>> : Prisma__LightClient<LightGetPayload<T> | null, null>
+
+    /**
+     * Find one Light that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {LightFindUniqueOrThrowArgs} args - Arguments to find a Light
+     * @example
+     * // Get one Light
+     * const light = await prisma.light.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends LightFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, LightFindUniqueOrThrowArgs>
+    ): Prisma__LightClient<LightGetPayload<T>>
+
+    /**
+     * Find the first Light that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightFindFirstArgs} args - Arguments to find a Light
+     * @example
+     * // Get one Light
+     * const light = await prisma.light.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends LightFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, LightFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Light'> extends True ? Prisma__LightClient<LightGetPayload<T>> : Prisma__LightClient<LightGetPayload<T> | null, null>
+
+    /**
+     * Find the first Light that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightFindFirstOrThrowArgs} args - Arguments to find a Light
+     * @example
+     * // Get one Light
+     * const light = await prisma.light.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends LightFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, LightFindFirstOrThrowArgs>
+    ): Prisma__LightClient<LightGetPayload<T>>
+
+    /**
+     * Find zero or more Lights that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Lights
+     * const lights = await prisma.light.findMany()
+     * 
+     * // Get first 10 Lights
+     * const lights = await prisma.light.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lightWithIdOnly = await prisma.light.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends LightFindManyArgs>(
+      args?: SelectSubset<T, LightFindManyArgs>
+    ): Prisma.PrismaPromise<Array<LightGetPayload<T>>>
+
+    /**
+     * Create a Light.
+     * @param {LightCreateArgs} args - Arguments to create a Light.
+     * @example
+     * // Create one Light
+     * const Light = await prisma.light.create({
+     *   data: {
+     *     // ... data to create a Light
+     *   }
+     * })
+     * 
+    **/
+    create<T extends LightCreateArgs>(
+      args: SelectSubset<T, LightCreateArgs>
+    ): Prisma__LightClient<LightGetPayload<T>>
+
+    /**
+     * Delete a Light.
+     * @param {LightDeleteArgs} args - Arguments to delete one Light.
+     * @example
+     * // Delete one Light
+     * const Light = await prisma.light.delete({
+     *   where: {
+     *     // ... filter to delete one Light
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends LightDeleteArgs>(
+      args: SelectSubset<T, LightDeleteArgs>
+    ): Prisma__LightClient<LightGetPayload<T>>
+
+    /**
+     * Update one Light.
+     * @param {LightUpdateArgs} args - Arguments to update one Light.
+     * @example
+     * // Update one Light
+     * const light = await prisma.light.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends LightUpdateArgs>(
+      args: SelectSubset<T, LightUpdateArgs>
+    ): Prisma__LightClient<LightGetPayload<T>>
+
+    /**
+     * Delete zero or more Lights.
+     * @param {LightDeleteManyArgs} args - Arguments to filter Lights to delete.
+     * @example
+     * // Delete a few Lights
+     * const { count } = await prisma.light.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends LightDeleteManyArgs>(
+      args?: SelectSubset<T, LightDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Lights
+     * const light = await prisma.light.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends LightUpdateManyArgs>(
+      args: SelectSubset<T, LightUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Light.
+     * @param {LightUpsertArgs} args - Arguments to update or create a Light.
+     * @example
+     * // Update or create a Light
+     * const light = await prisma.light.upsert({
+     *   create: {
+     *     // ... data to create a Light
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Light we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends LightUpsertArgs>(
+      args: SelectSubset<T, LightUpsertArgs>
+    ): Prisma__LightClient<LightGetPayload<T>>
+
+    /**
+     * Count the number of Lights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightCountArgs} args - Arguments to filter Lights to count.
+     * @example
+     * // Count the number of Lights
+     * const count = await prisma.light.count({
+     *   where: {
+     *     // ... the filter for the Lights we want to count
+     *   }
+     * })
+    **/
+    count<T extends LightCountArgs>(
+      args?: Subset<T, LightCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LightCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Light.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LightAggregateArgs>(args: Subset<T, LightAggregateArgs>): Prisma.PrismaPromise<GetLightAggregateType<T>>
+
+    /**
+     * Group by Light.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LightGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LightGroupByArgs['orderBy'] }
+        : { orderBy?: LightGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LightGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLightGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Light.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__LightClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    continent<T extends ContinentArgs= {}>(args?: Subset<T, ContinentArgs>): Prisma__ContinentClient<ContinentGetPayload<T> | Null>;
+
+    paramStandard<T extends LightParamsArgs= {}>(args?: Subset<T, LightParamsArgs>): Prisma__LightParamsClient<LightParamsGetPayload<T> | Null>;
+
+    paramUnderwater<T extends LightParamsArgs= {}>(args?: Subset<T, LightParamsArgs>): Prisma__LightParamsClient<LightParamsGetPayload<T> | Null>;
+
+    paramSunset<T extends LightParamsArgs= {}>(args?: Subset<T, LightParamsArgs>): Prisma__LightParamsClient<LightParamsGetPayload<T> | Null>;
+
+    paramOther<T extends LightParamsArgs= {}>(args?: Subset<T, LightParamsArgs>): Prisma__LightParamsClient<LightParamsGetPayload<T> | Null>;
+
+    paramDeath<T extends LightParamsArgs= {}>(args?: Subset<T, LightParamsArgs>): Prisma__LightParamsClient<LightParamsGetPayload<T> | Null>;
+
+    AreaTable<T extends Light$AreaTableArgs= {}>(args?: Subset<T, Light$AreaTableArgs>): Prisma.PrismaPromise<Array<AreaTableGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Light base type for findUnique actions
+   */
+  export type LightFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * Filter, which Light to fetch.
+     */
+    where: LightWhereUniqueInput
+  }
+
+  /**
+   * Light findUnique
+   */
+  export interface LightFindUniqueArgs extends LightFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Light findUniqueOrThrow
+   */
+  export type LightFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * Filter, which Light to fetch.
+     */
+    where: LightWhereUniqueInput
+  }
+
+
+  /**
+   * Light base type for findFirst actions
+   */
+  export type LightFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * Filter, which Light to fetch.
+     */
+    where?: LightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lights to fetch.
+     */
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lights.
+     */
+    cursor?: LightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lights.
+     */
+    distinct?: Enumerable<LightScalarFieldEnum>
+  }
+
+  /**
+   * Light findFirst
+   */
+  export interface LightFindFirstArgs extends LightFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Light findFirstOrThrow
+   */
+  export type LightFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * Filter, which Light to fetch.
+     */
+    where?: LightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lights to fetch.
+     */
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lights.
+     */
+    cursor?: LightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lights.
+     */
+    distinct?: Enumerable<LightScalarFieldEnum>
+  }
+
+
+  /**
+   * Light findMany
+   */
+  export type LightFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * Filter, which Lights to fetch.
+     */
+    where?: LightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lights to fetch.
+     */
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Lights.
+     */
+    cursor?: LightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lights.
+     */
+    skip?: number
+    distinct?: Enumerable<LightScalarFieldEnum>
+  }
+
+
+  /**
+   * Light create
+   */
+  export type LightCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * The data needed to create a Light.
+     */
+    data: XOR<LightCreateInput, LightUncheckedCreateInput>
+  }
+
+
+  /**
+   * Light update
+   */
+  export type LightUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * The data needed to update a Light.
+     */
+    data: XOR<LightUpdateInput, LightUncheckedUpdateInput>
+    /**
+     * Choose, which Light to update.
+     */
+    where: LightWhereUniqueInput
+  }
+
+
+  /**
+   * Light updateMany
+   */
+  export type LightUpdateManyArgs = {
+    /**
+     * The data used to update Lights.
+     */
+    data: XOR<LightUpdateManyMutationInput, LightUncheckedUpdateManyInput>
+    /**
+     * Filter which Lights to update
+     */
+    where?: LightWhereInput
+  }
+
+
+  /**
+   * Light upsert
+   */
+  export type LightUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * The filter to search for the Light to update in case it exists.
+     */
+    where: LightWhereUniqueInput
+    /**
+     * In case the Light found by the `where` argument doesn't exist, create a new Light with this data.
+     */
+    create: XOR<LightCreateInput, LightUncheckedCreateInput>
+    /**
+     * In case the Light was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LightUpdateInput, LightUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Light delete
+   */
+  export type LightDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    /**
+     * Filter which Light to delete.
+     */
+    where: LightWhereUniqueInput
+  }
+
+
+  /**
+   * Light deleteMany
+   */
+  export type LightDeleteManyArgs = {
+    /**
+     * Filter which Lights to delete
+     */
+    where?: LightWhereInput
+  }
+
+
+  /**
+   * Light.AreaTable
+   */
+  export type Light$AreaTableArgs = {
+    /**
+     * Select specific fields to fetch from the AreaTable
+     */
+    select?: AreaTableSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AreaTableInclude | null
+    where?: AreaTableWhereInput
+    orderBy?: Enumerable<AreaTableOrderByWithRelationInput>
+    cursor?: AreaTableWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AreaTableScalarFieldEnum>
+  }
+
+
+  /**
+   * Light without action
+   */
+  export type LightArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+  }
+
+
+
+  /**
+   * Model LightParams
+   */
+
+
+  export type AggregateLightParams = {
+    _count: LightParamsCountAggregateOutputType | null
+    _avg: LightParamsAvgAggregateOutputType | null
+    _sum: LightParamsSumAggregateOutputType | null
+    _min: LightParamsMinAggregateOutputType | null
+    _max: LightParamsMaxAggregateOutputType | null
+  }
+
+  export type LightParamsAvgAggregateOutputType = {
+    id: number | null
+    highlightSky: number | null
+    lightSkyboxId: number | null
+    glow: number | null
+    waterShallowAlpha: number | null
+    waterDeepAlpha: number | null
+    oceanShallowAlpha: number | null
+    oceanDeepAlpha: number | null
+    flags: number | null
+  }
+
+  export type LightParamsSumAggregateOutputType = {
+    id: number | null
+    highlightSky: number | null
+    lightSkyboxId: number | null
+    glow: number | null
+    waterShallowAlpha: number | null
+    waterDeepAlpha: number | null
+    oceanShallowAlpha: number | null
+    oceanDeepAlpha: number | null
+    flags: number | null
+  }
+
+  export type LightParamsMinAggregateOutputType = {
+    id: number | null
+    highlightSky: number | null
+    lightSkyboxId: number | null
+    glow: number | null
+    waterShallowAlpha: number | null
+    waterDeepAlpha: number | null
+    oceanShallowAlpha: number | null
+    oceanDeepAlpha: number | null
+    flags: number | null
+  }
+
+  export type LightParamsMaxAggregateOutputType = {
+    id: number | null
+    highlightSky: number | null
+    lightSkyboxId: number | null
+    glow: number | null
+    waterShallowAlpha: number | null
+    waterDeepAlpha: number | null
+    oceanShallowAlpha: number | null
+    oceanDeepAlpha: number | null
+    flags: number | null
+  }
+
+  export type LightParamsCountAggregateOutputType = {
+    id: number
+    highlightSky: number
+    lightSkyboxId: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    _all: number
+  }
+
+
+  export type LightParamsAvgAggregateInputType = {
+    id?: true
+    highlightSky?: true
+    lightSkyboxId?: true
+    glow?: true
+    waterShallowAlpha?: true
+    waterDeepAlpha?: true
+    oceanShallowAlpha?: true
+    oceanDeepAlpha?: true
+    flags?: true
+  }
+
+  export type LightParamsSumAggregateInputType = {
+    id?: true
+    highlightSky?: true
+    lightSkyboxId?: true
+    glow?: true
+    waterShallowAlpha?: true
+    waterDeepAlpha?: true
+    oceanShallowAlpha?: true
+    oceanDeepAlpha?: true
+    flags?: true
+  }
+
+  export type LightParamsMinAggregateInputType = {
+    id?: true
+    highlightSky?: true
+    lightSkyboxId?: true
+    glow?: true
+    waterShallowAlpha?: true
+    waterDeepAlpha?: true
+    oceanShallowAlpha?: true
+    oceanDeepAlpha?: true
+    flags?: true
+  }
+
+  export type LightParamsMaxAggregateInputType = {
+    id?: true
+    highlightSky?: true
+    lightSkyboxId?: true
+    glow?: true
+    waterShallowAlpha?: true
+    waterDeepAlpha?: true
+    oceanShallowAlpha?: true
+    oceanDeepAlpha?: true
+    flags?: true
+  }
+
+  export type LightParamsCountAggregateInputType = {
+    id?: true
+    highlightSky?: true
+    lightSkyboxId?: true
+    glow?: true
+    waterShallowAlpha?: true
+    waterDeepAlpha?: true
+    oceanShallowAlpha?: true
+    oceanDeepAlpha?: true
+    flags?: true
+    _all?: true
+  }
+
+  export type LightParamsAggregateArgs = {
+    /**
+     * Filter which LightParams to aggregate.
+     */
+    where?: LightParamsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LightParams to fetch.
+     */
+    orderBy?: Enumerable<LightParamsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LightParamsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LightParams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LightParams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LightParams
+    **/
+    _count?: true | LightParamsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LightParamsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LightParamsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LightParamsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LightParamsMaxAggregateInputType
+  }
+
+  export type GetLightParamsAggregateType<T extends LightParamsAggregateArgs> = {
+        [P in keyof T & keyof AggregateLightParams]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLightParams[P]>
+      : GetScalarType<T[P], AggregateLightParams[P]>
+  }
+
+
+
+
+  export type LightParamsGroupByArgs = {
+    where?: LightParamsWhereInput
+    orderBy?: Enumerable<LightParamsOrderByWithAggregationInput>
+    by: LightParamsScalarFieldEnum[]
+    having?: LightParamsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LightParamsCountAggregateInputType | true
+    _avg?: LightParamsAvgAggregateInputType
+    _sum?: LightParamsSumAggregateInputType
+    _min?: LightParamsMinAggregateInputType
+    _max?: LightParamsMaxAggregateInputType
+  }
+
+
+  export type LightParamsGroupByOutputType = {
+    id: number
+    highlightSky: number
+    lightSkyboxId: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    _count: LightParamsCountAggregateOutputType | null
+    _avg: LightParamsAvgAggregateOutputType | null
+    _sum: LightParamsSumAggregateOutputType | null
+    _min: LightParamsMinAggregateOutputType | null
+    _max: LightParamsMaxAggregateOutputType | null
+  }
+
+  type GetLightParamsGroupByPayload<T extends LightParamsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<LightParamsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LightParamsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LightParamsGroupByOutputType[P]>
+            : GetScalarType<T[P], LightParamsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LightParamsSelect = {
+    id?: boolean
+    highlightSky?: boolean
+    lightSkyboxId?: boolean
+    lightSkybox?: boolean | LightSkyboxArgs
+    glow?: boolean
+    waterShallowAlpha?: boolean
+    waterDeepAlpha?: boolean
+    oceanShallowAlpha?: boolean
+    oceanDeepAlpha?: boolean
+    flags?: boolean
+    standatrdLight?: boolean | LightParams$standatrdLightArgs
+    underwaterLight?: boolean | LightParams$underwaterLightArgs
+    sunsetLight?: boolean | LightParams$sunsetLightArgs
+    otherLight?: boolean | LightParams$otherLightArgs
+    deathLight?: boolean | LightParams$deathLightArgs
+    _count?: boolean | LightParamsCountOutputTypeArgs
+  }
+
+
+  export type LightParamsInclude = {
+    lightSkybox?: boolean | LightSkyboxArgs
+    standatrdLight?: boolean | LightParams$standatrdLightArgs
+    underwaterLight?: boolean | LightParams$underwaterLightArgs
+    sunsetLight?: boolean | LightParams$sunsetLightArgs
+    otherLight?: boolean | LightParams$otherLightArgs
+    deathLight?: boolean | LightParams$deathLightArgs
+    _count?: boolean | LightParamsCountOutputTypeArgs
+  }
+
+  export type LightParamsGetPayload<S extends boolean | null | undefined | LightParamsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? LightParams :
+    S extends undefined ? never :
+    S extends { include: any } & (LightParamsArgs | LightParamsFindManyArgs)
+    ? LightParams  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'lightSkybox' ? LightSkyboxGetPayload<S['include'][P]> :
+        P extends 'standatrdLight' ? Array < LightGetPayload<S['include'][P]>>  :
+        P extends 'underwaterLight' ? Array < LightGetPayload<S['include'][P]>>  :
+        P extends 'sunsetLight' ? Array < LightGetPayload<S['include'][P]>>  :
+        P extends 'otherLight' ? Array < LightGetPayload<S['include'][P]>>  :
+        P extends 'deathLight' ? Array < LightGetPayload<S['include'][P]>>  :
+        P extends '_count' ? LightParamsCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (LightParamsArgs | LightParamsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'lightSkybox' ? LightSkyboxGetPayload<S['select'][P]> :
+        P extends 'standatrdLight' ? Array < LightGetPayload<S['select'][P]>>  :
+        P extends 'underwaterLight' ? Array < LightGetPayload<S['select'][P]>>  :
+        P extends 'sunsetLight' ? Array < LightGetPayload<S['select'][P]>>  :
+        P extends 'otherLight' ? Array < LightGetPayload<S['select'][P]>>  :
+        P extends 'deathLight' ? Array < LightGetPayload<S['select'][P]>>  :
+        P extends '_count' ? LightParamsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof LightParams ? LightParams[P] : never
+  } 
+      : LightParams
+
+
+  type LightParamsCountArgs = 
+    Omit<LightParamsFindManyArgs, 'select' | 'include'> & {
+      select?: LightParamsCountAggregateInputType | true
+    }
+
+  export interface LightParamsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one LightParams that matches the filter.
+     * @param {LightParamsFindUniqueArgs} args - Arguments to find a LightParams
+     * @example
+     * // Get one LightParams
+     * const lightParams = await prisma.lightParams.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends LightParamsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, LightParamsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'LightParams'> extends True ? Prisma__LightParamsClient<LightParamsGetPayload<T>> : Prisma__LightParamsClient<LightParamsGetPayload<T> | null, null>
+
+    /**
+     * Find one LightParams that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {LightParamsFindUniqueOrThrowArgs} args - Arguments to find a LightParams
+     * @example
+     * // Get one LightParams
+     * const lightParams = await prisma.lightParams.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends LightParamsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, LightParamsFindUniqueOrThrowArgs>
+    ): Prisma__LightParamsClient<LightParamsGetPayload<T>>
+
+    /**
+     * Find the first LightParams that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightParamsFindFirstArgs} args - Arguments to find a LightParams
+     * @example
+     * // Get one LightParams
+     * const lightParams = await prisma.lightParams.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends LightParamsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, LightParamsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'LightParams'> extends True ? Prisma__LightParamsClient<LightParamsGetPayload<T>> : Prisma__LightParamsClient<LightParamsGetPayload<T> | null, null>
+
+    /**
+     * Find the first LightParams that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightParamsFindFirstOrThrowArgs} args - Arguments to find a LightParams
+     * @example
+     * // Get one LightParams
+     * const lightParams = await prisma.lightParams.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends LightParamsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, LightParamsFindFirstOrThrowArgs>
+    ): Prisma__LightParamsClient<LightParamsGetPayload<T>>
+
+    /**
+     * Find zero or more LightParams that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightParamsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LightParams
+     * const lightParams = await prisma.lightParams.findMany()
+     * 
+     * // Get first 10 LightParams
+     * const lightParams = await prisma.lightParams.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lightParamsWithIdOnly = await prisma.lightParams.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends LightParamsFindManyArgs>(
+      args?: SelectSubset<T, LightParamsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<LightParamsGetPayload<T>>>
+
+    /**
+     * Create a LightParams.
+     * @param {LightParamsCreateArgs} args - Arguments to create a LightParams.
+     * @example
+     * // Create one LightParams
+     * const LightParams = await prisma.lightParams.create({
+     *   data: {
+     *     // ... data to create a LightParams
+     *   }
+     * })
+     * 
+    **/
+    create<T extends LightParamsCreateArgs>(
+      args: SelectSubset<T, LightParamsCreateArgs>
+    ): Prisma__LightParamsClient<LightParamsGetPayload<T>>
+
+    /**
+     * Delete a LightParams.
+     * @param {LightParamsDeleteArgs} args - Arguments to delete one LightParams.
+     * @example
+     * // Delete one LightParams
+     * const LightParams = await prisma.lightParams.delete({
+     *   where: {
+     *     // ... filter to delete one LightParams
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends LightParamsDeleteArgs>(
+      args: SelectSubset<T, LightParamsDeleteArgs>
+    ): Prisma__LightParamsClient<LightParamsGetPayload<T>>
+
+    /**
+     * Update one LightParams.
+     * @param {LightParamsUpdateArgs} args - Arguments to update one LightParams.
+     * @example
+     * // Update one LightParams
+     * const lightParams = await prisma.lightParams.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends LightParamsUpdateArgs>(
+      args: SelectSubset<T, LightParamsUpdateArgs>
+    ): Prisma__LightParamsClient<LightParamsGetPayload<T>>
+
+    /**
+     * Delete zero or more LightParams.
+     * @param {LightParamsDeleteManyArgs} args - Arguments to filter LightParams to delete.
+     * @example
+     * // Delete a few LightParams
+     * const { count } = await prisma.lightParams.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends LightParamsDeleteManyArgs>(
+      args?: SelectSubset<T, LightParamsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LightParams.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightParamsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LightParams
+     * const lightParams = await prisma.lightParams.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends LightParamsUpdateManyArgs>(
+      args: SelectSubset<T, LightParamsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LightParams.
+     * @param {LightParamsUpsertArgs} args - Arguments to update or create a LightParams.
+     * @example
+     * // Update or create a LightParams
+     * const lightParams = await prisma.lightParams.upsert({
+     *   create: {
+     *     // ... data to create a LightParams
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LightParams we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends LightParamsUpsertArgs>(
+      args: SelectSubset<T, LightParamsUpsertArgs>
+    ): Prisma__LightParamsClient<LightParamsGetPayload<T>>
+
+    /**
+     * Count the number of LightParams.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightParamsCountArgs} args - Arguments to filter LightParams to count.
+     * @example
+     * // Count the number of LightParams
+     * const count = await prisma.lightParams.count({
+     *   where: {
+     *     // ... the filter for the LightParams we want to count
+     *   }
+     * })
+    **/
+    count<T extends LightParamsCountArgs>(
+      args?: Subset<T, LightParamsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LightParamsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LightParams.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightParamsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LightParamsAggregateArgs>(args: Subset<T, LightParamsAggregateArgs>): Prisma.PrismaPromise<GetLightParamsAggregateType<T>>
+
+    /**
+     * Group by LightParams.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightParamsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LightParamsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LightParamsGroupByArgs['orderBy'] }
+        : { orderBy?: LightParamsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LightParamsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLightParamsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LightParams.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__LightParamsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    lightSkybox<T extends LightSkyboxArgs= {}>(args?: Subset<T, LightSkyboxArgs>): Prisma__LightSkyboxClient<LightSkyboxGetPayload<T> | Null>;
+
+    standatrdLight<T extends LightParams$standatrdLightArgs= {}>(args?: Subset<T, LightParams$standatrdLightArgs>): Prisma.PrismaPromise<Array<LightGetPayload<T>>| Null>;
+
+    underwaterLight<T extends LightParams$underwaterLightArgs= {}>(args?: Subset<T, LightParams$underwaterLightArgs>): Prisma.PrismaPromise<Array<LightGetPayload<T>>| Null>;
+
+    sunsetLight<T extends LightParams$sunsetLightArgs= {}>(args?: Subset<T, LightParams$sunsetLightArgs>): Prisma.PrismaPromise<Array<LightGetPayload<T>>| Null>;
+
+    otherLight<T extends LightParams$otherLightArgs= {}>(args?: Subset<T, LightParams$otherLightArgs>): Prisma.PrismaPromise<Array<LightGetPayload<T>>| Null>;
+
+    deathLight<T extends LightParams$deathLightArgs= {}>(args?: Subset<T, LightParams$deathLightArgs>): Prisma.PrismaPromise<Array<LightGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * LightParams base type for findUnique actions
+   */
+  export type LightParamsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * Filter, which LightParams to fetch.
+     */
+    where: LightParamsWhereUniqueInput
+  }
+
+  /**
+   * LightParams findUnique
+   */
+  export interface LightParamsFindUniqueArgs extends LightParamsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * LightParams findUniqueOrThrow
+   */
+  export type LightParamsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * Filter, which LightParams to fetch.
+     */
+    where: LightParamsWhereUniqueInput
+  }
+
+
+  /**
+   * LightParams base type for findFirst actions
+   */
+  export type LightParamsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * Filter, which LightParams to fetch.
+     */
+    where?: LightParamsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LightParams to fetch.
+     */
+    orderBy?: Enumerable<LightParamsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LightParams.
+     */
+    cursor?: LightParamsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LightParams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LightParams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LightParams.
+     */
+    distinct?: Enumerable<LightParamsScalarFieldEnum>
+  }
+
+  /**
+   * LightParams findFirst
+   */
+  export interface LightParamsFindFirstArgs extends LightParamsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * LightParams findFirstOrThrow
+   */
+  export type LightParamsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * Filter, which LightParams to fetch.
+     */
+    where?: LightParamsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LightParams to fetch.
+     */
+    orderBy?: Enumerable<LightParamsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LightParams.
+     */
+    cursor?: LightParamsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LightParams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LightParams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LightParams.
+     */
+    distinct?: Enumerable<LightParamsScalarFieldEnum>
+  }
+
+
+  /**
+   * LightParams findMany
+   */
+  export type LightParamsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * Filter, which LightParams to fetch.
+     */
+    where?: LightParamsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LightParams to fetch.
+     */
+    orderBy?: Enumerable<LightParamsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LightParams.
+     */
+    cursor?: LightParamsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LightParams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LightParams.
+     */
+    skip?: number
+    distinct?: Enumerable<LightParamsScalarFieldEnum>
+  }
+
+
+  /**
+   * LightParams create
+   */
+  export type LightParamsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * The data needed to create a LightParams.
+     */
+    data: XOR<LightParamsCreateInput, LightParamsUncheckedCreateInput>
+  }
+
+
+  /**
+   * LightParams update
+   */
+  export type LightParamsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * The data needed to update a LightParams.
+     */
+    data: XOR<LightParamsUpdateInput, LightParamsUncheckedUpdateInput>
+    /**
+     * Choose, which LightParams to update.
+     */
+    where: LightParamsWhereUniqueInput
+  }
+
+
+  /**
+   * LightParams updateMany
+   */
+  export type LightParamsUpdateManyArgs = {
+    /**
+     * The data used to update LightParams.
+     */
+    data: XOR<LightParamsUpdateManyMutationInput, LightParamsUncheckedUpdateManyInput>
+    /**
+     * Filter which LightParams to update
+     */
+    where?: LightParamsWhereInput
+  }
+
+
+  /**
+   * LightParams upsert
+   */
+  export type LightParamsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * The filter to search for the LightParams to update in case it exists.
+     */
+    where: LightParamsWhereUniqueInput
+    /**
+     * In case the LightParams found by the `where` argument doesn't exist, create a new LightParams with this data.
+     */
+    create: XOR<LightParamsCreateInput, LightParamsUncheckedCreateInput>
+    /**
+     * In case the LightParams was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LightParamsUpdateInput, LightParamsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * LightParams delete
+   */
+  export type LightParamsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    /**
+     * Filter which LightParams to delete.
+     */
+    where: LightParamsWhereUniqueInput
+  }
+
+
+  /**
+   * LightParams deleteMany
+   */
+  export type LightParamsDeleteManyArgs = {
+    /**
+     * Filter which LightParams to delete
+     */
+    where?: LightParamsWhereInput
+  }
+
+
+  /**
+   * LightParams.standatrdLight
+   */
+  export type LightParams$standatrdLightArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    where?: LightWhereInput
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    cursor?: LightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<LightScalarFieldEnum>
+  }
+
+
+  /**
+   * LightParams.underwaterLight
+   */
+  export type LightParams$underwaterLightArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    where?: LightWhereInput
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    cursor?: LightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<LightScalarFieldEnum>
+  }
+
+
+  /**
+   * LightParams.sunsetLight
+   */
+  export type LightParams$sunsetLightArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    where?: LightWhereInput
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    cursor?: LightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<LightScalarFieldEnum>
+  }
+
+
+  /**
+   * LightParams.otherLight
+   */
+  export type LightParams$otherLightArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    where?: LightWhereInput
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    cursor?: LightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<LightScalarFieldEnum>
+  }
+
+
+  /**
+   * LightParams.deathLight
+   */
+  export type LightParams$deathLightArgs = {
+    /**
+     * Select specific fields to fetch from the Light
+     */
+    select?: LightSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightInclude | null
+    where?: LightWhereInput
+    orderBy?: Enumerable<LightOrderByWithRelationInput>
+    cursor?: LightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<LightScalarFieldEnum>
+  }
+
+
+  /**
+   * LightParams without action
+   */
+  export type LightParamsArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+  }
+
+
+
+  /**
+   * Model LightSkybox
+   */
+
+
+  export type AggregateLightSkybox = {
+    _count: LightSkyboxCountAggregateOutputType | null
+    _avg: LightSkyboxAvgAggregateOutputType | null
+    _sum: LightSkyboxSumAggregateOutputType | null
+    _min: LightSkyboxMinAggregateOutputType | null
+    _max: LightSkyboxMaxAggregateOutputType | null
+  }
+
+  export type LightSkyboxAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type LightSkyboxSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type LightSkyboxMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+  }
+
+  export type LightSkyboxMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+  }
+
+  export type LightSkyboxCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type LightSkyboxAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type LightSkyboxSumAggregateInputType = {
+    id?: true
+  }
+
+  export type LightSkyboxMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type LightSkyboxMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type LightSkyboxCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type LightSkyboxAggregateArgs = {
+    /**
+     * Filter which LightSkybox to aggregate.
+     */
+    where?: LightSkyboxWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LightSkyboxes to fetch.
+     */
+    orderBy?: Enumerable<LightSkyboxOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LightSkyboxWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LightSkyboxes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LightSkyboxes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LightSkyboxes
+    **/
+    _count?: true | LightSkyboxCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LightSkyboxAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LightSkyboxSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LightSkyboxMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LightSkyboxMaxAggregateInputType
+  }
+
+  export type GetLightSkyboxAggregateType<T extends LightSkyboxAggregateArgs> = {
+        [P in keyof T & keyof AggregateLightSkybox]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLightSkybox[P]>
+      : GetScalarType<T[P], AggregateLightSkybox[P]>
+  }
+
+
+
+
+  export type LightSkyboxGroupByArgs = {
+    where?: LightSkyboxWhereInput
+    orderBy?: Enumerable<LightSkyboxOrderByWithAggregationInput>
+    by: LightSkyboxScalarFieldEnum[]
+    having?: LightSkyboxScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LightSkyboxCountAggregateInputType | true
+    _avg?: LightSkyboxAvgAggregateInputType
+    _sum?: LightSkyboxSumAggregateInputType
+    _min?: LightSkyboxMinAggregateInputType
+    _max?: LightSkyboxMaxAggregateInputType
+  }
+
+
+  export type LightSkyboxGroupByOutputType = {
+    id: number
+    name: string
+    _count: LightSkyboxCountAggregateOutputType | null
+    _avg: LightSkyboxAvgAggregateOutputType | null
+    _sum: LightSkyboxSumAggregateOutputType | null
+    _min: LightSkyboxMinAggregateOutputType | null
+    _max: LightSkyboxMaxAggregateOutputType | null
+  }
+
+  type GetLightSkyboxGroupByPayload<T extends LightSkyboxGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<LightSkyboxGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LightSkyboxGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LightSkyboxGroupByOutputType[P]>
+            : GetScalarType<T[P], LightSkyboxGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LightSkyboxSelect = {
+    id?: boolean
+    name?: boolean
+    LightParams?: boolean | LightSkybox$LightParamsArgs
+    _count?: boolean | LightSkyboxCountOutputTypeArgs
+  }
+
+
+  export type LightSkyboxInclude = {
+    LightParams?: boolean | LightSkybox$LightParamsArgs
+    _count?: boolean | LightSkyboxCountOutputTypeArgs
+  }
+
+  export type LightSkyboxGetPayload<S extends boolean | null | undefined | LightSkyboxArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? LightSkybox :
+    S extends undefined ? never :
+    S extends { include: any } & (LightSkyboxArgs | LightSkyboxFindManyArgs)
+    ? LightSkybox  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'LightParams' ? Array < LightParamsGetPayload<S['include'][P]>>  :
+        P extends '_count' ? LightSkyboxCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (LightSkyboxArgs | LightSkyboxFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'LightParams' ? Array < LightParamsGetPayload<S['select'][P]>>  :
+        P extends '_count' ? LightSkyboxCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof LightSkybox ? LightSkybox[P] : never
+  } 
+      : LightSkybox
+
+
+  type LightSkyboxCountArgs = 
+    Omit<LightSkyboxFindManyArgs, 'select' | 'include'> & {
+      select?: LightSkyboxCountAggregateInputType | true
+    }
+
+  export interface LightSkyboxDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one LightSkybox that matches the filter.
+     * @param {LightSkyboxFindUniqueArgs} args - Arguments to find a LightSkybox
+     * @example
+     * // Get one LightSkybox
+     * const lightSkybox = await prisma.lightSkybox.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends LightSkyboxFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, LightSkyboxFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'LightSkybox'> extends True ? Prisma__LightSkyboxClient<LightSkyboxGetPayload<T>> : Prisma__LightSkyboxClient<LightSkyboxGetPayload<T> | null, null>
+
+    /**
+     * Find one LightSkybox that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {LightSkyboxFindUniqueOrThrowArgs} args - Arguments to find a LightSkybox
+     * @example
+     * // Get one LightSkybox
+     * const lightSkybox = await prisma.lightSkybox.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends LightSkyboxFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, LightSkyboxFindUniqueOrThrowArgs>
+    ): Prisma__LightSkyboxClient<LightSkyboxGetPayload<T>>
+
+    /**
+     * Find the first LightSkybox that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightSkyboxFindFirstArgs} args - Arguments to find a LightSkybox
+     * @example
+     * // Get one LightSkybox
+     * const lightSkybox = await prisma.lightSkybox.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends LightSkyboxFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, LightSkyboxFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'LightSkybox'> extends True ? Prisma__LightSkyboxClient<LightSkyboxGetPayload<T>> : Prisma__LightSkyboxClient<LightSkyboxGetPayload<T> | null, null>
+
+    /**
+     * Find the first LightSkybox that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightSkyboxFindFirstOrThrowArgs} args - Arguments to find a LightSkybox
+     * @example
+     * // Get one LightSkybox
+     * const lightSkybox = await prisma.lightSkybox.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends LightSkyboxFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, LightSkyboxFindFirstOrThrowArgs>
+    ): Prisma__LightSkyboxClient<LightSkyboxGetPayload<T>>
+
+    /**
+     * Find zero or more LightSkyboxes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightSkyboxFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LightSkyboxes
+     * const lightSkyboxes = await prisma.lightSkybox.findMany()
+     * 
+     * // Get first 10 LightSkyboxes
+     * const lightSkyboxes = await prisma.lightSkybox.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lightSkyboxWithIdOnly = await prisma.lightSkybox.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends LightSkyboxFindManyArgs>(
+      args?: SelectSubset<T, LightSkyboxFindManyArgs>
+    ): Prisma.PrismaPromise<Array<LightSkyboxGetPayload<T>>>
+
+    /**
+     * Create a LightSkybox.
+     * @param {LightSkyboxCreateArgs} args - Arguments to create a LightSkybox.
+     * @example
+     * // Create one LightSkybox
+     * const LightSkybox = await prisma.lightSkybox.create({
+     *   data: {
+     *     // ... data to create a LightSkybox
+     *   }
+     * })
+     * 
+    **/
+    create<T extends LightSkyboxCreateArgs>(
+      args: SelectSubset<T, LightSkyboxCreateArgs>
+    ): Prisma__LightSkyboxClient<LightSkyboxGetPayload<T>>
+
+    /**
+     * Delete a LightSkybox.
+     * @param {LightSkyboxDeleteArgs} args - Arguments to delete one LightSkybox.
+     * @example
+     * // Delete one LightSkybox
+     * const LightSkybox = await prisma.lightSkybox.delete({
+     *   where: {
+     *     // ... filter to delete one LightSkybox
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends LightSkyboxDeleteArgs>(
+      args: SelectSubset<T, LightSkyboxDeleteArgs>
+    ): Prisma__LightSkyboxClient<LightSkyboxGetPayload<T>>
+
+    /**
+     * Update one LightSkybox.
+     * @param {LightSkyboxUpdateArgs} args - Arguments to update one LightSkybox.
+     * @example
+     * // Update one LightSkybox
+     * const lightSkybox = await prisma.lightSkybox.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends LightSkyboxUpdateArgs>(
+      args: SelectSubset<T, LightSkyboxUpdateArgs>
+    ): Prisma__LightSkyboxClient<LightSkyboxGetPayload<T>>
+
+    /**
+     * Delete zero or more LightSkyboxes.
+     * @param {LightSkyboxDeleteManyArgs} args - Arguments to filter LightSkyboxes to delete.
+     * @example
+     * // Delete a few LightSkyboxes
+     * const { count } = await prisma.lightSkybox.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends LightSkyboxDeleteManyArgs>(
+      args?: SelectSubset<T, LightSkyboxDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LightSkyboxes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightSkyboxUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LightSkyboxes
+     * const lightSkybox = await prisma.lightSkybox.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends LightSkyboxUpdateManyArgs>(
+      args: SelectSubset<T, LightSkyboxUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LightSkybox.
+     * @param {LightSkyboxUpsertArgs} args - Arguments to update or create a LightSkybox.
+     * @example
+     * // Update or create a LightSkybox
+     * const lightSkybox = await prisma.lightSkybox.upsert({
+     *   create: {
+     *     // ... data to create a LightSkybox
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LightSkybox we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends LightSkyboxUpsertArgs>(
+      args: SelectSubset<T, LightSkyboxUpsertArgs>
+    ): Prisma__LightSkyboxClient<LightSkyboxGetPayload<T>>
+
+    /**
+     * Count the number of LightSkyboxes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightSkyboxCountArgs} args - Arguments to filter LightSkyboxes to count.
+     * @example
+     * // Count the number of LightSkyboxes
+     * const count = await prisma.lightSkybox.count({
+     *   where: {
+     *     // ... the filter for the LightSkyboxes we want to count
+     *   }
+     * })
+    **/
+    count<T extends LightSkyboxCountArgs>(
+      args?: Subset<T, LightSkyboxCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LightSkyboxCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LightSkybox.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightSkyboxAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LightSkyboxAggregateArgs>(args: Subset<T, LightSkyboxAggregateArgs>): Prisma.PrismaPromise<GetLightSkyboxAggregateType<T>>
+
+    /**
+     * Group by LightSkybox.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LightSkyboxGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LightSkyboxGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LightSkyboxGroupByArgs['orderBy'] }
+        : { orderBy?: LightSkyboxGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LightSkyboxGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLightSkyboxGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LightSkybox.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__LightSkyboxClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    LightParams<T extends LightSkybox$LightParamsArgs= {}>(args?: Subset<T, LightSkybox$LightParamsArgs>): Prisma.PrismaPromise<Array<LightParamsGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * LightSkybox base type for findUnique actions
+   */
+  export type LightSkyboxFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * Filter, which LightSkybox to fetch.
+     */
+    where: LightSkyboxWhereUniqueInput
+  }
+
+  /**
+   * LightSkybox findUnique
+   */
+  export interface LightSkyboxFindUniqueArgs extends LightSkyboxFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * LightSkybox findUniqueOrThrow
+   */
+  export type LightSkyboxFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * Filter, which LightSkybox to fetch.
+     */
+    where: LightSkyboxWhereUniqueInput
+  }
+
+
+  /**
+   * LightSkybox base type for findFirst actions
+   */
+  export type LightSkyboxFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * Filter, which LightSkybox to fetch.
+     */
+    where?: LightSkyboxWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LightSkyboxes to fetch.
+     */
+    orderBy?: Enumerable<LightSkyboxOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LightSkyboxes.
+     */
+    cursor?: LightSkyboxWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LightSkyboxes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LightSkyboxes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LightSkyboxes.
+     */
+    distinct?: Enumerable<LightSkyboxScalarFieldEnum>
+  }
+
+  /**
+   * LightSkybox findFirst
+   */
+  export interface LightSkyboxFindFirstArgs extends LightSkyboxFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * LightSkybox findFirstOrThrow
+   */
+  export type LightSkyboxFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * Filter, which LightSkybox to fetch.
+     */
+    where?: LightSkyboxWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LightSkyboxes to fetch.
+     */
+    orderBy?: Enumerable<LightSkyboxOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LightSkyboxes.
+     */
+    cursor?: LightSkyboxWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LightSkyboxes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LightSkyboxes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LightSkyboxes.
+     */
+    distinct?: Enumerable<LightSkyboxScalarFieldEnum>
+  }
+
+
+  /**
+   * LightSkybox findMany
+   */
+  export type LightSkyboxFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * Filter, which LightSkyboxes to fetch.
+     */
+    where?: LightSkyboxWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LightSkyboxes to fetch.
+     */
+    orderBy?: Enumerable<LightSkyboxOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LightSkyboxes.
+     */
+    cursor?: LightSkyboxWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LightSkyboxes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LightSkyboxes.
+     */
+    skip?: number
+    distinct?: Enumerable<LightSkyboxScalarFieldEnum>
+  }
+
+
+  /**
+   * LightSkybox create
+   */
+  export type LightSkyboxCreateArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * The data needed to create a LightSkybox.
+     */
+    data: XOR<LightSkyboxCreateInput, LightSkyboxUncheckedCreateInput>
+  }
+
+
+  /**
+   * LightSkybox update
+   */
+  export type LightSkyboxUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * The data needed to update a LightSkybox.
+     */
+    data: XOR<LightSkyboxUpdateInput, LightSkyboxUncheckedUpdateInput>
+    /**
+     * Choose, which LightSkybox to update.
+     */
+    where: LightSkyboxWhereUniqueInput
+  }
+
+
+  /**
+   * LightSkybox updateMany
+   */
+  export type LightSkyboxUpdateManyArgs = {
+    /**
+     * The data used to update LightSkyboxes.
+     */
+    data: XOR<LightSkyboxUpdateManyMutationInput, LightSkyboxUncheckedUpdateManyInput>
+    /**
+     * Filter which LightSkyboxes to update
+     */
+    where?: LightSkyboxWhereInput
+  }
+
+
+  /**
+   * LightSkybox upsert
+   */
+  export type LightSkyboxUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * The filter to search for the LightSkybox to update in case it exists.
+     */
+    where: LightSkyboxWhereUniqueInput
+    /**
+     * In case the LightSkybox found by the `where` argument doesn't exist, create a new LightSkybox with this data.
+     */
+    create: XOR<LightSkyboxCreateInput, LightSkyboxUncheckedCreateInput>
+    /**
+     * In case the LightSkybox was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LightSkyboxUpdateInput, LightSkyboxUncheckedUpdateInput>
+  }
+
+
+  /**
+   * LightSkybox delete
+   */
+  export type LightSkyboxDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
+    /**
+     * Filter which LightSkybox to delete.
+     */
+    where: LightSkyboxWhereUniqueInput
+  }
+
+
+  /**
+   * LightSkybox deleteMany
+   */
+  export type LightSkyboxDeleteManyArgs = {
+    /**
+     * Filter which LightSkyboxes to delete
+     */
+    where?: LightSkyboxWhereInput
+  }
+
+
+  /**
+   * LightSkybox.LightParams
+   */
+  export type LightSkybox$LightParamsArgs = {
+    /**
+     * Select specific fields to fetch from the LightParams
+     */
+    select?: LightParamsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightParamsInclude | null
+    where?: LightParamsWhereInput
+    orderBy?: Enumerable<LightParamsOrderByWithRelationInput>
+    cursor?: LightParamsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<LightParamsScalarFieldEnum>
+  }
+
+
+  /**
+   * LightSkybox without action
+   */
+  export type LightSkyboxArgs = {
+    /**
+     * Select specific fields to fetch from the LightSkybox
+     */
+    select?: LightSkyboxSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LightSkyboxInclude | null
   }
 
 
@@ -11324,6 +14749,47 @@ export namespace Prisma {
   export type CreatureDisplayInfoExtraScalarFieldEnum = (typeof CreatureDisplayInfoExtraScalarFieldEnum)[keyof typeof CreatureDisplayInfoExtraScalarFieldEnum]
 
 
+  export const LightParamsScalarFieldEnum: {
+    id: 'id',
+    highlightSky: 'highlightSky',
+    lightSkyboxId: 'lightSkyboxId',
+    glow: 'glow',
+    waterShallowAlpha: 'waterShallowAlpha',
+    waterDeepAlpha: 'waterDeepAlpha',
+    oceanShallowAlpha: 'oceanShallowAlpha',
+    oceanDeepAlpha: 'oceanDeepAlpha',
+    flags: 'flags'
+  };
+
+  export type LightParamsScalarFieldEnum = (typeof LightParamsScalarFieldEnum)[keyof typeof LightParamsScalarFieldEnum]
+
+
+  export const LightScalarFieldEnum: {
+    id: 'id',
+    continentId: 'continentId',
+    x: 'x',
+    y: 'y',
+    z: 'z',
+    falloffStart: 'falloffStart',
+    falloffEnd: 'falloffEnd',
+    paramStandardId: 'paramStandardId',
+    paramUnderwaterId: 'paramUnderwaterId',
+    paramSunsetId: 'paramSunsetId',
+    paramOtherId: 'paramOtherId',
+    paramDeathId: 'paramDeathId'
+  };
+
+  export type LightScalarFieldEnum = (typeof LightScalarFieldEnum)[keyof typeof LightScalarFieldEnum]
+
+
+  export const LightSkyboxScalarFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type LightSkyboxScalarFieldEnum = (typeof LightSkyboxScalarFieldEnum)[keyof typeof LightSkyboxScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -11437,6 +14903,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaListRelationFilter
     WorldMapContinent?: WorldMapContinentListRelationFilter
     AreaTrigger?: AreaTriggerListRelationFilter
+    Light?: LightListRelationFilter
   }
 
   export type ContinentOrderByWithRelationInput = {
@@ -11447,6 +14914,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaOrderByRelationAggregateInput
     WorldMapContinent?: WorldMapContinentOrderByRelationAggregateInput
     AreaTrigger?: AreaTriggerOrderByRelationAggregateInput
+    Light?: LightOrderByRelationAggregateInput
   }
 
   export type ContinentWhereUniqueInput = {
@@ -11649,6 +15117,7 @@ export namespace Prisma {
     minElevation?: FloatFilter | number
     ambientMultiplier?: FloatFilter | number
     lightId?: IntFilter | number
+    light?: XOR<LightRelationFilter, LightWhereInput>
     ChildAreas?: AreaTableListRelationFilter
     AreaPOI?: AreaPOIListRelationFilter
     WMOAreaTable?: WMOAreaTableListRelationFilter
@@ -11687,6 +15156,7 @@ export namespace Prisma {
     minElevation?: SortOrder
     ambientMultiplier?: SortOrder
     lightId?: SortOrder
+    light?: LightOrderByWithRelationInput
     ChildAreas?: AreaTableOrderByRelationAggregateInput
     AreaPOI?: AreaPOIOrderByRelationAggregateInput
     WMOAreaTable?: WMOAreaTableOrderByRelationAggregateInput
@@ -11935,6 +15405,207 @@ export namespace Prisma {
     itemDisplayId_9?: IntWithAggregatesFilter | number
     itemDisplayId_10?: IntWithAggregatesFilter | number
     bakeName?: StringWithAggregatesFilter | string
+  }
+
+  export type LightWhereInput = {
+    AND?: Enumerable<LightWhereInput>
+    OR?: Enumerable<LightWhereInput>
+    NOT?: Enumerable<LightWhereInput>
+    id?: IntFilter | number
+    continentId?: IntFilter | number
+    continent?: XOR<ContinentRelationFilter, ContinentWhereInput>
+    x?: FloatFilter | number
+    y?: FloatFilter | number
+    z?: FloatFilter | number
+    falloffStart?: FloatFilter | number
+    falloffEnd?: FloatFilter | number
+    paramStandardId?: IntFilter | number
+    paramStandard?: XOR<LightParamsRelationFilter, LightParamsWhereInput>
+    paramUnderwaterId?: IntFilter | number
+    paramUnderwater?: XOR<LightParamsRelationFilter, LightParamsWhereInput>
+    paramSunsetId?: IntFilter | number
+    paramSunset?: XOR<LightParamsRelationFilter, LightParamsWhereInput>
+    paramOtherId?: IntFilter | number
+    paramOther?: XOR<LightParamsRelationFilter, LightParamsWhereInput>
+    paramDeathId?: IntFilter | number
+    paramDeath?: XOR<LightParamsRelationFilter, LightParamsWhereInput>
+    AreaTable?: AreaTableListRelationFilter
+  }
+
+  export type LightOrderByWithRelationInput = {
+    id?: SortOrder
+    continentId?: SortOrder
+    continent?: ContinentOrderByWithRelationInput
+    x?: SortOrder
+    y?: SortOrder
+    z?: SortOrder
+    falloffStart?: SortOrder
+    falloffEnd?: SortOrder
+    paramStandardId?: SortOrder
+    paramStandard?: LightParamsOrderByWithRelationInput
+    paramUnderwaterId?: SortOrder
+    paramUnderwater?: LightParamsOrderByWithRelationInput
+    paramSunsetId?: SortOrder
+    paramSunset?: LightParamsOrderByWithRelationInput
+    paramOtherId?: SortOrder
+    paramOther?: LightParamsOrderByWithRelationInput
+    paramDeathId?: SortOrder
+    paramDeath?: LightParamsOrderByWithRelationInput
+    AreaTable?: AreaTableOrderByRelationAggregateInput
+  }
+
+  export type LightWhereUniqueInput = {
+    id?: number
+  }
+
+  export type LightOrderByWithAggregationInput = {
+    id?: SortOrder
+    continentId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    z?: SortOrder
+    falloffStart?: SortOrder
+    falloffEnd?: SortOrder
+    paramStandardId?: SortOrder
+    paramUnderwaterId?: SortOrder
+    paramSunsetId?: SortOrder
+    paramOtherId?: SortOrder
+    paramDeathId?: SortOrder
+    _count?: LightCountOrderByAggregateInput
+    _avg?: LightAvgOrderByAggregateInput
+    _max?: LightMaxOrderByAggregateInput
+    _min?: LightMinOrderByAggregateInput
+    _sum?: LightSumOrderByAggregateInput
+  }
+
+  export type LightScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<LightScalarWhereWithAggregatesInput>
+    OR?: Enumerable<LightScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<LightScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    continentId?: IntWithAggregatesFilter | number
+    x?: FloatWithAggregatesFilter | number
+    y?: FloatWithAggregatesFilter | number
+    z?: FloatWithAggregatesFilter | number
+    falloffStart?: FloatWithAggregatesFilter | number
+    falloffEnd?: FloatWithAggregatesFilter | number
+    paramStandardId?: IntWithAggregatesFilter | number
+    paramUnderwaterId?: IntWithAggregatesFilter | number
+    paramSunsetId?: IntWithAggregatesFilter | number
+    paramOtherId?: IntWithAggregatesFilter | number
+    paramDeathId?: IntWithAggregatesFilter | number
+  }
+
+  export type LightParamsWhereInput = {
+    AND?: Enumerable<LightParamsWhereInput>
+    OR?: Enumerable<LightParamsWhereInput>
+    NOT?: Enumerable<LightParamsWhereInput>
+    id?: IntFilter | number
+    highlightSky?: IntFilter | number
+    lightSkyboxId?: IntFilter | number
+    lightSkybox?: XOR<LightSkyboxRelationFilter, LightSkyboxWhereInput>
+    glow?: FloatFilter | number
+    waterShallowAlpha?: FloatFilter | number
+    waterDeepAlpha?: FloatFilter | number
+    oceanShallowAlpha?: FloatFilter | number
+    oceanDeepAlpha?: FloatFilter | number
+    flags?: IntFilter | number
+    standatrdLight?: LightListRelationFilter
+    underwaterLight?: LightListRelationFilter
+    sunsetLight?: LightListRelationFilter
+    otherLight?: LightListRelationFilter
+    deathLight?: LightListRelationFilter
+  }
+
+  export type LightParamsOrderByWithRelationInput = {
+    id?: SortOrder
+    highlightSky?: SortOrder
+    lightSkyboxId?: SortOrder
+    lightSkybox?: LightSkyboxOrderByWithRelationInput
+    glow?: SortOrder
+    waterShallowAlpha?: SortOrder
+    waterDeepAlpha?: SortOrder
+    oceanShallowAlpha?: SortOrder
+    oceanDeepAlpha?: SortOrder
+    flags?: SortOrder
+    standatrdLight?: LightOrderByRelationAggregateInput
+    underwaterLight?: LightOrderByRelationAggregateInput
+    sunsetLight?: LightOrderByRelationAggregateInput
+    otherLight?: LightOrderByRelationAggregateInput
+    deathLight?: LightOrderByRelationAggregateInput
+  }
+
+  export type LightParamsWhereUniqueInput = {
+    id?: number
+  }
+
+  export type LightParamsOrderByWithAggregationInput = {
+    id?: SortOrder
+    highlightSky?: SortOrder
+    lightSkyboxId?: SortOrder
+    glow?: SortOrder
+    waterShallowAlpha?: SortOrder
+    waterDeepAlpha?: SortOrder
+    oceanShallowAlpha?: SortOrder
+    oceanDeepAlpha?: SortOrder
+    flags?: SortOrder
+    _count?: LightParamsCountOrderByAggregateInput
+    _avg?: LightParamsAvgOrderByAggregateInput
+    _max?: LightParamsMaxOrderByAggregateInput
+    _min?: LightParamsMinOrderByAggregateInput
+    _sum?: LightParamsSumOrderByAggregateInput
+  }
+
+  export type LightParamsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<LightParamsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<LightParamsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<LightParamsScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    highlightSky?: IntWithAggregatesFilter | number
+    lightSkyboxId?: IntWithAggregatesFilter | number
+    glow?: FloatWithAggregatesFilter | number
+    waterShallowAlpha?: FloatWithAggregatesFilter | number
+    waterDeepAlpha?: FloatWithAggregatesFilter | number
+    oceanShallowAlpha?: FloatWithAggregatesFilter | number
+    oceanDeepAlpha?: FloatWithAggregatesFilter | number
+    flags?: IntWithAggregatesFilter | number
+  }
+
+  export type LightSkyboxWhereInput = {
+    AND?: Enumerable<LightSkyboxWhereInput>
+    OR?: Enumerable<LightSkyboxWhereInput>
+    NOT?: Enumerable<LightSkyboxWhereInput>
+    id?: IntFilter | number
+    name?: StringFilter | string
+    LightParams?: LightParamsListRelationFilter
+  }
+
+  export type LightSkyboxOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    LightParams?: LightParamsOrderByRelationAggregateInput
+  }
+
+  export type LightSkyboxWhereUniqueInput = {
+    id?: number
+  }
+
+  export type LightSkyboxOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: LightSkyboxCountOrderByAggregateInput
+    _avg?: LightSkyboxAvgOrderByAggregateInput
+    _max?: LightSkyboxMaxOrderByAggregateInput
+    _min?: LightSkyboxMinOrderByAggregateInput
+    _sum?: LightSkyboxSumOrderByAggregateInput
+  }
+
+  export type LightSkyboxScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<LightSkyboxScalarWhereWithAggregatesInput>
+    OR?: Enumerable<LightSkyboxScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<LightSkyboxScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    name?: StringWithAggregatesFilter | string
   }
 
   export type WMOAreaTableWhereInput = {
@@ -12305,6 +15976,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerCreateNestedManyWithoutContinentInput
+    Light?: LightCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentUncheckedCreateInput = {
@@ -12315,6 +15987,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUncheckedCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentUncheckedCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerUncheckedCreateNestedManyWithoutContinentInput
+    Light?: LightUncheckedCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentUpdateInput = {
@@ -12325,6 +15998,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUpdateManyWithoutContinentNestedInput
+    Light?: LightUpdateManyWithoutContinentNestedInput
   }
 
   export type ContinentUncheckedUpdateInput = {
@@ -12335,6 +16009,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUncheckedUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUncheckedUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUncheckedUpdateManyWithoutContinentNestedInput
+    Light?: LightUncheckedUpdateManyWithoutContinentNestedInput
   }
 
   export type ContinentUpdateManyMutationInput = {
@@ -12562,7 +16237,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
@@ -12634,7 +16309,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
@@ -12704,7 +16379,6 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AreaTableUncheckedUpdateManyInput = {
@@ -12942,6 +16616,219 @@ export namespace Prisma {
     itemDisplayId_9?: IntFieldUpdateOperationsInput | number
     itemDisplayId_10?: IntFieldUpdateOperationsInput | number
     bakeName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LightCreateInput = {
+    id: number
+    continent: ContinentCreateNestedOneWithoutLightInput
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandard: LightParamsCreateNestedOneWithoutStandatrdLightInput
+    paramUnderwater: LightParamsCreateNestedOneWithoutUnderwaterLightInput
+    paramSunset: LightParamsCreateNestedOneWithoutSunsetLightInput
+    paramOther: LightParamsCreateNestedOneWithoutOtherLightInput
+    paramDeath: LightParamsCreateNestedOneWithoutDeathLightInput
+    AreaTable?: AreaTableCreateNestedManyWithoutLightInput
+  }
+
+  export type LightUncheckedCreateInput = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramUnderwaterId: number
+    paramSunsetId: number
+    paramOtherId: number
+    paramDeathId: number
+    AreaTable?: AreaTableUncheckedCreateNestedManyWithoutLightInput
+  }
+
+  export type LightUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continent?: ContinentUpdateOneRequiredWithoutLightNestedInput
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandard?: LightParamsUpdateOneRequiredWithoutStandatrdLightNestedInput
+    paramUnderwater?: LightParamsUpdateOneRequiredWithoutUnderwaterLightNestedInput
+    paramSunset?: LightParamsUpdateOneRequiredWithoutSunsetLightNestedInput
+    paramOther?: LightParamsUpdateOneRequiredWithoutOtherLightNestedInput
+    paramDeath?: LightParamsUpdateOneRequiredWithoutDeathLightNestedInput
+    AreaTable?: AreaTableUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+    AreaTable?: AreaTableUncheckedUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type LightUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LightParamsCreateInput = {
+    id: number
+    highlightSky: number
+    lightSkybox: LightSkyboxCreateNestedOneWithoutLightParamsInput
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsUncheckedCreateInput = {
+    id: number
+    highlightSky: number
+    lightSkyboxId: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightUncheckedCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightUncheckedCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightUncheckedCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightUncheckedCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightUncheckedCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkybox?: LightSkyboxUpdateOneRequiredWithoutLightParamsNestedInput
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkyboxId?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUncheckedUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUncheckedUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUncheckedUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUncheckedUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUncheckedUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LightParamsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkyboxId?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LightSkyboxCreateInput = {
+    id: number
+    name: string
+    LightParams?: LightParamsCreateNestedManyWithoutLightSkyboxInput
+  }
+
+  export type LightSkyboxUncheckedCreateInput = {
+    id: number
+    name: string
+    LightParams?: LightParamsUncheckedCreateNestedManyWithoutLightSkyboxInput
+  }
+
+  export type LightSkyboxUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    LightParams?: LightParamsUpdateManyWithoutLightSkyboxNestedInput
+  }
+
+  export type LightSkyboxUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    LightParams?: LightParamsUncheckedUpdateManyWithoutLightSkyboxNestedInput
+  }
+
+  export type LightSkyboxUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LightSkyboxUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type WMOAreaTableCreateInput = {
@@ -13411,6 +17298,12 @@ export namespace Prisma {
     none?: AreaTriggerWhereInput
   }
 
+  export type LightListRelationFilter = {
+    every?: LightWhereInput
+    some?: LightWhereInput
+    none?: LightWhereInput
+  }
+
   export type AreaPOIOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -13428,6 +17321,10 @@ export namespace Prisma {
   }
 
   export type AreaTriggerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LightOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13650,6 +17547,11 @@ export namespace Prisma {
     _sum?: NestedFloatFilter
     _min?: NestedFloatFilter
     _max?: NestedFloatFilter
+  }
+
+  export type LightRelationFilter = {
+    is?: LightWhereInput
+    isNot?: LightWhereInput
   }
 
   export type WMOAreaTableListRelationFilter = {
@@ -13967,6 +17869,184 @@ export namespace Prisma {
     itemDisplayId_8?: SortOrder
     itemDisplayId_9?: SortOrder
     itemDisplayId_10?: SortOrder
+  }
+
+  export type LightParamsRelationFilter = {
+    is?: LightParamsWhereInput
+    isNot?: LightParamsWhereInput
+  }
+
+  export type LightCountOrderByAggregateInput = {
+    id?: SortOrder
+    continentId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    z?: SortOrder
+    falloffStart?: SortOrder
+    falloffEnd?: SortOrder
+    paramStandardId?: SortOrder
+    paramUnderwaterId?: SortOrder
+    paramSunsetId?: SortOrder
+    paramOtherId?: SortOrder
+    paramDeathId?: SortOrder
+  }
+
+  export type LightAvgOrderByAggregateInput = {
+    id?: SortOrder
+    continentId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    z?: SortOrder
+    falloffStart?: SortOrder
+    falloffEnd?: SortOrder
+    paramStandardId?: SortOrder
+    paramUnderwaterId?: SortOrder
+    paramSunsetId?: SortOrder
+    paramOtherId?: SortOrder
+    paramDeathId?: SortOrder
+  }
+
+  export type LightMaxOrderByAggregateInput = {
+    id?: SortOrder
+    continentId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    z?: SortOrder
+    falloffStart?: SortOrder
+    falloffEnd?: SortOrder
+    paramStandardId?: SortOrder
+    paramUnderwaterId?: SortOrder
+    paramSunsetId?: SortOrder
+    paramOtherId?: SortOrder
+    paramDeathId?: SortOrder
+  }
+
+  export type LightMinOrderByAggregateInput = {
+    id?: SortOrder
+    continentId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    z?: SortOrder
+    falloffStart?: SortOrder
+    falloffEnd?: SortOrder
+    paramStandardId?: SortOrder
+    paramUnderwaterId?: SortOrder
+    paramSunsetId?: SortOrder
+    paramOtherId?: SortOrder
+    paramDeathId?: SortOrder
+  }
+
+  export type LightSumOrderByAggregateInput = {
+    id?: SortOrder
+    continentId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    z?: SortOrder
+    falloffStart?: SortOrder
+    falloffEnd?: SortOrder
+    paramStandardId?: SortOrder
+    paramUnderwaterId?: SortOrder
+    paramSunsetId?: SortOrder
+    paramOtherId?: SortOrder
+    paramDeathId?: SortOrder
+  }
+
+  export type LightSkyboxRelationFilter = {
+    is?: LightSkyboxWhereInput
+    isNot?: LightSkyboxWhereInput
+  }
+
+  export type LightParamsCountOrderByAggregateInput = {
+    id?: SortOrder
+    highlightSky?: SortOrder
+    lightSkyboxId?: SortOrder
+    glow?: SortOrder
+    waterShallowAlpha?: SortOrder
+    waterDeepAlpha?: SortOrder
+    oceanShallowAlpha?: SortOrder
+    oceanDeepAlpha?: SortOrder
+    flags?: SortOrder
+  }
+
+  export type LightParamsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    highlightSky?: SortOrder
+    lightSkyboxId?: SortOrder
+    glow?: SortOrder
+    waterShallowAlpha?: SortOrder
+    waterDeepAlpha?: SortOrder
+    oceanShallowAlpha?: SortOrder
+    oceanDeepAlpha?: SortOrder
+    flags?: SortOrder
+  }
+
+  export type LightParamsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    highlightSky?: SortOrder
+    lightSkyboxId?: SortOrder
+    glow?: SortOrder
+    waterShallowAlpha?: SortOrder
+    waterDeepAlpha?: SortOrder
+    oceanShallowAlpha?: SortOrder
+    oceanDeepAlpha?: SortOrder
+    flags?: SortOrder
+  }
+
+  export type LightParamsMinOrderByAggregateInput = {
+    id?: SortOrder
+    highlightSky?: SortOrder
+    lightSkyboxId?: SortOrder
+    glow?: SortOrder
+    waterShallowAlpha?: SortOrder
+    waterDeepAlpha?: SortOrder
+    oceanShallowAlpha?: SortOrder
+    oceanDeepAlpha?: SortOrder
+    flags?: SortOrder
+  }
+
+  export type LightParamsSumOrderByAggregateInput = {
+    id?: SortOrder
+    highlightSky?: SortOrder
+    lightSkyboxId?: SortOrder
+    glow?: SortOrder
+    waterShallowAlpha?: SortOrder
+    waterDeepAlpha?: SortOrder
+    oceanShallowAlpha?: SortOrder
+    oceanDeepAlpha?: SortOrder
+    flags?: SortOrder
+  }
+
+  export type LightParamsListRelationFilter = {
+    every?: LightParamsWhereInput
+    some?: LightParamsWhereInput
+    none?: LightParamsWhereInput
+  }
+
+  export type LightParamsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LightSkyboxCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type LightSkyboxAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type LightSkyboxMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type LightSkyboxMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type LightSkyboxSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type WMOAreaTableCountOrderByAggregateInput = {
@@ -14334,6 +18414,12 @@ export namespace Prisma {
     connect?: Enumerable<AreaTriggerWhereUniqueInput>
   }
 
+  export type LightCreateNestedManyWithoutContinentInput = {
+    create?: XOR<Enumerable<LightCreateWithoutContinentInput>, Enumerable<LightUncheckedCreateWithoutContinentInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutContinentInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
   export type AreaPOIUncheckedCreateNestedManyWithoutContinentInput = {
     create?: XOR<Enumerable<AreaPOICreateWithoutContinentInput>, Enumerable<AreaPOIUncheckedCreateWithoutContinentInput>>
     connectOrCreate?: Enumerable<AreaPOICreateOrConnectWithoutContinentInput>
@@ -14362,6 +18448,12 @@ export namespace Prisma {
     create?: XOR<Enumerable<AreaTriggerCreateWithoutContinentInput>, Enumerable<AreaTriggerUncheckedCreateWithoutContinentInput>>
     connectOrCreate?: Enumerable<AreaTriggerCreateOrConnectWithoutContinentInput>
     connect?: Enumerable<AreaTriggerWhereUniqueInput>
+  }
+
+  export type LightUncheckedCreateNestedManyWithoutContinentInput = {
+    create?: XOR<Enumerable<LightCreateWithoutContinentInput>, Enumerable<LightUncheckedCreateWithoutContinentInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutContinentInput>
+    connect?: Enumerable<LightWhereUniqueInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -14441,6 +18533,19 @@ export namespace Prisma {
     deleteMany?: Enumerable<AreaTriggerScalarWhereInput>
   }
 
+  export type LightUpdateManyWithoutContinentNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutContinentInput>, Enumerable<LightUncheckedCreateWithoutContinentInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutContinentInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutContinentInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutContinentInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutContinentInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
   export type AreaPOIUncheckedUpdateManyWithoutContinentNestedInput = {
     create?: XOR<Enumerable<AreaPOICreateWithoutContinentInput>, Enumerable<AreaPOIUncheckedCreateWithoutContinentInput>>
     connectOrCreate?: Enumerable<AreaPOICreateOrConnectWithoutContinentInput>
@@ -14506,6 +18611,19 @@ export namespace Prisma {
     deleteMany?: Enumerable<AreaTriggerScalarWhereInput>
   }
 
+  export type LightUncheckedUpdateManyWithoutContinentNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutContinentInput>, Enumerable<LightUncheckedCreateWithoutContinentInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutContinentInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutContinentInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutContinentInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutContinentInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
   export type ContinentCreateNestedOneWithoutAreaPOIInput = {
     create?: XOR<ContinentCreateWithoutAreaPOIInput, ContinentUncheckedCreateWithoutAreaPOIInput>
     connectOrCreate?: ContinentCreateOrConnectWithoutAreaPOIInput
@@ -14552,6 +18670,12 @@ export namespace Prisma {
     create?: XOR<AreaTableCreateWithoutChildAreasInput, AreaTableUncheckedCreateWithoutChildAreasInput>
     connectOrCreate?: AreaTableCreateOrConnectWithoutChildAreasInput
     connect?: AreaTableWhereUniqueInput
+  }
+
+  export type LightCreateNestedOneWithoutAreaTableInput = {
+    create?: XOR<LightCreateWithoutAreaTableInput, LightUncheckedCreateWithoutAreaTableInput>
+    connectOrCreate?: LightCreateOrConnectWithoutAreaTableInput
+    connect?: LightWhereUniqueInput
   }
 
   export type AreaTableCreateNestedManyWithoutParentAreaInput = {
@@ -14664,6 +18788,14 @@ export namespace Prisma {
     upsert?: AreaTableUpsertWithoutChildAreasInput
     connect?: AreaTableWhereUniqueInput
     update?: XOR<AreaTableUpdateWithoutChildAreasInput, AreaTableUncheckedUpdateWithoutChildAreasInput>
+  }
+
+  export type LightUpdateOneRequiredWithoutAreaTableNestedInput = {
+    create?: XOR<LightCreateWithoutAreaTableInput, LightUncheckedCreateWithoutAreaTableInput>
+    connectOrCreate?: LightCreateOrConnectWithoutAreaTableInput
+    upsert?: LightUpsertWithoutAreaTableInput
+    connect?: LightWhereUniqueInput
+    update?: XOR<LightUpdateWithoutAreaTableInput, LightUncheckedUpdateWithoutAreaTableInput>
   }
 
   export type AreaTableUpdateManyWithoutParentAreaNestedInput = {
@@ -14886,6 +19018,370 @@ export namespace Prisma {
     upsert?: ContinentUpsertWithoutAreaTriggerInput
     connect?: ContinentWhereUniqueInput
     update?: XOR<ContinentUpdateWithoutAreaTriggerInput, ContinentUncheckedUpdateWithoutAreaTriggerInput>
+  }
+
+  export type ContinentCreateNestedOneWithoutLightInput = {
+    create?: XOR<ContinentCreateWithoutLightInput, ContinentUncheckedCreateWithoutLightInput>
+    connectOrCreate?: ContinentCreateOrConnectWithoutLightInput
+    connect?: ContinentWhereUniqueInput
+  }
+
+  export type LightParamsCreateNestedOneWithoutStandatrdLightInput = {
+    create?: XOR<LightParamsCreateWithoutStandatrdLightInput, LightParamsUncheckedCreateWithoutStandatrdLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutStandatrdLightInput
+    connect?: LightParamsWhereUniqueInput
+  }
+
+  export type LightParamsCreateNestedOneWithoutUnderwaterLightInput = {
+    create?: XOR<LightParamsCreateWithoutUnderwaterLightInput, LightParamsUncheckedCreateWithoutUnderwaterLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutUnderwaterLightInput
+    connect?: LightParamsWhereUniqueInput
+  }
+
+  export type LightParamsCreateNestedOneWithoutSunsetLightInput = {
+    create?: XOR<LightParamsCreateWithoutSunsetLightInput, LightParamsUncheckedCreateWithoutSunsetLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutSunsetLightInput
+    connect?: LightParamsWhereUniqueInput
+  }
+
+  export type LightParamsCreateNestedOneWithoutOtherLightInput = {
+    create?: XOR<LightParamsCreateWithoutOtherLightInput, LightParamsUncheckedCreateWithoutOtherLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutOtherLightInput
+    connect?: LightParamsWhereUniqueInput
+  }
+
+  export type LightParamsCreateNestedOneWithoutDeathLightInput = {
+    create?: XOR<LightParamsCreateWithoutDeathLightInput, LightParamsUncheckedCreateWithoutDeathLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutDeathLightInput
+    connect?: LightParamsWhereUniqueInput
+  }
+
+  export type AreaTableCreateNestedManyWithoutLightInput = {
+    create?: XOR<Enumerable<AreaTableCreateWithoutLightInput>, Enumerable<AreaTableUncheckedCreateWithoutLightInput>>
+    connectOrCreate?: Enumerable<AreaTableCreateOrConnectWithoutLightInput>
+    connect?: Enumerable<AreaTableWhereUniqueInput>
+  }
+
+  export type AreaTableUncheckedCreateNestedManyWithoutLightInput = {
+    create?: XOR<Enumerable<AreaTableCreateWithoutLightInput>, Enumerable<AreaTableUncheckedCreateWithoutLightInput>>
+    connectOrCreate?: Enumerable<AreaTableCreateOrConnectWithoutLightInput>
+    connect?: Enumerable<AreaTableWhereUniqueInput>
+  }
+
+  export type ContinentUpdateOneRequiredWithoutLightNestedInput = {
+    create?: XOR<ContinentCreateWithoutLightInput, ContinentUncheckedCreateWithoutLightInput>
+    connectOrCreate?: ContinentCreateOrConnectWithoutLightInput
+    upsert?: ContinentUpsertWithoutLightInput
+    connect?: ContinentWhereUniqueInput
+    update?: XOR<ContinentUpdateWithoutLightInput, ContinentUncheckedUpdateWithoutLightInput>
+  }
+
+  export type LightParamsUpdateOneRequiredWithoutStandatrdLightNestedInput = {
+    create?: XOR<LightParamsCreateWithoutStandatrdLightInput, LightParamsUncheckedCreateWithoutStandatrdLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutStandatrdLightInput
+    upsert?: LightParamsUpsertWithoutStandatrdLightInput
+    connect?: LightParamsWhereUniqueInput
+    update?: XOR<LightParamsUpdateWithoutStandatrdLightInput, LightParamsUncheckedUpdateWithoutStandatrdLightInput>
+  }
+
+  export type LightParamsUpdateOneRequiredWithoutUnderwaterLightNestedInput = {
+    create?: XOR<LightParamsCreateWithoutUnderwaterLightInput, LightParamsUncheckedCreateWithoutUnderwaterLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutUnderwaterLightInput
+    upsert?: LightParamsUpsertWithoutUnderwaterLightInput
+    connect?: LightParamsWhereUniqueInput
+    update?: XOR<LightParamsUpdateWithoutUnderwaterLightInput, LightParamsUncheckedUpdateWithoutUnderwaterLightInput>
+  }
+
+  export type LightParamsUpdateOneRequiredWithoutSunsetLightNestedInput = {
+    create?: XOR<LightParamsCreateWithoutSunsetLightInput, LightParamsUncheckedCreateWithoutSunsetLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutSunsetLightInput
+    upsert?: LightParamsUpsertWithoutSunsetLightInput
+    connect?: LightParamsWhereUniqueInput
+    update?: XOR<LightParamsUpdateWithoutSunsetLightInput, LightParamsUncheckedUpdateWithoutSunsetLightInput>
+  }
+
+  export type LightParamsUpdateOneRequiredWithoutOtherLightNestedInput = {
+    create?: XOR<LightParamsCreateWithoutOtherLightInput, LightParamsUncheckedCreateWithoutOtherLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutOtherLightInput
+    upsert?: LightParamsUpsertWithoutOtherLightInput
+    connect?: LightParamsWhereUniqueInput
+    update?: XOR<LightParamsUpdateWithoutOtherLightInput, LightParamsUncheckedUpdateWithoutOtherLightInput>
+  }
+
+  export type LightParamsUpdateOneRequiredWithoutDeathLightNestedInput = {
+    create?: XOR<LightParamsCreateWithoutDeathLightInput, LightParamsUncheckedCreateWithoutDeathLightInput>
+    connectOrCreate?: LightParamsCreateOrConnectWithoutDeathLightInput
+    upsert?: LightParamsUpsertWithoutDeathLightInput
+    connect?: LightParamsWhereUniqueInput
+    update?: XOR<LightParamsUpdateWithoutDeathLightInput, LightParamsUncheckedUpdateWithoutDeathLightInput>
+  }
+
+  export type AreaTableUpdateManyWithoutLightNestedInput = {
+    create?: XOR<Enumerable<AreaTableCreateWithoutLightInput>, Enumerable<AreaTableUncheckedCreateWithoutLightInput>>
+    connectOrCreate?: Enumerable<AreaTableCreateOrConnectWithoutLightInput>
+    upsert?: Enumerable<AreaTableUpsertWithWhereUniqueWithoutLightInput>
+    set?: Enumerable<AreaTableWhereUniqueInput>
+    disconnect?: Enumerable<AreaTableWhereUniqueInput>
+    delete?: Enumerable<AreaTableWhereUniqueInput>
+    connect?: Enumerable<AreaTableWhereUniqueInput>
+    update?: Enumerable<AreaTableUpdateWithWhereUniqueWithoutLightInput>
+    updateMany?: Enumerable<AreaTableUpdateManyWithWhereWithoutLightInput>
+    deleteMany?: Enumerable<AreaTableScalarWhereInput>
+  }
+
+  export type AreaTableUncheckedUpdateManyWithoutLightNestedInput = {
+    create?: XOR<Enumerable<AreaTableCreateWithoutLightInput>, Enumerable<AreaTableUncheckedCreateWithoutLightInput>>
+    connectOrCreate?: Enumerable<AreaTableCreateOrConnectWithoutLightInput>
+    upsert?: Enumerable<AreaTableUpsertWithWhereUniqueWithoutLightInput>
+    set?: Enumerable<AreaTableWhereUniqueInput>
+    disconnect?: Enumerable<AreaTableWhereUniqueInput>
+    delete?: Enumerable<AreaTableWhereUniqueInput>
+    connect?: Enumerable<AreaTableWhereUniqueInput>
+    update?: Enumerable<AreaTableUpdateWithWhereUniqueWithoutLightInput>
+    updateMany?: Enumerable<AreaTableUpdateManyWithWhereWithoutLightInput>
+    deleteMany?: Enumerable<AreaTableScalarWhereInput>
+  }
+
+  export type LightSkyboxCreateNestedOneWithoutLightParamsInput = {
+    create?: XOR<LightSkyboxCreateWithoutLightParamsInput, LightSkyboxUncheckedCreateWithoutLightParamsInput>
+    connectOrCreate?: LightSkyboxCreateOrConnectWithoutLightParamsInput
+    connect?: LightSkyboxWhereUniqueInput
+  }
+
+  export type LightCreateNestedManyWithoutParamStandardInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamStandardInput>, Enumerable<LightUncheckedCreateWithoutParamStandardInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamStandardInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightCreateNestedManyWithoutParamUnderwaterInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamUnderwaterInput>, Enumerable<LightUncheckedCreateWithoutParamUnderwaterInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamUnderwaterInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightCreateNestedManyWithoutParamSunsetInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamSunsetInput>, Enumerable<LightUncheckedCreateWithoutParamSunsetInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamSunsetInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightCreateNestedManyWithoutParamOtherInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamOtherInput>, Enumerable<LightUncheckedCreateWithoutParamOtherInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamOtherInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightCreateNestedManyWithoutParamDeathInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamDeathInput>, Enumerable<LightUncheckedCreateWithoutParamDeathInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamDeathInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightUncheckedCreateNestedManyWithoutParamStandardInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamStandardInput>, Enumerable<LightUncheckedCreateWithoutParamStandardInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamStandardInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightUncheckedCreateNestedManyWithoutParamUnderwaterInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamUnderwaterInput>, Enumerable<LightUncheckedCreateWithoutParamUnderwaterInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamUnderwaterInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightUncheckedCreateNestedManyWithoutParamSunsetInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamSunsetInput>, Enumerable<LightUncheckedCreateWithoutParamSunsetInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamSunsetInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightUncheckedCreateNestedManyWithoutParamOtherInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamOtherInput>, Enumerable<LightUncheckedCreateWithoutParamOtherInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamOtherInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightUncheckedCreateNestedManyWithoutParamDeathInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamDeathInput>, Enumerable<LightUncheckedCreateWithoutParamDeathInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamDeathInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+  }
+
+  export type LightSkyboxUpdateOneRequiredWithoutLightParamsNestedInput = {
+    create?: XOR<LightSkyboxCreateWithoutLightParamsInput, LightSkyboxUncheckedCreateWithoutLightParamsInput>
+    connectOrCreate?: LightSkyboxCreateOrConnectWithoutLightParamsInput
+    upsert?: LightSkyboxUpsertWithoutLightParamsInput
+    connect?: LightSkyboxWhereUniqueInput
+    update?: XOR<LightSkyboxUpdateWithoutLightParamsInput, LightSkyboxUncheckedUpdateWithoutLightParamsInput>
+  }
+
+  export type LightUpdateManyWithoutParamStandardNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamStandardInput>, Enumerable<LightUncheckedCreateWithoutParamStandardInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamStandardInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamStandardInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamStandardInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamStandardInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUpdateManyWithoutParamUnderwaterNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamUnderwaterInput>, Enumerable<LightUncheckedCreateWithoutParamUnderwaterInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamUnderwaterInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamUnderwaterInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamUnderwaterInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamUnderwaterInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUpdateManyWithoutParamSunsetNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamSunsetInput>, Enumerable<LightUncheckedCreateWithoutParamSunsetInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamSunsetInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamSunsetInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamSunsetInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamSunsetInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUpdateManyWithoutParamOtherNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamOtherInput>, Enumerable<LightUncheckedCreateWithoutParamOtherInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamOtherInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamOtherInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamOtherInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamOtherInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUpdateManyWithoutParamDeathNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamDeathInput>, Enumerable<LightUncheckedCreateWithoutParamDeathInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamDeathInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamDeathInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamDeathInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamDeathInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUncheckedUpdateManyWithoutParamStandardNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamStandardInput>, Enumerable<LightUncheckedCreateWithoutParamStandardInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamStandardInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamStandardInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamStandardInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamStandardInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUncheckedUpdateManyWithoutParamUnderwaterNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamUnderwaterInput>, Enumerable<LightUncheckedCreateWithoutParamUnderwaterInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamUnderwaterInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamUnderwaterInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamUnderwaterInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamUnderwaterInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUncheckedUpdateManyWithoutParamSunsetNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamSunsetInput>, Enumerable<LightUncheckedCreateWithoutParamSunsetInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamSunsetInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamSunsetInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamSunsetInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamSunsetInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUncheckedUpdateManyWithoutParamOtherNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamOtherInput>, Enumerable<LightUncheckedCreateWithoutParamOtherInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamOtherInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamOtherInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamOtherInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamOtherInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightUncheckedUpdateManyWithoutParamDeathNestedInput = {
+    create?: XOR<Enumerable<LightCreateWithoutParamDeathInput>, Enumerable<LightUncheckedCreateWithoutParamDeathInput>>
+    connectOrCreate?: Enumerable<LightCreateOrConnectWithoutParamDeathInput>
+    upsert?: Enumerable<LightUpsertWithWhereUniqueWithoutParamDeathInput>
+    set?: Enumerable<LightWhereUniqueInput>
+    disconnect?: Enumerable<LightWhereUniqueInput>
+    delete?: Enumerable<LightWhereUniqueInput>
+    connect?: Enumerable<LightWhereUniqueInput>
+    update?: Enumerable<LightUpdateWithWhereUniqueWithoutParamDeathInput>
+    updateMany?: Enumerable<LightUpdateManyWithWhereWithoutParamDeathInput>
+    deleteMany?: Enumerable<LightScalarWhereInput>
+  }
+
+  export type LightParamsCreateNestedManyWithoutLightSkyboxInput = {
+    create?: XOR<Enumerable<LightParamsCreateWithoutLightSkyboxInput>, Enumerable<LightParamsUncheckedCreateWithoutLightSkyboxInput>>
+    connectOrCreate?: Enumerable<LightParamsCreateOrConnectWithoutLightSkyboxInput>
+    connect?: Enumerable<LightParamsWhereUniqueInput>
+  }
+
+  export type LightParamsUncheckedCreateNestedManyWithoutLightSkyboxInput = {
+    create?: XOR<Enumerable<LightParamsCreateWithoutLightSkyboxInput>, Enumerable<LightParamsUncheckedCreateWithoutLightSkyboxInput>>
+    connectOrCreate?: Enumerable<LightParamsCreateOrConnectWithoutLightSkyboxInput>
+    connect?: Enumerable<LightParamsWhereUniqueInput>
+  }
+
+  export type LightParamsUpdateManyWithoutLightSkyboxNestedInput = {
+    create?: XOR<Enumerable<LightParamsCreateWithoutLightSkyboxInput>, Enumerable<LightParamsUncheckedCreateWithoutLightSkyboxInput>>
+    connectOrCreate?: Enumerable<LightParamsCreateOrConnectWithoutLightSkyboxInput>
+    upsert?: Enumerable<LightParamsUpsertWithWhereUniqueWithoutLightSkyboxInput>
+    set?: Enumerable<LightParamsWhereUniqueInput>
+    disconnect?: Enumerable<LightParamsWhereUniqueInput>
+    delete?: Enumerable<LightParamsWhereUniqueInput>
+    connect?: Enumerable<LightParamsWhereUniqueInput>
+    update?: Enumerable<LightParamsUpdateWithWhereUniqueWithoutLightSkyboxInput>
+    updateMany?: Enumerable<LightParamsUpdateManyWithWhereWithoutLightSkyboxInput>
+    deleteMany?: Enumerable<LightParamsScalarWhereInput>
+  }
+
+  export type LightParamsUncheckedUpdateManyWithoutLightSkyboxNestedInput = {
+    create?: XOR<Enumerable<LightParamsCreateWithoutLightSkyboxInput>, Enumerable<LightParamsUncheckedCreateWithoutLightSkyboxInput>>
+    connectOrCreate?: Enumerable<LightParamsCreateOrConnectWithoutLightSkyboxInput>
+    upsert?: Enumerable<LightParamsUpsertWithWhereUniqueWithoutLightSkyboxInput>
+    set?: Enumerable<LightParamsWhereUniqueInput>
+    disconnect?: Enumerable<LightParamsWhereUniqueInput>
+    delete?: Enumerable<LightParamsWhereUniqueInput>
+    connect?: Enumerable<LightParamsWhereUniqueInput>
+    update?: Enumerable<LightParamsUpdateWithWhereUniqueWithoutLightSkyboxInput>
+    updateMany?: Enumerable<LightParamsUpdateManyWithWhereWithoutLightSkyboxInput>
+    deleteMany?: Enumerable<LightParamsScalarWhereInput>
   }
 
   export type AreaTableCreateNestedOneWithoutWMOAreaTableInput = {
@@ -15228,7 +19724,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
@@ -15367,6 +19863,41 @@ export namespace Prisma {
   export type AreaTriggerCreateOrConnectWithoutContinentInput = {
     where: AreaTriggerWhereUniqueInput
     create: XOR<AreaTriggerCreateWithoutContinentInput, AreaTriggerUncheckedCreateWithoutContinentInput>
+  }
+
+  export type LightCreateWithoutContinentInput = {
+    id: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandard: LightParamsCreateNestedOneWithoutStandatrdLightInput
+    paramUnderwater: LightParamsCreateNestedOneWithoutUnderwaterLightInput
+    paramSunset: LightParamsCreateNestedOneWithoutSunsetLightInput
+    paramOther: LightParamsCreateNestedOneWithoutOtherLightInput
+    paramDeath: LightParamsCreateNestedOneWithoutDeathLightInput
+    AreaTable?: AreaTableCreateNestedManyWithoutLightInput
+  }
+
+  export type LightUncheckedCreateWithoutContinentInput = {
+    id: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramUnderwaterId: number
+    paramSunsetId: number
+    paramOtherId: number
+    paramDeathId: number
+    AreaTable?: AreaTableUncheckedCreateNestedManyWithoutLightInput
+  }
+
+  export type LightCreateOrConnectWithoutContinentInput = {
+    where: LightWhereUniqueInput
+    create: XOR<LightCreateWithoutContinentInput, LightUncheckedCreateWithoutContinentInput>
   }
 
   export type AreaPOIUpsertWithWhereUniqueWithoutContinentInput = {
@@ -15564,6 +20095,40 @@ export namespace Prisma {
     boxYaw?: FloatFilter | number
   }
 
+  export type LightUpsertWithWhereUniqueWithoutContinentInput = {
+    where: LightWhereUniqueInput
+    update: XOR<LightUpdateWithoutContinentInput, LightUncheckedUpdateWithoutContinentInput>
+    create: XOR<LightCreateWithoutContinentInput, LightUncheckedCreateWithoutContinentInput>
+  }
+
+  export type LightUpdateWithWhereUniqueWithoutContinentInput = {
+    where: LightWhereUniqueInput
+    data: XOR<LightUpdateWithoutContinentInput, LightUncheckedUpdateWithoutContinentInput>
+  }
+
+  export type LightUpdateManyWithWhereWithoutContinentInput = {
+    where: LightScalarWhereInput
+    data: XOR<LightUpdateManyMutationInput, LightUncheckedUpdateManyWithoutLightInput>
+  }
+
+  export type LightScalarWhereInput = {
+    AND?: Enumerable<LightScalarWhereInput>
+    OR?: Enumerable<LightScalarWhereInput>
+    NOT?: Enumerable<LightScalarWhereInput>
+    id?: IntFilter | number
+    continentId?: IntFilter | number
+    x?: FloatFilter | number
+    y?: FloatFilter | number
+    z?: FloatFilter | number
+    falloffStart?: FloatFilter | number
+    falloffEnd?: FloatFilter | number
+    paramStandardId?: IntFilter | number
+    paramUnderwaterId?: IntFilter | number
+    paramSunsetId?: IntFilter | number
+    paramOtherId?: IntFilter | number
+    paramDeathId?: IntFilter | number
+  }
+
   export type ContinentCreateWithoutAreaPOIInput = {
     id: number
     name: string
@@ -15571,6 +20136,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerCreateNestedManyWithoutContinentInput
+    Light?: LightCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentUncheckedCreateWithoutAreaPOIInput = {
@@ -15580,6 +20146,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUncheckedCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentUncheckedCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerUncheckedCreateNestedManyWithoutContinentInput
+    Light?: LightUncheckedCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentCreateOrConnectWithoutAreaPOIInput = {
@@ -15612,7 +20179,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
     WorldMapArea?: WorldMapAreaCreateNestedManyWithoutAreaTableInput
@@ -15674,6 +20241,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUpdateManyWithoutContinentNestedInput
+    Light?: LightUpdateManyWithoutContinentNestedInput
   }
 
   export type ContinentUncheckedUpdateWithoutAreaPOIInput = {
@@ -15683,6 +20251,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUncheckedUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUncheckedUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUncheckedUpdateManyWithoutContinentNestedInput
+    Light?: LightUncheckedUpdateManyWithoutContinentNestedInput
   }
 
   export type AreaTableUpsertWithoutAreaPOIInput = {
@@ -15715,7 +20284,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
     WorldMapArea?: WorldMapAreaUpdateManyWithoutAreaTableNestedInput
@@ -15767,6 +20336,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerCreateNestedManyWithoutContinentInput
+    Light?: LightCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentUncheckedCreateWithoutAreaTableInput = {
@@ -15776,6 +20346,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUncheckedCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentUncheckedCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerUncheckedCreateNestedManyWithoutContinentInput
+    Light?: LightUncheckedCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentCreateOrConnectWithoutAreaTableInput = {
@@ -15808,7 +20379,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
     WorldMapArea?: WorldMapAreaCreateNestedManyWithoutAreaTableInput
@@ -15858,6 +20429,41 @@ export namespace Prisma {
     create: XOR<AreaTableCreateWithoutChildAreasInput, AreaTableUncheckedCreateWithoutChildAreasInput>
   }
 
+  export type LightCreateWithoutAreaTableInput = {
+    id: number
+    continent: ContinentCreateNestedOneWithoutLightInput
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandard: LightParamsCreateNestedOneWithoutStandatrdLightInput
+    paramUnderwater: LightParamsCreateNestedOneWithoutUnderwaterLightInput
+    paramSunset: LightParamsCreateNestedOneWithoutSunsetLightInput
+    paramOther: LightParamsCreateNestedOneWithoutOtherLightInput
+    paramDeath: LightParamsCreateNestedOneWithoutDeathLightInput
+  }
+
+  export type LightUncheckedCreateWithoutAreaTableInput = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramUnderwaterId: number
+    paramSunsetId: number
+    paramOtherId: number
+    paramDeathId: number
+  }
+
+  export type LightCreateOrConnectWithoutAreaTableInput = {
+    where: LightWhereUniqueInput
+    create: XOR<LightCreateWithoutAreaTableInput, LightUncheckedCreateWithoutAreaTableInput>
+  }
+
   export type AreaTableCreateWithoutParentAreaInput = {
     id: number
     continent: ContinentCreateNestedOneWithoutAreaTableInput
@@ -15882,7 +20488,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
@@ -16259,6 +20865,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUpdateManyWithoutContinentNestedInput
+    Light?: LightUpdateManyWithoutContinentNestedInput
   }
 
   export type ContinentUncheckedUpdateWithoutAreaTableInput = {
@@ -16268,6 +20875,7 @@ export namespace Prisma {
     WorldMapArea?: WorldMapAreaUncheckedUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUncheckedUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUncheckedUpdateManyWithoutContinentNestedInput
+    Light?: LightUncheckedUpdateManyWithoutContinentNestedInput
   }
 
   export type AreaTableUpsertWithoutChildAreasInput = {
@@ -16300,7 +20908,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
     WorldMapArea?: WorldMapAreaUpdateManyWithoutAreaTableNestedInput
@@ -16343,6 +20951,41 @@ export namespace Prisma {
     WorldMapOverlay2?: WorldMapOverlayUncheckedUpdateManyWithoutArea_2NestedInput
     WorldMapOverlay3?: WorldMapOverlayUncheckedUpdateManyWithoutArea_3NestedInput
     WorldMapOverlay4?: WorldMapOverlayUncheckedUpdateManyWithoutArea_4NestedInput
+  }
+
+  export type LightUpsertWithoutAreaTableInput = {
+    update: XOR<LightUpdateWithoutAreaTableInput, LightUncheckedUpdateWithoutAreaTableInput>
+    create: XOR<LightCreateWithoutAreaTableInput, LightUncheckedCreateWithoutAreaTableInput>
+  }
+
+  export type LightUpdateWithoutAreaTableInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continent?: ContinentUpdateOneRequiredWithoutLightNestedInput
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandard?: LightParamsUpdateOneRequiredWithoutStandatrdLightNestedInput
+    paramUnderwater?: LightParamsUpdateOneRequiredWithoutUnderwaterLightNestedInput
+    paramSunset?: LightParamsUpdateOneRequiredWithoutSunsetLightNestedInput
+    paramOther?: LightParamsUpdateOneRequiredWithoutOtherLightNestedInput
+    paramDeath?: LightParamsUpdateOneRequiredWithoutDeathLightNestedInput
+  }
+
+  export type LightUncheckedUpdateWithoutAreaTableInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AreaTableUpsertWithWhereUniqueWithoutParentAreaInput = {
@@ -16529,6 +21172,7 @@ export namespace Prisma {
     AreaTable?: AreaTableCreateNestedManyWithoutContinentInput
     WorldMapArea?: WorldMapAreaCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentCreateNestedManyWithoutContinentInput
+    Light?: LightCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentUncheckedCreateWithoutAreaTriggerInput = {
@@ -16538,6 +21182,7 @@ export namespace Prisma {
     AreaTable?: AreaTableUncheckedCreateNestedManyWithoutContinentInput
     WorldMapArea?: WorldMapAreaUncheckedCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentUncheckedCreateNestedManyWithoutContinentInput
+    Light?: LightUncheckedCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentCreateOrConnectWithoutAreaTriggerInput = {
@@ -16557,6 +21202,7 @@ export namespace Prisma {
     AreaTable?: AreaTableUpdateManyWithoutContinentNestedInput
     WorldMapArea?: WorldMapAreaUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUpdateManyWithoutContinentNestedInput
+    Light?: LightUpdateManyWithoutContinentNestedInput
   }
 
   export type ContinentUncheckedUpdateWithoutAreaTriggerInput = {
@@ -16566,6 +21212,871 @@ export namespace Prisma {
     AreaTable?: AreaTableUncheckedUpdateManyWithoutContinentNestedInput
     WorldMapArea?: WorldMapAreaUncheckedUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUncheckedUpdateManyWithoutContinentNestedInput
+    Light?: LightUncheckedUpdateManyWithoutContinentNestedInput
+  }
+
+  export type ContinentCreateWithoutLightInput = {
+    id: number
+    name: string
+    AreaPOI?: AreaPOICreateNestedManyWithoutContinentInput
+    AreaTable?: AreaTableCreateNestedManyWithoutContinentInput
+    WorldMapArea?: WorldMapAreaCreateNestedManyWithoutContinentInput
+    WorldMapContinent?: WorldMapContinentCreateNestedManyWithoutContinentInput
+    AreaTrigger?: AreaTriggerCreateNestedManyWithoutContinentInput
+  }
+
+  export type ContinentUncheckedCreateWithoutLightInput = {
+    id: number
+    name: string
+    AreaPOI?: AreaPOIUncheckedCreateNestedManyWithoutContinentInput
+    AreaTable?: AreaTableUncheckedCreateNestedManyWithoutContinentInput
+    WorldMapArea?: WorldMapAreaUncheckedCreateNestedManyWithoutContinentInput
+    WorldMapContinent?: WorldMapContinentUncheckedCreateNestedManyWithoutContinentInput
+    AreaTrigger?: AreaTriggerUncheckedCreateNestedManyWithoutContinentInput
+  }
+
+  export type ContinentCreateOrConnectWithoutLightInput = {
+    where: ContinentWhereUniqueInput
+    create: XOR<ContinentCreateWithoutLightInput, ContinentUncheckedCreateWithoutLightInput>
+  }
+
+  export type LightParamsCreateWithoutStandatrdLightInput = {
+    id: number
+    highlightSky: number
+    lightSkybox: LightSkyboxCreateNestedOneWithoutLightParamsInput
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    underwaterLight?: LightCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsUncheckedCreateWithoutStandatrdLightInput = {
+    id: number
+    highlightSky: number
+    lightSkyboxId: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    underwaterLight?: LightUncheckedCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightUncheckedCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightUncheckedCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightUncheckedCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsCreateOrConnectWithoutStandatrdLightInput = {
+    where: LightParamsWhereUniqueInput
+    create: XOR<LightParamsCreateWithoutStandatrdLightInput, LightParamsUncheckedCreateWithoutStandatrdLightInput>
+  }
+
+  export type LightParamsCreateWithoutUnderwaterLightInput = {
+    id: number
+    highlightSky: number
+    lightSkybox: LightSkyboxCreateNestedOneWithoutLightParamsInput
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightCreateNestedManyWithoutParamStandardInput
+    sunsetLight?: LightCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsUncheckedCreateWithoutUnderwaterLightInput = {
+    id: number
+    highlightSky: number
+    lightSkyboxId: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightUncheckedCreateNestedManyWithoutParamStandardInput
+    sunsetLight?: LightUncheckedCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightUncheckedCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightUncheckedCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsCreateOrConnectWithoutUnderwaterLightInput = {
+    where: LightParamsWhereUniqueInput
+    create: XOR<LightParamsCreateWithoutUnderwaterLightInput, LightParamsUncheckedCreateWithoutUnderwaterLightInput>
+  }
+
+  export type LightParamsCreateWithoutSunsetLightInput = {
+    id: number
+    highlightSky: number
+    lightSkybox: LightSkyboxCreateNestedOneWithoutLightParamsInput
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightCreateNestedManyWithoutParamUnderwaterInput
+    otherLight?: LightCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsUncheckedCreateWithoutSunsetLightInput = {
+    id: number
+    highlightSky: number
+    lightSkyboxId: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightUncheckedCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightUncheckedCreateNestedManyWithoutParamUnderwaterInput
+    otherLight?: LightUncheckedCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightUncheckedCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsCreateOrConnectWithoutSunsetLightInput = {
+    where: LightParamsWhereUniqueInput
+    create: XOR<LightParamsCreateWithoutSunsetLightInput, LightParamsUncheckedCreateWithoutSunsetLightInput>
+  }
+
+  export type LightParamsCreateWithoutOtherLightInput = {
+    id: number
+    highlightSky: number
+    lightSkybox: LightSkyboxCreateNestedOneWithoutLightParamsInput
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightCreateNestedManyWithoutParamSunsetInput
+    deathLight?: LightCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsUncheckedCreateWithoutOtherLightInput = {
+    id: number
+    highlightSky: number
+    lightSkyboxId: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightUncheckedCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightUncheckedCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightUncheckedCreateNestedManyWithoutParamSunsetInput
+    deathLight?: LightUncheckedCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsCreateOrConnectWithoutOtherLightInput = {
+    where: LightParamsWhereUniqueInput
+    create: XOR<LightParamsCreateWithoutOtherLightInput, LightParamsUncheckedCreateWithoutOtherLightInput>
+  }
+
+  export type LightParamsCreateWithoutDeathLightInput = {
+    id: number
+    highlightSky: number
+    lightSkybox: LightSkyboxCreateNestedOneWithoutLightParamsInput
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightCreateNestedManyWithoutParamOtherInput
+  }
+
+  export type LightParamsUncheckedCreateWithoutDeathLightInput = {
+    id: number
+    highlightSky: number
+    lightSkyboxId: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightUncheckedCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightUncheckedCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightUncheckedCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightUncheckedCreateNestedManyWithoutParamOtherInput
+  }
+
+  export type LightParamsCreateOrConnectWithoutDeathLightInput = {
+    where: LightParamsWhereUniqueInput
+    create: XOR<LightParamsCreateWithoutDeathLightInput, LightParamsUncheckedCreateWithoutDeathLightInput>
+  }
+
+  export type AreaTableCreateWithoutLightInput = {
+    id: number
+    continent: ContinentCreateNestedOneWithoutAreaTableInput
+    parentArea: AreaTableCreateNestedOneWithoutChildAreasInput
+    areaBit: number
+    flags: number
+    soundPreferenceId: number
+    underwaterSoundPreferenceId: number
+    soundAmbienceId: number
+    zoneMusicId: number
+    zoneIntroMusicId: number
+    explorationLevel: number
+    name_enUS: string
+    name_enGB: string
+    name_koKR: string
+    name_frFR: string
+    name_deDE: string
+    name_enCN: string
+    name_zhCN: string
+    name_enTW: string
+    nameMask: number
+    factionGroupMask: number
+    liquidTypeId: number
+    minElevation: number
+    ambientMultiplier: number
+    ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
+    AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
+    WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
+    WorldMapArea?: WorldMapAreaCreateNestedManyWithoutAreaTableInput
+    WorldMapOverlay1?: WorldMapOverlayCreateNestedManyWithoutArea_1Input
+    WorldMapOverlay2?: WorldMapOverlayCreateNestedManyWithoutArea_2Input
+    WorldMapOverlay3?: WorldMapOverlayCreateNestedManyWithoutArea_3Input
+    WorldMapOverlay4?: WorldMapOverlayCreateNestedManyWithoutArea_4Input
+  }
+
+  export type AreaTableUncheckedCreateWithoutLightInput = {
+    id: number
+    continentId: number
+    parentAreaId: number
+    areaBit: number
+    flags: number
+    soundPreferenceId: number
+    underwaterSoundPreferenceId: number
+    soundAmbienceId: number
+    zoneMusicId: number
+    zoneIntroMusicId: number
+    explorationLevel: number
+    name_enUS: string
+    name_enGB: string
+    name_koKR: string
+    name_frFR: string
+    name_deDE: string
+    name_enCN: string
+    name_zhCN: string
+    name_enTW: string
+    nameMask: number
+    factionGroupMask: number
+    liquidTypeId: number
+    minElevation: number
+    ambientMultiplier: number
+    ChildAreas?: AreaTableUncheckedCreateNestedManyWithoutParentAreaInput
+    AreaPOI?: AreaPOIUncheckedCreateNestedManyWithoutAreaInput
+    WMOAreaTable?: WMOAreaTableUncheckedCreateNestedManyWithoutAreaTableInput
+    WorldMapArea?: WorldMapAreaUncheckedCreateNestedManyWithoutAreaTableInput
+    WorldMapOverlay1?: WorldMapOverlayUncheckedCreateNestedManyWithoutArea_1Input
+    WorldMapOverlay2?: WorldMapOverlayUncheckedCreateNestedManyWithoutArea_2Input
+    WorldMapOverlay3?: WorldMapOverlayUncheckedCreateNestedManyWithoutArea_3Input
+    WorldMapOverlay4?: WorldMapOverlayUncheckedCreateNestedManyWithoutArea_4Input
+  }
+
+  export type AreaTableCreateOrConnectWithoutLightInput = {
+    where: AreaTableWhereUniqueInput
+    create: XOR<AreaTableCreateWithoutLightInput, AreaTableUncheckedCreateWithoutLightInput>
+  }
+
+  export type ContinentUpsertWithoutLightInput = {
+    update: XOR<ContinentUpdateWithoutLightInput, ContinentUncheckedUpdateWithoutLightInput>
+    create: XOR<ContinentCreateWithoutLightInput, ContinentUncheckedCreateWithoutLightInput>
+  }
+
+  export type ContinentUpdateWithoutLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    AreaPOI?: AreaPOIUpdateManyWithoutContinentNestedInput
+    AreaTable?: AreaTableUpdateManyWithoutContinentNestedInput
+    WorldMapArea?: WorldMapAreaUpdateManyWithoutContinentNestedInput
+    WorldMapContinent?: WorldMapContinentUpdateManyWithoutContinentNestedInput
+    AreaTrigger?: AreaTriggerUpdateManyWithoutContinentNestedInput
+  }
+
+  export type ContinentUncheckedUpdateWithoutLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    AreaPOI?: AreaPOIUncheckedUpdateManyWithoutContinentNestedInput
+    AreaTable?: AreaTableUncheckedUpdateManyWithoutContinentNestedInput
+    WorldMapArea?: WorldMapAreaUncheckedUpdateManyWithoutContinentNestedInput
+    WorldMapContinent?: WorldMapContinentUncheckedUpdateManyWithoutContinentNestedInput
+    AreaTrigger?: AreaTriggerUncheckedUpdateManyWithoutContinentNestedInput
+  }
+
+  export type LightParamsUpsertWithoutStandatrdLightInput = {
+    update: XOR<LightParamsUpdateWithoutStandatrdLightInput, LightParamsUncheckedUpdateWithoutStandatrdLightInput>
+    create: XOR<LightParamsCreateWithoutStandatrdLightInput, LightParamsUncheckedCreateWithoutStandatrdLightInput>
+  }
+
+  export type LightParamsUpdateWithoutStandatrdLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkybox?: LightSkyboxUpdateOneRequiredWithoutLightParamsNestedInput
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    underwaterLight?: LightUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUncheckedUpdateWithoutStandatrdLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkyboxId?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    underwaterLight?: LightUncheckedUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUncheckedUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUncheckedUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUncheckedUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUpsertWithoutUnderwaterLightInput = {
+    update: XOR<LightParamsUpdateWithoutUnderwaterLightInput, LightParamsUncheckedUpdateWithoutUnderwaterLightInput>
+    create: XOR<LightParamsCreateWithoutUnderwaterLightInput, LightParamsUncheckedCreateWithoutUnderwaterLightInput>
+  }
+
+  export type LightParamsUpdateWithoutUnderwaterLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkybox?: LightSkyboxUpdateOneRequiredWithoutLightParamsNestedInput
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUpdateManyWithoutParamStandardNestedInput
+    sunsetLight?: LightUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUncheckedUpdateWithoutUnderwaterLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkyboxId?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUncheckedUpdateManyWithoutParamStandardNestedInput
+    sunsetLight?: LightUncheckedUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUncheckedUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUncheckedUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUpsertWithoutSunsetLightInput = {
+    update: XOR<LightParamsUpdateWithoutSunsetLightInput, LightParamsUncheckedUpdateWithoutSunsetLightInput>
+    create: XOR<LightParamsCreateWithoutSunsetLightInput, LightParamsUncheckedCreateWithoutSunsetLightInput>
+  }
+
+  export type LightParamsUpdateWithoutSunsetLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkybox?: LightSkyboxUpdateOneRequiredWithoutLightParamsNestedInput
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUpdateManyWithoutParamUnderwaterNestedInput
+    otherLight?: LightUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUncheckedUpdateWithoutSunsetLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkyboxId?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUncheckedUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUncheckedUpdateManyWithoutParamUnderwaterNestedInput
+    otherLight?: LightUncheckedUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUncheckedUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUpsertWithoutOtherLightInput = {
+    update: XOR<LightParamsUpdateWithoutOtherLightInput, LightParamsUncheckedUpdateWithoutOtherLightInput>
+    create: XOR<LightParamsCreateWithoutOtherLightInput, LightParamsUncheckedCreateWithoutOtherLightInput>
+  }
+
+  export type LightParamsUpdateWithoutOtherLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkybox?: LightSkyboxUpdateOneRequiredWithoutLightParamsNestedInput
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUpdateManyWithoutParamSunsetNestedInput
+    deathLight?: LightUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUncheckedUpdateWithoutOtherLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkyboxId?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUncheckedUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUncheckedUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUncheckedUpdateManyWithoutParamSunsetNestedInput
+    deathLight?: LightUncheckedUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUpsertWithoutDeathLightInput = {
+    update: XOR<LightParamsUpdateWithoutDeathLightInput, LightParamsUncheckedUpdateWithoutDeathLightInput>
+    create: XOR<LightParamsCreateWithoutDeathLightInput, LightParamsUncheckedCreateWithoutDeathLightInput>
+  }
+
+  export type LightParamsUpdateWithoutDeathLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkybox?: LightSkyboxUpdateOneRequiredWithoutLightParamsNestedInput
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUpdateManyWithoutParamOtherNestedInput
+  }
+
+  export type LightParamsUncheckedUpdateWithoutDeathLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    lightSkyboxId?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUncheckedUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUncheckedUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUncheckedUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUncheckedUpdateManyWithoutParamOtherNestedInput
+  }
+
+  export type AreaTableUpsertWithWhereUniqueWithoutLightInput = {
+    where: AreaTableWhereUniqueInput
+    update: XOR<AreaTableUpdateWithoutLightInput, AreaTableUncheckedUpdateWithoutLightInput>
+    create: XOR<AreaTableCreateWithoutLightInput, AreaTableUncheckedCreateWithoutLightInput>
+  }
+
+  export type AreaTableUpdateWithWhereUniqueWithoutLightInput = {
+    where: AreaTableWhereUniqueInput
+    data: XOR<AreaTableUpdateWithoutLightInput, AreaTableUncheckedUpdateWithoutLightInput>
+  }
+
+  export type AreaTableUpdateManyWithWhereWithoutLightInput = {
+    where: AreaTableScalarWhereInput
+    data: XOR<AreaTableUpdateManyMutationInput, AreaTableUncheckedUpdateManyWithoutAreaTableInput>
+  }
+
+  export type LightSkyboxCreateWithoutLightParamsInput = {
+    id: number
+    name: string
+  }
+
+  export type LightSkyboxUncheckedCreateWithoutLightParamsInput = {
+    id: number
+    name: string
+  }
+
+  export type LightSkyboxCreateOrConnectWithoutLightParamsInput = {
+    where: LightSkyboxWhereUniqueInput
+    create: XOR<LightSkyboxCreateWithoutLightParamsInput, LightSkyboxUncheckedCreateWithoutLightParamsInput>
+  }
+
+  export type LightCreateWithoutParamStandardInput = {
+    id: number
+    continent: ContinentCreateNestedOneWithoutLightInput
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramUnderwater: LightParamsCreateNestedOneWithoutUnderwaterLightInput
+    paramSunset: LightParamsCreateNestedOneWithoutSunsetLightInput
+    paramOther: LightParamsCreateNestedOneWithoutOtherLightInput
+    paramDeath: LightParamsCreateNestedOneWithoutDeathLightInput
+    AreaTable?: AreaTableCreateNestedManyWithoutLightInput
+  }
+
+  export type LightUncheckedCreateWithoutParamStandardInput = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramUnderwaterId: number
+    paramSunsetId: number
+    paramOtherId: number
+    paramDeathId: number
+    AreaTable?: AreaTableUncheckedCreateNestedManyWithoutLightInput
+  }
+
+  export type LightCreateOrConnectWithoutParamStandardInput = {
+    where: LightWhereUniqueInput
+    create: XOR<LightCreateWithoutParamStandardInput, LightUncheckedCreateWithoutParamStandardInput>
+  }
+
+  export type LightCreateWithoutParamUnderwaterInput = {
+    id: number
+    continent: ContinentCreateNestedOneWithoutLightInput
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandard: LightParamsCreateNestedOneWithoutStandatrdLightInput
+    paramSunset: LightParamsCreateNestedOneWithoutSunsetLightInput
+    paramOther: LightParamsCreateNestedOneWithoutOtherLightInput
+    paramDeath: LightParamsCreateNestedOneWithoutDeathLightInput
+    AreaTable?: AreaTableCreateNestedManyWithoutLightInput
+  }
+
+  export type LightUncheckedCreateWithoutParamUnderwaterInput = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramSunsetId: number
+    paramOtherId: number
+    paramDeathId: number
+    AreaTable?: AreaTableUncheckedCreateNestedManyWithoutLightInput
+  }
+
+  export type LightCreateOrConnectWithoutParamUnderwaterInput = {
+    where: LightWhereUniqueInput
+    create: XOR<LightCreateWithoutParamUnderwaterInput, LightUncheckedCreateWithoutParamUnderwaterInput>
+  }
+
+  export type LightCreateWithoutParamSunsetInput = {
+    id: number
+    continent: ContinentCreateNestedOneWithoutLightInput
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandard: LightParamsCreateNestedOneWithoutStandatrdLightInput
+    paramUnderwater: LightParamsCreateNestedOneWithoutUnderwaterLightInput
+    paramOther: LightParamsCreateNestedOneWithoutOtherLightInput
+    paramDeath: LightParamsCreateNestedOneWithoutDeathLightInput
+    AreaTable?: AreaTableCreateNestedManyWithoutLightInput
+  }
+
+  export type LightUncheckedCreateWithoutParamSunsetInput = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramUnderwaterId: number
+    paramOtherId: number
+    paramDeathId: number
+    AreaTable?: AreaTableUncheckedCreateNestedManyWithoutLightInput
+  }
+
+  export type LightCreateOrConnectWithoutParamSunsetInput = {
+    where: LightWhereUniqueInput
+    create: XOR<LightCreateWithoutParamSunsetInput, LightUncheckedCreateWithoutParamSunsetInput>
+  }
+
+  export type LightCreateWithoutParamOtherInput = {
+    id: number
+    continent: ContinentCreateNestedOneWithoutLightInput
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandard: LightParamsCreateNestedOneWithoutStandatrdLightInput
+    paramUnderwater: LightParamsCreateNestedOneWithoutUnderwaterLightInput
+    paramSunset: LightParamsCreateNestedOneWithoutSunsetLightInput
+    paramDeath: LightParamsCreateNestedOneWithoutDeathLightInput
+    AreaTable?: AreaTableCreateNestedManyWithoutLightInput
+  }
+
+  export type LightUncheckedCreateWithoutParamOtherInput = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramUnderwaterId: number
+    paramSunsetId: number
+    paramDeathId: number
+    AreaTable?: AreaTableUncheckedCreateNestedManyWithoutLightInput
+  }
+
+  export type LightCreateOrConnectWithoutParamOtherInput = {
+    where: LightWhereUniqueInput
+    create: XOR<LightCreateWithoutParamOtherInput, LightUncheckedCreateWithoutParamOtherInput>
+  }
+
+  export type LightCreateWithoutParamDeathInput = {
+    id: number
+    continent: ContinentCreateNestedOneWithoutLightInput
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandard: LightParamsCreateNestedOneWithoutStandatrdLightInput
+    paramUnderwater: LightParamsCreateNestedOneWithoutUnderwaterLightInput
+    paramSunset: LightParamsCreateNestedOneWithoutSunsetLightInput
+    paramOther: LightParamsCreateNestedOneWithoutOtherLightInput
+    AreaTable?: AreaTableCreateNestedManyWithoutLightInput
+  }
+
+  export type LightUncheckedCreateWithoutParamDeathInput = {
+    id: number
+    continentId: number
+    x: number
+    y: number
+    z: number
+    falloffStart: number
+    falloffEnd: number
+    paramStandardId: number
+    paramUnderwaterId: number
+    paramSunsetId: number
+    paramOtherId: number
+    AreaTable?: AreaTableUncheckedCreateNestedManyWithoutLightInput
+  }
+
+  export type LightCreateOrConnectWithoutParamDeathInput = {
+    where: LightWhereUniqueInput
+    create: XOR<LightCreateWithoutParamDeathInput, LightUncheckedCreateWithoutParamDeathInput>
+  }
+
+  export type LightSkyboxUpsertWithoutLightParamsInput = {
+    update: XOR<LightSkyboxUpdateWithoutLightParamsInput, LightSkyboxUncheckedUpdateWithoutLightParamsInput>
+    create: XOR<LightSkyboxCreateWithoutLightParamsInput, LightSkyboxUncheckedCreateWithoutLightParamsInput>
+  }
+
+  export type LightSkyboxUpdateWithoutLightParamsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LightSkyboxUncheckedUpdateWithoutLightParamsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LightUpsertWithWhereUniqueWithoutParamStandardInput = {
+    where: LightWhereUniqueInput
+    update: XOR<LightUpdateWithoutParamStandardInput, LightUncheckedUpdateWithoutParamStandardInput>
+    create: XOR<LightCreateWithoutParamStandardInput, LightUncheckedCreateWithoutParamStandardInput>
+  }
+
+  export type LightUpdateWithWhereUniqueWithoutParamStandardInput = {
+    where: LightWhereUniqueInput
+    data: XOR<LightUpdateWithoutParamStandardInput, LightUncheckedUpdateWithoutParamStandardInput>
+  }
+
+  export type LightUpdateManyWithWhereWithoutParamStandardInput = {
+    where: LightScalarWhereInput
+    data: XOR<LightUpdateManyMutationInput, LightUncheckedUpdateManyWithoutStandatrdLightInput>
+  }
+
+  export type LightUpsertWithWhereUniqueWithoutParamUnderwaterInput = {
+    where: LightWhereUniqueInput
+    update: XOR<LightUpdateWithoutParamUnderwaterInput, LightUncheckedUpdateWithoutParamUnderwaterInput>
+    create: XOR<LightCreateWithoutParamUnderwaterInput, LightUncheckedCreateWithoutParamUnderwaterInput>
+  }
+
+  export type LightUpdateWithWhereUniqueWithoutParamUnderwaterInput = {
+    where: LightWhereUniqueInput
+    data: XOR<LightUpdateWithoutParamUnderwaterInput, LightUncheckedUpdateWithoutParamUnderwaterInput>
+  }
+
+  export type LightUpdateManyWithWhereWithoutParamUnderwaterInput = {
+    where: LightScalarWhereInput
+    data: XOR<LightUpdateManyMutationInput, LightUncheckedUpdateManyWithoutUnderwaterLightInput>
+  }
+
+  export type LightUpsertWithWhereUniqueWithoutParamSunsetInput = {
+    where: LightWhereUniqueInput
+    update: XOR<LightUpdateWithoutParamSunsetInput, LightUncheckedUpdateWithoutParamSunsetInput>
+    create: XOR<LightCreateWithoutParamSunsetInput, LightUncheckedCreateWithoutParamSunsetInput>
+  }
+
+  export type LightUpdateWithWhereUniqueWithoutParamSunsetInput = {
+    where: LightWhereUniqueInput
+    data: XOR<LightUpdateWithoutParamSunsetInput, LightUncheckedUpdateWithoutParamSunsetInput>
+  }
+
+  export type LightUpdateManyWithWhereWithoutParamSunsetInput = {
+    where: LightScalarWhereInput
+    data: XOR<LightUpdateManyMutationInput, LightUncheckedUpdateManyWithoutSunsetLightInput>
+  }
+
+  export type LightUpsertWithWhereUniqueWithoutParamOtherInput = {
+    where: LightWhereUniqueInput
+    update: XOR<LightUpdateWithoutParamOtherInput, LightUncheckedUpdateWithoutParamOtherInput>
+    create: XOR<LightCreateWithoutParamOtherInput, LightUncheckedCreateWithoutParamOtherInput>
+  }
+
+  export type LightUpdateWithWhereUniqueWithoutParamOtherInput = {
+    where: LightWhereUniqueInput
+    data: XOR<LightUpdateWithoutParamOtherInput, LightUncheckedUpdateWithoutParamOtherInput>
+  }
+
+  export type LightUpdateManyWithWhereWithoutParamOtherInput = {
+    where: LightScalarWhereInput
+    data: XOR<LightUpdateManyMutationInput, LightUncheckedUpdateManyWithoutOtherLightInput>
+  }
+
+  export type LightUpsertWithWhereUniqueWithoutParamDeathInput = {
+    where: LightWhereUniqueInput
+    update: XOR<LightUpdateWithoutParamDeathInput, LightUncheckedUpdateWithoutParamDeathInput>
+    create: XOR<LightCreateWithoutParamDeathInput, LightUncheckedCreateWithoutParamDeathInput>
+  }
+
+  export type LightUpdateWithWhereUniqueWithoutParamDeathInput = {
+    where: LightWhereUniqueInput
+    data: XOR<LightUpdateWithoutParamDeathInput, LightUncheckedUpdateWithoutParamDeathInput>
+  }
+
+  export type LightUpdateManyWithWhereWithoutParamDeathInput = {
+    where: LightScalarWhereInput
+    data: XOR<LightUpdateManyMutationInput, LightUncheckedUpdateManyWithoutDeathLightInput>
+  }
+
+  export type LightParamsCreateWithoutLightSkyboxInput = {
+    id: number
+    highlightSky: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsUncheckedCreateWithoutLightSkyboxInput = {
+    id: number
+    highlightSky: number
+    glow: number
+    waterShallowAlpha: number
+    waterDeepAlpha: number
+    oceanShallowAlpha: number
+    oceanDeepAlpha: number
+    flags: number
+    standatrdLight?: LightUncheckedCreateNestedManyWithoutParamStandardInput
+    underwaterLight?: LightUncheckedCreateNestedManyWithoutParamUnderwaterInput
+    sunsetLight?: LightUncheckedCreateNestedManyWithoutParamSunsetInput
+    otherLight?: LightUncheckedCreateNestedManyWithoutParamOtherInput
+    deathLight?: LightUncheckedCreateNestedManyWithoutParamDeathInput
+  }
+
+  export type LightParamsCreateOrConnectWithoutLightSkyboxInput = {
+    where: LightParamsWhereUniqueInput
+    create: XOR<LightParamsCreateWithoutLightSkyboxInput, LightParamsUncheckedCreateWithoutLightSkyboxInput>
+  }
+
+  export type LightParamsUpsertWithWhereUniqueWithoutLightSkyboxInput = {
+    where: LightParamsWhereUniqueInput
+    update: XOR<LightParamsUpdateWithoutLightSkyboxInput, LightParamsUncheckedUpdateWithoutLightSkyboxInput>
+    create: XOR<LightParamsCreateWithoutLightSkyboxInput, LightParamsUncheckedCreateWithoutLightSkyboxInput>
+  }
+
+  export type LightParamsUpdateWithWhereUniqueWithoutLightSkyboxInput = {
+    where: LightParamsWhereUniqueInput
+    data: XOR<LightParamsUpdateWithoutLightSkyboxInput, LightParamsUncheckedUpdateWithoutLightSkyboxInput>
+  }
+
+  export type LightParamsUpdateManyWithWhereWithoutLightSkyboxInput = {
+    where: LightParamsScalarWhereInput
+    data: XOR<LightParamsUpdateManyMutationInput, LightParamsUncheckedUpdateManyWithoutLightParamsInput>
+  }
+
+  export type LightParamsScalarWhereInput = {
+    AND?: Enumerable<LightParamsScalarWhereInput>
+    OR?: Enumerable<LightParamsScalarWhereInput>
+    NOT?: Enumerable<LightParamsScalarWhereInput>
+    id?: IntFilter | number
+    highlightSky?: IntFilter | number
+    lightSkyboxId?: IntFilter | number
+    glow?: FloatFilter | number
+    waterShallowAlpha?: FloatFilter | number
+    waterDeepAlpha?: FloatFilter | number
+    oceanShallowAlpha?: FloatFilter | number
+    oceanDeepAlpha?: FloatFilter | number
+    flags?: IntFilter | number
   }
 
   export type AreaTableCreateWithoutWMOAreaTableInput = {
@@ -16593,7 +22104,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WorldMapArea?: WorldMapAreaCreateNestedManyWithoutAreaTableInput
@@ -16673,7 +22184,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WorldMapArea?: WorldMapAreaUpdateManyWithoutAreaTableNestedInput
@@ -16725,6 +22236,7 @@ export namespace Prisma {
     AreaTable?: AreaTableCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerCreateNestedManyWithoutContinentInput
+    Light?: LightCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentUncheckedCreateWithoutWorldMapAreaInput = {
@@ -16734,6 +22246,7 @@ export namespace Prisma {
     AreaTable?: AreaTableUncheckedCreateNestedManyWithoutContinentInput
     WorldMapContinent?: WorldMapContinentUncheckedCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerUncheckedCreateNestedManyWithoutContinentInput
+    Light?: LightUncheckedCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentCreateOrConnectWithoutWorldMapAreaInput = {
@@ -16766,7 +22279,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
@@ -16871,6 +22384,7 @@ export namespace Prisma {
     AreaTable?: AreaTableUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUpdateManyWithoutContinentNestedInput
+    Light?: LightUpdateManyWithoutContinentNestedInput
   }
 
   export type ContinentUncheckedUpdateWithoutWorldMapAreaInput = {
@@ -16880,6 +22394,7 @@ export namespace Prisma {
     AreaTable?: AreaTableUncheckedUpdateManyWithoutContinentNestedInput
     WorldMapContinent?: WorldMapContinentUncheckedUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUncheckedUpdateManyWithoutContinentNestedInput
+    Light?: LightUncheckedUpdateManyWithoutContinentNestedInput
   }
 
   export type AreaTableUpsertWithoutWorldMapAreaInput = {
@@ -16912,7 +22427,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
@@ -16980,6 +22495,7 @@ export namespace Prisma {
     AreaTable?: AreaTableCreateNestedManyWithoutContinentInput
     WorldMapArea?: WorldMapAreaCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerCreateNestedManyWithoutContinentInput
+    Light?: LightCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentUncheckedCreateWithoutWorldMapContinentInput = {
@@ -16989,6 +22505,7 @@ export namespace Prisma {
     AreaTable?: AreaTableUncheckedCreateNestedManyWithoutContinentInput
     WorldMapArea?: WorldMapAreaUncheckedCreateNestedManyWithoutContinentInput
     AreaTrigger?: AreaTriggerUncheckedCreateNestedManyWithoutContinentInput
+    Light?: LightUncheckedCreateNestedManyWithoutContinentInput
   }
 
   export type ContinentCreateOrConnectWithoutWorldMapContinentInput = {
@@ -17008,6 +22525,7 @@ export namespace Prisma {
     AreaTable?: AreaTableUpdateManyWithoutContinentNestedInput
     WorldMapArea?: WorldMapAreaUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUpdateManyWithoutContinentNestedInput
+    Light?: LightUpdateManyWithoutContinentNestedInput
   }
 
   export type ContinentUncheckedUpdateWithoutWorldMapContinentInput = {
@@ -17017,6 +22535,7 @@ export namespace Prisma {
     AreaTable?: AreaTableUncheckedUpdateManyWithoutContinentNestedInput
     WorldMapArea?: WorldMapAreaUncheckedUpdateManyWithoutContinentNestedInput
     AreaTrigger?: AreaTriggerUncheckedUpdateManyWithoutContinentNestedInput
+    Light?: LightUncheckedUpdateManyWithoutContinentNestedInput
   }
 
   export type WorldMapAreaCreateWithoutWorldMapOverlayInput = {
@@ -17070,7 +22589,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
@@ -17145,7 +22664,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
@@ -17220,7 +22739,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
@@ -17295,7 +22814,7 @@ export namespace Prisma {
     liquidTypeId: number
     minElevation: number
     ambientMultiplier: number
-    lightId: number
+    light: LightCreateNestedOneWithoutAreaTableInput
     ChildAreas?: AreaTableCreateNestedManyWithoutParentAreaInput
     AreaPOI?: AreaPOICreateNestedManyWithoutAreaInput
     WMOAreaTable?: WMOAreaTableCreateNestedManyWithoutAreaTableInput
@@ -17401,7 +22920,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
@@ -17476,7 +22995,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
@@ -17551,7 +23070,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
@@ -17626,7 +23145,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
@@ -17788,7 +23307,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
@@ -17973,6 +23492,50 @@ export namespace Prisma {
     boxYaw?: FloatFieldUpdateOperationsInput | number
   }
 
+  export type LightUpdateWithoutContinentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandard?: LightParamsUpdateOneRequiredWithoutStandatrdLightNestedInput
+    paramUnderwater?: LightParamsUpdateOneRequiredWithoutUnderwaterLightNestedInput
+    paramSunset?: LightParamsUpdateOneRequiredWithoutSunsetLightNestedInput
+    paramOther?: LightParamsUpdateOneRequiredWithoutOtherLightNestedInput
+    paramDeath?: LightParamsUpdateOneRequiredWithoutDeathLightNestedInput
+    AreaTable?: AreaTableUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateWithoutContinentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+    AreaTable?: AreaTableUncheckedUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateManyWithoutLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type AreaTableUpdateWithoutParentAreaInput = {
     id?: IntFieldUpdateOperationsInput | number
     continent?: ContinentUpdateOneRequiredWithoutAreaTableNestedInput
@@ -17997,7 +23560,7 @@ export namespace Prisma {
     liquidTypeId?: IntFieldUpdateOperationsInput | number
     minElevation?: FloatFieldUpdateOperationsInput | number
     ambientMultiplier?: FloatFieldUpdateOperationsInput | number
-    lightId?: IntFieldUpdateOperationsInput | number
+    light?: LightUpdateOneRequiredWithoutAreaTableNestedInput
     ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
     AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
     WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
@@ -18445,6 +24008,339 @@ export namespace Prisma {
     hitRectLeft?: IntFieldUpdateOperationsInput | number
     hitRectBottom?: IntFieldUpdateOperationsInput | number
     hitRectRight?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AreaTableUpdateWithoutLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continent?: ContinentUpdateOneRequiredWithoutAreaTableNestedInput
+    parentArea?: AreaTableUpdateOneRequiredWithoutChildAreasNestedInput
+    areaBit?: IntFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    soundPreferenceId?: IntFieldUpdateOperationsInput | number
+    underwaterSoundPreferenceId?: IntFieldUpdateOperationsInput | number
+    soundAmbienceId?: IntFieldUpdateOperationsInput | number
+    zoneMusicId?: IntFieldUpdateOperationsInput | number
+    zoneIntroMusicId?: IntFieldUpdateOperationsInput | number
+    explorationLevel?: IntFieldUpdateOperationsInput | number
+    name_enUS?: StringFieldUpdateOperationsInput | string
+    name_enGB?: StringFieldUpdateOperationsInput | string
+    name_koKR?: StringFieldUpdateOperationsInput | string
+    name_frFR?: StringFieldUpdateOperationsInput | string
+    name_deDE?: StringFieldUpdateOperationsInput | string
+    name_enCN?: StringFieldUpdateOperationsInput | string
+    name_zhCN?: StringFieldUpdateOperationsInput | string
+    name_enTW?: StringFieldUpdateOperationsInput | string
+    nameMask?: IntFieldUpdateOperationsInput | number
+    factionGroupMask?: IntFieldUpdateOperationsInput | number
+    liquidTypeId?: IntFieldUpdateOperationsInput | number
+    minElevation?: FloatFieldUpdateOperationsInput | number
+    ambientMultiplier?: FloatFieldUpdateOperationsInput | number
+    ChildAreas?: AreaTableUpdateManyWithoutParentAreaNestedInput
+    AreaPOI?: AreaPOIUpdateManyWithoutAreaNestedInput
+    WMOAreaTable?: WMOAreaTableUpdateManyWithoutAreaTableNestedInput
+    WorldMapArea?: WorldMapAreaUpdateManyWithoutAreaTableNestedInput
+    WorldMapOverlay1?: WorldMapOverlayUpdateManyWithoutArea_1NestedInput
+    WorldMapOverlay2?: WorldMapOverlayUpdateManyWithoutArea_2NestedInput
+    WorldMapOverlay3?: WorldMapOverlayUpdateManyWithoutArea_3NestedInput
+    WorldMapOverlay4?: WorldMapOverlayUpdateManyWithoutArea_4NestedInput
+  }
+
+  export type AreaTableUncheckedUpdateWithoutLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    parentAreaId?: IntFieldUpdateOperationsInput | number
+    areaBit?: IntFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    soundPreferenceId?: IntFieldUpdateOperationsInput | number
+    underwaterSoundPreferenceId?: IntFieldUpdateOperationsInput | number
+    soundAmbienceId?: IntFieldUpdateOperationsInput | number
+    zoneMusicId?: IntFieldUpdateOperationsInput | number
+    zoneIntroMusicId?: IntFieldUpdateOperationsInput | number
+    explorationLevel?: IntFieldUpdateOperationsInput | number
+    name_enUS?: StringFieldUpdateOperationsInput | string
+    name_enGB?: StringFieldUpdateOperationsInput | string
+    name_koKR?: StringFieldUpdateOperationsInput | string
+    name_frFR?: StringFieldUpdateOperationsInput | string
+    name_deDE?: StringFieldUpdateOperationsInput | string
+    name_enCN?: StringFieldUpdateOperationsInput | string
+    name_zhCN?: StringFieldUpdateOperationsInput | string
+    name_enTW?: StringFieldUpdateOperationsInput | string
+    nameMask?: IntFieldUpdateOperationsInput | number
+    factionGroupMask?: IntFieldUpdateOperationsInput | number
+    liquidTypeId?: IntFieldUpdateOperationsInput | number
+    minElevation?: FloatFieldUpdateOperationsInput | number
+    ambientMultiplier?: FloatFieldUpdateOperationsInput | number
+    ChildAreas?: AreaTableUncheckedUpdateManyWithoutParentAreaNestedInput
+    AreaPOI?: AreaPOIUncheckedUpdateManyWithoutAreaNestedInput
+    WMOAreaTable?: WMOAreaTableUncheckedUpdateManyWithoutAreaTableNestedInput
+    WorldMapArea?: WorldMapAreaUncheckedUpdateManyWithoutAreaTableNestedInput
+    WorldMapOverlay1?: WorldMapOverlayUncheckedUpdateManyWithoutArea_1NestedInput
+    WorldMapOverlay2?: WorldMapOverlayUncheckedUpdateManyWithoutArea_2NestedInput
+    WorldMapOverlay3?: WorldMapOverlayUncheckedUpdateManyWithoutArea_3NestedInput
+    WorldMapOverlay4?: WorldMapOverlayUncheckedUpdateManyWithoutArea_4NestedInput
+  }
+
+  export type LightUpdateWithoutParamStandardInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continent?: ContinentUpdateOneRequiredWithoutLightNestedInput
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramUnderwater?: LightParamsUpdateOneRequiredWithoutUnderwaterLightNestedInput
+    paramSunset?: LightParamsUpdateOneRequiredWithoutSunsetLightNestedInput
+    paramOther?: LightParamsUpdateOneRequiredWithoutOtherLightNestedInput
+    paramDeath?: LightParamsUpdateOneRequiredWithoutDeathLightNestedInput
+    AreaTable?: AreaTableUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateWithoutParamStandardInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+    AreaTable?: AreaTableUncheckedUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateManyWithoutStandatrdLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LightUpdateWithoutParamUnderwaterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continent?: ContinentUpdateOneRequiredWithoutLightNestedInput
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandard?: LightParamsUpdateOneRequiredWithoutStandatrdLightNestedInput
+    paramSunset?: LightParamsUpdateOneRequiredWithoutSunsetLightNestedInput
+    paramOther?: LightParamsUpdateOneRequiredWithoutOtherLightNestedInput
+    paramDeath?: LightParamsUpdateOneRequiredWithoutDeathLightNestedInput
+    AreaTable?: AreaTableUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateWithoutParamUnderwaterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+    AreaTable?: AreaTableUncheckedUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateManyWithoutUnderwaterLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LightUpdateWithoutParamSunsetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continent?: ContinentUpdateOneRequiredWithoutLightNestedInput
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandard?: LightParamsUpdateOneRequiredWithoutStandatrdLightNestedInput
+    paramUnderwater?: LightParamsUpdateOneRequiredWithoutUnderwaterLightNestedInput
+    paramOther?: LightParamsUpdateOneRequiredWithoutOtherLightNestedInput
+    paramDeath?: LightParamsUpdateOneRequiredWithoutDeathLightNestedInput
+    AreaTable?: AreaTableUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateWithoutParamSunsetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+    AreaTable?: AreaTableUncheckedUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateManyWithoutSunsetLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LightUpdateWithoutParamOtherInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continent?: ContinentUpdateOneRequiredWithoutLightNestedInput
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandard?: LightParamsUpdateOneRequiredWithoutStandatrdLightNestedInput
+    paramUnderwater?: LightParamsUpdateOneRequiredWithoutUnderwaterLightNestedInput
+    paramSunset?: LightParamsUpdateOneRequiredWithoutSunsetLightNestedInput
+    paramDeath?: LightParamsUpdateOneRequiredWithoutDeathLightNestedInput
+    AreaTable?: AreaTableUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateWithoutParamOtherInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+    AreaTable?: AreaTableUncheckedUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateManyWithoutOtherLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramDeathId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LightUpdateWithoutParamDeathInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continent?: ContinentUpdateOneRequiredWithoutLightNestedInput
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandard?: LightParamsUpdateOneRequiredWithoutStandatrdLightNestedInput
+    paramUnderwater?: LightParamsUpdateOneRequiredWithoutUnderwaterLightNestedInput
+    paramSunset?: LightParamsUpdateOneRequiredWithoutSunsetLightNestedInput
+    paramOther?: LightParamsUpdateOneRequiredWithoutOtherLightNestedInput
+    AreaTable?: AreaTableUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateWithoutParamDeathInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+    AreaTable?: AreaTableUncheckedUpdateManyWithoutLightNestedInput
+  }
+
+  export type LightUncheckedUpdateManyWithoutDeathLightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    continentId?: IntFieldUpdateOperationsInput | number
+    x?: FloatFieldUpdateOperationsInput | number
+    y?: FloatFieldUpdateOperationsInput | number
+    z?: FloatFieldUpdateOperationsInput | number
+    falloffStart?: FloatFieldUpdateOperationsInput | number
+    falloffEnd?: FloatFieldUpdateOperationsInput | number
+    paramStandardId?: IntFieldUpdateOperationsInput | number
+    paramUnderwaterId?: IntFieldUpdateOperationsInput | number
+    paramSunsetId?: IntFieldUpdateOperationsInput | number
+    paramOtherId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LightParamsUpdateWithoutLightSkyboxInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUncheckedUpdateWithoutLightSkyboxInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
+    standatrdLight?: LightUncheckedUpdateManyWithoutParamStandardNestedInput
+    underwaterLight?: LightUncheckedUpdateManyWithoutParamUnderwaterNestedInput
+    sunsetLight?: LightUncheckedUpdateManyWithoutParamSunsetNestedInput
+    otherLight?: LightUncheckedUpdateManyWithoutParamOtherNestedInput
+    deathLight?: LightUncheckedUpdateManyWithoutParamDeathNestedInput
+  }
+
+  export type LightParamsUncheckedUpdateManyWithoutLightParamsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    highlightSky?: IntFieldUpdateOperationsInput | number
+    glow?: FloatFieldUpdateOperationsInput | number
+    waterShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    waterDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanShallowAlpha?: FloatFieldUpdateOperationsInput | number
+    oceanDeepAlpha?: FloatFieldUpdateOperationsInput | number
+    flags?: IntFieldUpdateOperationsInput | number
   }
 
   export type WorldMapOverlayUpdateWithoutMapAreaInput = {

@@ -42,7 +42,7 @@ export const LocalizedStringRef = <T extends string>(key: T) =>
 			{}
 		),
 		[`${key}Mask`]: r.int32le
-	} as Record<`${T}_${typeof Languages[number]}`, StringRef> &
+	} as Record<`${T}_${(typeof Languages)[number]}`, StringRef> &
 		Record<`${T}Mask`, r.Number>);
 
 export const ArrayField = (key: string, type: unknown, count: number) =>
@@ -557,11 +557,11 @@ const Entities = {
 		...Position,
 		falloffStart: r.floatle,
 		falloffEnd: r.floatle,
-		paramStandard: r.int32le,
-		paramUnderwater: r.int32le,
-		paramSunset: r.int32le,
-		paramOther: r.int32le,
-		paramDeath: r.int32le
+		paramStandardId: r.int32le,
+		paramUnderwaterId: r.int32le,
+		paramSunsetId: r.int32le,
+		paramOtherId: r.int32le,
+		paramDeathId: r.int32le
 	}),
 	LightFloatBand: Dbc({
 		id: r.int32le,

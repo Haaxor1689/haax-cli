@@ -7,7 +7,13 @@ import { isNotUndefined } from '../utils.js';
 
 export type CommonEntry = { src: string; dest: string };
 export type MapEntry = { type: 'map'; x: number; y: number };
-export type WmoEntry = { type: 'wmo' };
+export type WmoEntry = {
+	type: 'wmo';
+	name: string;
+	c: number;
+	x: number;
+	y: number;
+};
 export type MinimapEntry = CommonEntry & (MapEntry | WmoEntry);
 
 const loadMinimap = (
@@ -35,15 +41,33 @@ const loadMinimap = (
 							return undefined;
 						}
 
-						const [_, x, y] = src?.match(/map(\d+)_(\d+)/) ?? [];
+						const worldMapMatch = src?.match(/map(\d+)_(\d+)/);
+						if (worldMapMatch) {
+							const [_, x, y] = worldMapMatch;
+							return {
+								src,
+								dest,
+								type: 'map',
+								x: Number(x),
+								y: Number(y)
+							};
+						}
+						const wmoMatch = src?.match(/([^\\]+)_(\d+)_(\d+)_(\d+)/);
+						if (wmoMatch) {
+							const [_, name, c, x, y] = wmoMatch;
+							return {
+								src,
+								dest,
+								type: 'wmo',
+								name: String(name),
+								c: Number(c),
+								x: Number(x),
+								y: Number(y)
+							};
+						}
 
-						return {
-							src,
-							dest,
-							...(!x || !y
-								? { type: 'wmo' }
-								: { type: 'map', x: Number(x), y: Number(y) })
-						};
+						console.log(`${l} did not match neither map nor WMO.`);
+						return undefined;
 					})
 					.filter(isNotUndefined)
 			] as const;

@@ -38,6 +38,86 @@ const importDb = async ({
 				});
 		}
 
+		await prisma.lightSkybox
+			.upsert({
+				create: { id: 0, name: 'NONE' },
+				update: { id: 0, name: 'NONE' },
+				where: { id: 0 }
+			})
+			.catch((e: unknown) => {
+				console.log(e);
+			});
+
+		const lightParams = {
+			id: 0,
+			highlightSky: 0,
+			lightSkyboxId: 0,
+			glow: 0,
+			waterShallowAlpha: 0,
+			waterDeepAlpha: 0,
+			oceanShallowAlpha: 0,
+			oceanDeepAlpha: 0,
+			flags: 0
+		};
+		await prisma.lightParams
+			.upsert({
+				create: lightParams,
+				update: lightParams,
+				where: { id: 0 }
+			})
+			.catch((e: unknown) => {
+				console.log(e);
+			});
+
+		const light = {
+			id: 0,
+			continentId: 0,
+			x: 0,
+			y: 0,
+			z: 0,
+			falloffStart: 0,
+			falloffEnd: 0,
+			paramStandardId: 0,
+			paramUnderwaterId: 0,
+			paramSunsetId: 0,
+			paramOtherId: 0,
+			paramDeathId: 0
+		};
+		await prisma.light
+			.upsert({
+				create: light,
+				update: light,
+				where: { id: 0 }
+			})
+			.catch((e: unknown) => {
+				console.log(e);
+			});
+
+		for (const entity of ['LightSkybox', 'LightParams', 'Light'] as const) {
+			if (!fs.existsSync(`${dbcPath}/${entity}.dbc`)) continue;
+			console.log(`Importing ${entity}...`);
+			const data = dbcRecordsFromFile(
+				// FIXME: Fix types
+				Entities[entity] as never,
+				`${dbcPath}/${entity}.dbc`
+			);
+			for (const row of data) {
+				// FIXME: Fix types
+				await (prisma as any)[uncapitalize(entity)]
+					.upsert({
+						create: row,
+						update: row,
+						where: { id: row.id }
+					})
+					.catch((e: unknown) => {
+						console.log(
+							Object.values(row).find(v => typeof v === 'string') ?? row
+						);
+						console.log(e);
+					});
+			}
+		}
+
 		if (!fs.existsSync(`${dbcPath}/AreaTable.dbc`)) return;
 		console.log('Importing AreaTable...');
 		const AreaTable = dbcRecordsFromFile(
@@ -83,7 +163,13 @@ const importDb = async ({
 				})
 				.catch(e => {
 					console.log(
-						pick(row, ['id', 'continentId', 'parentAreaId', 'name_enUS'])
+						pick(row, [
+							'id',
+							'continentId',
+							'parentAreaId',
+							'name_enUS',
+							'lightId'
+						])
 					);
 					console.log(e);
 				});

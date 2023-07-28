@@ -4,10 +4,10 @@ import fs from 'fs-extra';
 
 import { Wmo } from './types.js';
 
-const decodeWmo = async (filePath: string) => {
+const decodeWmo = async ({ filePath }: { filePath: string }) => {
 	if (fs.lstatSync(filePath).isDirectory()) {
 		for (const m of fs.readdirSync(filePath).filter(v => v.endsWith('.wmo'))) {
-			await decodeWmo(path.join(filePath, m));
+			await decodeWmo({ filePath: path.join(filePath, m) });
 		}
 		return;
 	}
@@ -15,7 +15,7 @@ const decodeWmo = async (filePath: string) => {
 
 	const wmo = Wmo.fromBuffer(fs.readFileSync(filePath));
 
-	console.log((wmo.find(v => v.type === 'MOHD') as any)?.data?.wmoId);
+	console.dir(wmo, { depth: null });
 };
 
 export default decodeWmo;

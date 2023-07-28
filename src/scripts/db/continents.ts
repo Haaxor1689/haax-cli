@@ -235,6 +235,10 @@ export default [
 		name: 'Scarlet Citadel'
 	},
 	{
+		id: 807,
+		name: 'Emerald Sanctum'
+	},
+	{
 		id: 808,
 		name: 'Hateforge'
 	},

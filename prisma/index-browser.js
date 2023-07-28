@@ -189,6 +189,38 @@ exports.Prisma.CreatureDisplayInfoExtraScalarFieldEnum = makeEnum({
   bakeName: 'bakeName'
 });
 
+exports.Prisma.LightParamsScalarFieldEnum = makeEnum({
+  id: 'id',
+  highlightSky: 'highlightSky',
+  lightSkyboxId: 'lightSkyboxId',
+  glow: 'glow',
+  waterShallowAlpha: 'waterShallowAlpha',
+  waterDeepAlpha: 'waterDeepAlpha',
+  oceanShallowAlpha: 'oceanShallowAlpha',
+  oceanDeepAlpha: 'oceanDeepAlpha',
+  flags: 'flags'
+});
+
+exports.Prisma.LightScalarFieldEnum = makeEnum({
+  id: 'id',
+  continentId: 'continentId',
+  x: 'x',
+  y: 'y',
+  z: 'z',
+  falloffStart: 'falloffStart',
+  falloffEnd: 'falloffEnd',
+  paramStandardId: 'paramStandardId',
+  paramUnderwaterId: 'paramUnderwaterId',
+  paramSunsetId: 'paramSunsetId',
+  paramOtherId: 'paramOtherId',
+  paramDeathId: 'paramDeathId'
+});
+
+exports.Prisma.LightSkyboxScalarFieldEnum = makeEnum({
+  id: 'id',
+  name: 'name'
+});
+
 exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
@@ -275,6 +307,9 @@ exports.Prisma.ModelName = makeEnum({
   AreaTable: 'AreaTable',
   AreaTrigger: 'AreaTrigger',
   CreatureDisplayInfoExtra: 'CreatureDisplayInfoExtra',
+  Light: 'Light',
+  LightParams: 'LightParams',
+  LightSkybox: 'LightSkybox',
   WMOAreaTable: 'WMOAreaTable',
   WorldMapArea: 'WorldMapArea',
   WorldMapContinent: 'WorldMapContinent',

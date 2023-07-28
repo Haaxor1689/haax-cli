@@ -18,6 +18,7 @@ const saveMinimap = (
 	fs.writeFileSync(
 		trsPath,
 		`${Object.entries(minimap)
+			.sort((l, r) => l[0].localeCompare(r[0]))
 			.flatMap(([name, entries]) => [
 				`dir: ${name}`,
 				...entries.map(e => `${e.src}\t${e.dest}`)

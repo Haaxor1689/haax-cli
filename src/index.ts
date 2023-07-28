@@ -190,6 +190,13 @@ const Actions: Record<
 	},
 	'db-init': {
 		exec: './scripts/db/init.js',
+		args: {
+			force: {
+				desc: 'Force generate new db, even if one already exists.',
+				type: 'boolean',
+				alias: 'f'
+			}
+		},
 		help: 'Correctly initializes the sqlite database. This step is required before you are able to import and export data from the db.'
 	},
 	'db-import': {
@@ -252,8 +259,14 @@ const Actions: Record<
 		exec: './scripts/minimap/stitch.js',
 		args: {
 			withCoordinates: { boolean: true },
-			patchesDir: { demandOption: true },
-			outDir: { demandOption: true }
+			patchesDir: {
+				normalize: true,
+				type: 'string'
+			},
+			outDir: {
+				normalize: true,
+				type: 'string'
+			}
 		},
 		help: 'It will use md5translate.trs file from the highest priority patch and stitch a png image together for each map found and place it in the outDir.'
 	},
@@ -271,14 +284,34 @@ const Actions: Record<
 	'mpq-extract': {
 		exec: './scripts/mpq/extract.js',
 		args: {
-			filePath: { demandOption: true },
-			outputDir: { demandOption: true }
+			filePath: {
+				desc: 'Path to the mpq archive.',
+				demandOption: true,
+				normalize: true,
+				type: 'string',
+				alias: 'f'
+			},
+			outputDir: {
+				desc: 'Path to the output directory.',
+				demandOption: true,
+				normalize: true,
+				type: 'string',
+				alias: 'o'
+			}
 		},
 		help: 'Extracts provided mpq archive filePath into a directory with the same name inside outputDir directory.'
 	},
 	'wmo-decode': {
 		exec: './scripts/wmo/decode.js',
-		args: { filePath: { demandOption: true } }
+		args: {
+			filePath: {
+				desc: 'Path to the root WMO file.',
+				demandOption: true,
+				normalize: true,
+				type: 'string',
+				alias: 'f'
+			}
+		}
 	},
 	'zmp-decode': {
 		exec: './scripts/zmp/decode.js',

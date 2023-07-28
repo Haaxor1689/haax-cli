@@ -1,5 +1,6 @@
 import path from 'path';
 
+import fs from 'fs-extra';
 import sharp from 'sharp';
 
 import { blpFromFile } from '../blp/utils.js';
@@ -12,11 +13,15 @@ import Config from '../config.js';
 
 import loadMinimap, { CommonEntry, MapEntry } from './load.js';
 
-const stitchMinimap = async (
+const stitchMinimap = async ({
 	withCoordinates = false,
 	patchesDir = path.join(Config('PatchPath'), '..'),
-	outDir = path.join(Config('PatchPath'), 'Textures', 'Minimap')
-) => {
+	outDir = path.join(Config('PatchPath'), 'Textures', 'Minimap', 'Stitches')
+}: {
+	withCoordinates: boolean;
+	patchesDir: string;
+	outDir: string;
+}) => {
 	const patches = getSortedPatches(patchesDir);
 	const trsPath = getFileFromPatch(
 		patches,
@@ -24,6 +29,7 @@ const stitchMinimap = async (
 	);
 
 	if (!trsPath) throw "Couldn't find md5translate.trs in any of the patches.";
+	await fs.ensureDir(outDir);
 
 	for (const [name, entr] of Object.entries(loadMinimap(trsPath))) {
 		const entries = entr.filter(

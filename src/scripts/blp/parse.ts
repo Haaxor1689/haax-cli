@@ -125,6 +125,7 @@ export const parseFromRaw = async (
 	const palette = createPalette(format, imgRaw);
 
 	if (alphaSize === undefined) alphaSize = getAlphaDepth(imgRaw);
+	if (compression === 'PIXEL_DXT1') alphaSize = Math.min(1, alphaSize) as 0 | 1;
 	if (!compression)
 		compression =
 			format === 'COLOR_PALETTE'

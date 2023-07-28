@@ -17,6 +17,7 @@ model Continent {
   WorldMapArea      WorldMapArea[]
   WorldMapContinent WorldMapContinent[]
   AreaTrigger       AreaTrigger[]
+  Light             Light[]
 }
 
 model AreaPOI {
@@ -81,6 +82,7 @@ model AreaTable {
   minElevation                Float
   ambientMultiplier           Float
   lightId                     Int
+  light                       Light     @relation(fields: [lightId], references: [id])
 
   ChildAreas       AreaTable[]       @relation("ParentRelation")
   AreaPOI          AreaPOI[]
@@ -128,6 +130,55 @@ model CreatureDisplayInfoExtra {
   bakeName         String
 }
 
+model Light {
+  id                Int         @id
+  continentId       Int
+  continent         Continent   @relation(fields: [continentId], references: [id])
+  x                 Float
+  y                 Float
+  z                 Float
+  falloffStart      Float
+  falloffEnd        Float
+  paramStandardId   Int
+  paramStandard     LightParams @relation("standard", fields: [paramStandardId], references: [id])
+  paramUnderwaterId Int
+  paramUnderwater   LightParams @relation("underwater", fields: [paramUnderwaterId], references: [id])
+  paramSunsetId     Int
+  paramSunset       LightParams @relation("sunset", fields: [paramSunsetId], references: [id])
+  paramOtherId      Int
+  paramOther        LightParams @relation("other", fields: [paramOtherId], references: [id])
+  paramDeathId      Int
+  paramDeath        LightParams @relation("death", fields: [paramDeathId], references: [id])
+
+  AreaTable AreaTable[]
+}
+
+model LightParams {
+  id                Int         @id
+  highlightSky      Int
+  lightSkyboxId     Int
+  lightSkybox       LightSkybox @relation(fields: [lightSkyboxId], references: [id])
+  glow              Float
+  waterShallowAlpha Float
+  waterDeepAlpha    Float
+  oceanShallowAlpha Float
+  oceanDeepAlpha    Float
+  flags             Int
+
+  standatrdLight  Light[] @relation("standard")
+  underwaterLight Light[] @relation("underwater")
+  sunsetLight     Light[] @relation("sunset")
+  otherLight      Light[] @relation("other")
+  deathLight      Light[] @relation("death")
+}
+
+model LightSkybox {
+  id   Int    @id
+  name String
+
+  LightParams LightParams[]
+}
+
 model WMOAreaTable {
   id                        Int       @id
   wmoId                     Int
@@ -153,16 +204,17 @@ model WMOAreaTable {
 }
 
 model WorldMapArea {
-  id              Int               @id @default(autoincrement())
-  continentId     Int
-  continent       Continent         @relation(fields: [continentId], references: [id])
-  areaId          Int
-  areaTable       AreaTable         @relation(fields: [areaId], references: [id])
-  name            String
-  locLeft         Float
-  locRight        Float
-  locTop          Float
-  locBottom       Float
+  id          Int       @id @default(autoincrement())
+  continentId Int
+  continent   Continent @relation(fields: [continentId], references: [id])
+  areaId      Int
+  areaTable   AreaTable @relation(fields: [areaId], references: [id])
+  name        String
+  locLeft     Float
+  locRight    Float
+  locTop      Float
+  locBottom   Float
+
   WorldMapOverlay WorldMapOverlay[]
 }
 

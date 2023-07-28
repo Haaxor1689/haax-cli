@@ -43,6 +43,33 @@ const exportDb = async ({
 			`${dbcPath}/AreaTrigger.dbc`
 		);
 		dbcRecordsToFile(
+			Entities.Light,
+			(
+				await prisma.light.findMany({
+					where: { id: { not: -0 } }
+				})
+			).map(Object.values),
+			`${dbcPath}/Light.dbc`
+		);
+		dbcRecordsToFile(
+			Entities.LightParams,
+			(
+				await prisma.lightParams.findMany({
+					where: { id: { not: -0 } }
+				})
+			).map(Object.values),
+			`${dbcPath}/LightParams.dbc`
+		);
+		dbcRecordsToFile(
+			Entities.LightSkybox,
+			(
+				await prisma.lightSkybox.findMany({
+					where: { id: { not: -0 } }
+				})
+			).map(Object.values),
+			`${dbcPath}/LightSkybox.dbc`
+		);
+		dbcRecordsToFile(
 			Entities.WMOAreaTable,
 			sortBy(await prisma.wMOAreaTable.findMany(), [
 				'wmoId',

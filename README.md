@@ -9,7 +9,7 @@ This package contains collection of tools that help make developing custom conte
 Most convenient way of using this package is inside folder with unpacked MPQ patch.
 
 ```
-npx haax mpq-extract path/to/patch.mpq path/to/working/directory
+npx haax mpq-extract -f path/to/patch.mpq -o path/to/working/directory
 ```
 
 Then add a `haax-config.json` file inside the working directory.
@@ -20,14 +20,7 @@ Then add a `haax-config.json` file inside the working directory.
 	"PatchName": "Patch-4.mpq", // Name of the patch that the dev action should create
 
 	// (Optional) If extracted patch is not in current folder
-	"PatchPath": "C:/path/to/patch/directory",
-
-	// (Optional) AutoLogin feature
-	"AutoLogin": {
-		"Name": "name",
-		"Password": "password",
-		"Char": 1 // Default: 1
-	}
+	"PatchPath": "C:/path/to/patch/directory"
 }
 ```
 
@@ -45,61 +38,10 @@ If you are working with dbc files, you can also explore and edit them in Prisma 
 npx haax prisma
 ```
 
-You can find list of all supported actions below.
-
 ## Available actions
 
+You can find full list of available actions by running following command
+
 ```
-dev
-	Starts a dev environment that watches for file changes, rebuilds assets from source (f.e. png to blp) and starts a WoW instance.
-	Automatically runs "db-import" if no db is found.
-
-build <sourceDir> <outputPath> <inPlace?>
-	Builds provided directory sourceDir into an MPQ archive at outputPath.
-	Ignores development assets like psd/png/csv files.
-	If third argument is provided, patch will be constructed in place instead, which is faster but also deletes the otherwise ignored files from sourceDir.
-
-prisma
-	Starts Prisma Studio where you can browse and edit contents of dbc files.
-
-blp-merge <filePath> <colCount?>
-	Merges blp textures into one png image. filePath should point to first blp file in a texture set.
-	Optionally you can also provide colCount which will override inferred column count of the texture.
-	If filePath is a directory, all blp textures inside will be merged instead.
-
-blp-slice <filePath>
-	Slices a png image into correct number of blp textures.
-	If filePath is a directory, all png images inside will be sliced instead.
-
-db-init
-	Correctly initializes the qslite database. This step is required before you are able to import and export data from the db.
-
-db-import <dbcPath>
-	Imports all data from available dbc files from DBFilesClient folder under dbcPath argument into SQLite DBFilesClient.db.
-	If dbcPath is not provided, DBFilesClient folder under Config.PatchPath will be used.
-
-db-export <dbcPath>
-	Exports all data from SQLite DBFilesClient.db to dbc files inside DBFilesClient folder under dbcPath argument.
-	If dbcPath is not provided, DBFilesClient folder under Config.PatchPath will be used.
-
-dbc-decode <filePath>
-	Decodes a dbc file into csv file. filePath should point to a specific .dbc file.
-	If filePath is a directory, all dbc files inside will be decoded instead.
-
-dbc-encode <filePath>
-	Encodes a csv file into dbc file. filePath should point to a specific .csv file.
-	If filePath is a directory, all csv files inside will be encoded instead.
-
-mpq-extract <filePath> <outputDir>
-	Extracts provided mpq archive filePath into a directory with the same name inside outputDir directory.
-
-zmp-decode <filePath> <areaTableDbcPath>
-	Decodes a zmp file into a 128x128 png image where each pixel represents one chunk of map and the color represents which zone it corresponds to on world map.
-	If no filePath.color.csv file is found, new one will be generated with random colors for each found zone.
-	areaTableVbcPath is required in order to correctly match areaIds with human readable area names in color csv.
-
-zmp-encode <filePath> <areaTableDbcPath>
-	Encodes a 128x128 png image into a zmp binary file.
-	Requires a filePath.color.csv file that contains table of area names and hex colors they are represented by in the image.
-	areaTableVbcPath is required in order to correctly match areaIds with human readable area names in color csv.
+npx haax --help
 ```

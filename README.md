@@ -32,12 +32,6 @@ Now you can start development environment that will watch for file changes insid
 npx haax dev
 ```
 
-If you are working with dbc files, you can also explore and edit them in Prisma Studio database tool, where you can also see relations between supported dbc tables.
-
-```
-npx haax prisma
-```
-
 ## Available actions
 
 You can find full list of available actions by running following command

@@ -59,10 +59,6 @@ const Actions: Record<
 		},
 		help: 'Looks for given file and returns a path to one that will be loaded in game, based on patch priorities.'
 	},
-	'prisma': {
-		exec: './scripts/db/prisma.js',
-		help: 'Starts Prisma Studio where you can browse and edit contents of dbc files.'
-	},
 	'adt-decode': {
 		exec: './scripts/adt/decode.js',
 		args: {
@@ -187,43 +183,6 @@ const Actions: Record<
 			}
 		},
 		help: 'Transforms png into a blp texture.'
-	},
-	'db-init': {
-		exec: './scripts/db/init.js',
-		args: {
-			force: {
-				desc: 'Force generate new db, even if one already exists.',
-				type: 'boolean',
-				alias: 'f'
-			}
-		},
-		help: 'Correctly initializes the sqlite database. This step is required before you are able to import and export data from the db.'
-	},
-	'db-import': {
-		exec: './scripts/db/import.js',
-		args: {
-			dbcPath: {
-				desc: 'Path to the DBFilesClient folder.',
-				defaultDescription: '<PatchPath>/DBFilesClient',
-				normalize: true,
-				type: 'string',
-				alias: 'f'
-			}
-		},
-		help: 'Imports all data from available dbc files from DBFilesClient folder under dbcPath argument into SQLite DBFilesClient.db.'
-	},
-	'db-export': {
-		exec: './scripts/db/export.js',
-		args: {
-			dbcPath: {
-				desc: 'Path to the DBFilesClient folder.',
-				defaultDescription: '<PatchPath>/DBFilesClient',
-				normalize: true,
-				type: 'string',
-				alias: 'f'
-			}
-		},
-		help: 'Exports all data from SQLite DBFilesClient.db to dbc files inside DBFilesClient folder under dbcPath argument.'
 	},
 	'dbc-decode': {
 		exec: './scripts/dbc/decode.js',

@@ -23,12 +23,6 @@ export const BLPConverter = path.join(
 	'bin',
 	'BLPConverter.exe'
 );
-export const PrismaSchema = path.join(
-	ScriptDirname,
-	'..',
-	'prisma',
-	'schema.prisma'
-);
 
 export const readDbcString = (ref: number, stringBlock: Uint8Array) => {
 	const str = stringBlock.slice(ref);

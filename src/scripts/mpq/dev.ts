@@ -5,8 +5,6 @@ import fs from 'fs-extra';
 
 import sliceBlp from '../blp/slice.js';
 import Config from '../config.js';
-import exportDb from '../db/export.js';
-import initDb from '../db/init.js';
 import encodeDbc from '../dbc/encode.js';
 import { TmpFileExt } from '../utils.js';
 
@@ -14,7 +12,6 @@ import buildMpq from './build.js';
 
 let WoW: ChildProcess | null = null;
 let SavePending = false;
-let DbExportPending = false;
 let ExitPending = false;
 let RebuildingAssets = false;
 
@@ -33,11 +30,6 @@ const startWoW = () => {
 };
 
 const saveMpq = async () => {
-	if (DbExportPending) {
-		console.log('Applying db changes...');
-		await exportDb({});
-		DbExportPending = false;
-	}
 	while (RebuildingAssets) await new Promise(r => setTimeout(r, 1000));
 	await buildMpq({});
 	SavePending = false;
@@ -68,11 +60,6 @@ const watchCallback = (event: string) => async (filename: string) => {
 
 		if (filename.includes('DBFilesClient\\') && filename.endsWith('.csv'))
 			await encodeDbc({ filePath: filename });
-
-		if (filename.endsWith('.db')) {
-			console.log('Queued db export...');
-			DbExportPending = true;
-		}
 	} finally {
 		RebuildingAssets = false;
 	}
@@ -80,10 +67,6 @@ const watchCallback = (event: string) => async (filename: string) => {
 
 const devMpq = async () => {
 	try {
-		if (fs.existsSync(`${Config('PatchPath')}/DBFilesClient`)) {
-			await initDb();
-		}
-
 		await saveMpq();
 
 		watch(Config('PatchPath'), {
